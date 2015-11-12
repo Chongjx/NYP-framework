@@ -1,0 +1,62 @@
+#ifndef MOUSE_H
+#define MOUSE_H
+
+#include "GLFW\glfw3.h"
+#include <string>
+#include "TextTree.h"
+#include "Vector2.h"
+
+using std::string;
+
+enum MOUSE_KEY
+{
+	LEFT_BUTTON,
+	RIGHT_BUTTON,
+	MIDDLE_BUTTON,
+	MAX_BUTTON,
+};
+
+class Mouse
+{
+public:
+	static Mouse& getInstance()
+	{
+		static Mouse mouse;
+		return mouse;
+	}
+
+	Branch mouseBranch;
+
+	void Init(string config);
+	void Update();
+
+	void setMouseYaw(double value);
+	void setMousePitch(double value);
+	void setSensitivity(float sensitivity);
+
+	void setMousePos(const double xCoord, const double yCoord);
+	double getCurrentPosX(void);
+	double getCurrentPosY(void);
+	Vector2 getLastPos(void);
+	Vector2 getDiffPos(void);
+
+	double getMouseYaw(void) const;
+	double getMousePitch(void) const;
+	float getSensitivity(void) const;
+	GLFWwindow* m_window;
+	bool mouseButtonStatus[MAX_BUTTON];
+
+private:
+	Mouse();
+	~Mouse();
+
+	double currentPosX;
+	double currentPosY;
+	Vector2 lastPos, diffPos;
+	double mouseYaw, mousePitch;
+	float sensitivity;
+
+	void Config(void);
+};
+
+#endif

@@ -1,0 +1,30 @@
+# Variable setting #
+# Time everything here
+{
+	[NAME] TimeSetting
+	{
+		[NAME] StartTime
+		[HOUR] 08
+		[MIN] 00
+		[DAY] 1
+		[DIFFICULTY] 10
+		[LEVEL] 0
+	}
+
+	{
+		[NAME] IconSprites
+		{
+			[Name]Sun
+			[Size] 64,64
+			[Pos] 500, 750
+			[Mesh] GEO_SUN
+		}
+		{
+			[Name]Moon
+			[Size] 64,64
+			[Pos] 500, 750
+			[Mesh] GEO_MOON
+		}
+
+	}
+}

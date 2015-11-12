@@ -1,0 +1,130 @@
+# Scenesetup #
+# Init all the diaglog speech#
+{
+	
+	{
+		[NAME] WeaDialog
+		{
+			[ID] 1
+			[Text] Dumbbell_AQUIRED
+		}
+		{
+			[ID] 2
+			[Text] Watergun_ACQUIRED
+		}
+		{
+			[ID] 3
+			[Text] Guard_Uniform_ACQUIRED
+		}
+		{
+			[ID] 4
+			[Text] Fork_ACQUIRED
+		}
+		{
+			[ID] 5
+			[Text] Matches_ACQUIRED
+		}
+		{
+			[ID] 6
+			[Text] Access_Card_ACQUIRED
+		}
+		{
+			[ID] 7
+			[Text] Torchlight_ACQUIRED
+		}
+	}
+
+	{
+		[NAME] SelfDialog
+		{
+			[ID] 21
+			[Text] The_Door_Is_Locked
+		}
+		{
+			[ID] 22
+			[Text] I_Hear_Noises
+		}
+		{
+			[ID] 23
+			[Text] I_Need_A_Key
+		}
+		{
+			[ID] 24
+			[Text] This_Place_Is_Huge
+		}
+		{
+			[ID] 25
+			[Text] I_Need_To_Escape
+		}
+		{
+			[ID] 26
+			[Text] I'm_Tired
+		}
+		{
+			[ID] 27
+			[Text] I'm_Almost_There
+		}
+		{
+			[ID] 28
+			[Text] I'm_Out_Of_This_Place!
+		}
+	}
+	{
+		[NAME] PrisonerDialog
+		{
+			[ID] 51
+			[Text] You_See_My_Matches?
+		}
+		{
+			[ID] 52
+			[Text] Gonna_Execise_Soon...
+		}
+		{
+			[ID] 53
+			[Text] Guard_Lost_Card_Here.
+		}
+		{
+			[ID] 54
+			[Text] CCTV_Is_Watching_You.
+		}
+		{
+			[ID] 55
+			[Text] Here_Got_5_Main_Area.
+		}
+		{
+			[ID] 56
+			[Text] Squirtle_Use_Water_Gun.
+		}
+		{
+			[ID] 57
+			[Text] I_Once_Stunned_A_Guard.
+		}
+		{
+			[ID] 58
+			[Text] I_More_Thug_Than_You.
+		}
+		{
+			[ID] 59
+			[Text] What_You_Doing_Here_Boy.
+		}
+		{
+			[ID] 60
+			[Text] Got_Any_Weed_Bruh?
+		}
+		{
+			[ID] 61
+			[Text] BANANA!?!?!?
+		}
+		{
+			[ID] 62
+			[Text] Be_Careful_At_Night.
+		}
+	}
+	{
+		[NAME] Setting
+		{
+			[Mesh] GEO_BUBBLE
+		}
+	}
+
+}

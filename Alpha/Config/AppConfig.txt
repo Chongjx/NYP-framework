@@ -1,0 +1,29 @@
+# App setup #
+# Init default application properties outside of source codes #
+{
+	[NAME] AppConfig
+	{
+		[NAME] SetUp
+		[WindowTitle] Cardboard_Monster
+		# Screen resolution 1024 800 1920 1080
+		[WindowWidth] 1920
+		[WindowHeight] 1080
+		[FullScreen] false
+		[FrameRate] 120
+		[Run] true
+	}
+
+	[OTHERS]
+	{
+		[NAME] MouseConfig
+		[Directory] Config\\MouseConfig.txt
+	}
+	{
+		[NAME] SceneConfig
+		[Directory] Config\\SceneConfig.txt
+	}
+	{
+		[NAME] MeshConfig
+		[Directory] Config\\MeshConfig.txt
+	}
+}

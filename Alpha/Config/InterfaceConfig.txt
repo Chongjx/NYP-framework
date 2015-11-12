@@ -1,0 +1,162 @@
+# Interface Config #
+# Init all buttons here #
+{
+	[NAME] InterfaceConfig
+	# Menu interface
+	# Ortho set to screen width & screen height which are init at settingConfig
+	{
+		[NAME] Play
+		[GameState] Menu
+		[Type] Text
+		[Text] Play
+		[Pos] 400, 550
+		[Rotation] 0
+		[Scale] 270, 55
+		[Mesh] GEO_TEXT
+	}
+	{
+		[NAME] Instruction
+		[GameState] Menu
+		[Type] Text
+		[Text] Instruction
+		[Pos] 100, 450
+		[Rotation] 0
+		[Scale] 800, 55
+		[Mesh] GEO_TEXT
+	}
+	{
+		[NAME] HighScore
+		[GameState] Menu
+		[Type] Text
+		[Text] Score
+		[Pos] 400, 350
+		[Rotation] 0
+		[Scale] 350, 55
+		[Mesh] GEO_TEXT
+	}
+	{
+		[NAME] Exit
+		[GameState] Menu
+		[Type] Text
+		[Text] Exit
+		[Pos] 400, 250
+		[Rotation] 0
+		[Scale] 270, 55
+		[Mesh] GEO_TEXT
+	}
+	# instruction interface
+	{
+		[NAME] Return
+		[GameState] Instruction
+		[Type] Text
+		[Text] Back
+		[Pos] 0, 0
+		[Rotation] 0
+		[Scale] 270, 55
+		[Mesh] GEO_TEXT
+	}
+	# highscore interface
+	{
+		[NAME] Return
+		[GameState] HighScore
+		[Type] Text
+		[Text] Back
+		[Pos] 0, 0
+		[Rotation] 0
+		[Scale] 270, 55
+		[Mesh] GEO_TEXT
+	}
+	# in game interface
+	{
+		[NAME] Pause
+		[GameState] Ingame
+		[Type] Text
+		[Text] Pause
+		[Pos] 650, 725
+		[Rotation] 0
+		[Scale] 350, 55
+		[Mesh] GEO_TEXT
+	}
+	{
+		
+		[NAME] 0
+		[GameState] Ingame
+		[Type] Image
+		[Pos] 372, 0
+		[Rotation] 0
+		[Scale] 64, 64
+		[Mesh] Inventory_Box
+	}
+	{
+		
+		[NAME] 1
+		[GameState] Ingame
+		[Type] Image
+		[Pos] 436, 0
+		[Rotation] 0
+		[Scale] 64, 64
+		[Mesh] Inventory_Box
+	}
+	{
+		
+		[NAME] 2
+		[GameState] Ingame
+		[Type] Image
+		[Pos] 500, 0
+		[Rotation] 0
+		[Scale] 64, 64
+		[Mesh] Inventory_Box
+	}
+	{
+		
+		[NAME] 3
+		[GameState] Ingame
+		[Type] Image
+		[Pos] 564, 0
+		[Rotation] 0
+		[Scale] 64, 64
+		[Mesh] Inventory_Box
+	}
+	{
+		
+		[NAME] 4
+		[GameState] Ingame
+		[Type] Image
+		[Pos] 628, 0
+		[Rotation] 0
+		[Scale] 64, 64
+		[Mesh] Inventory_Box
+	}
+	# pause interface
+	{
+		[NAME] Resume
+		[GameState] Pause
+		[Type] Text
+		[Text] Resume
+		[Pos] 350, 450
+		[Rotation] 0
+		[Scale] 425, 55
+		[Mesh] GEO_TEXT
+	}
+	{
+		[NAME] Exit
+		[GameState] Pause
+		[Type] Text
+		[Text] Exit
+		[Pos] 400, 350
+		[Rotation] 0
+		[Scale] 275, 55
+		[Mesh] GEO_TEXT
+	}
+	# end game interface
+	{
+		[NAME] Back
+		[GameState] GameOver
+		[Type] Text
+		[Text] Back
+		[Pos] 0, 0
+		[Rotation] 0
+		[Scale] 270, 55
+		[Mesh] GEO_TEXT
+	}
+}

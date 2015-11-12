@@ -1,0 +1,54 @@
+{
+	[NAME] LevelConfig
+	{
+		[NAME] Level
+		{
+			[LEVEL] 6			
+			{
+			[DISCRIPTION] Get_Sharp_Item
+			[GET] false
+			[LEVEL] 0
+			[KEYITEM] Fork
+			}
+			
+			{
+			[DISCRIPTION] Find_Light_Source
+			[GET] false
+			[LEVEL] 1
+			[KEYITEM] Matches
+			}
+
+			{
+			[DISCRIPTION] Get_Card_Key
+			[GET] false
+			[LEVEL] 2
+			[KEYITEM] AccessCard
+			}
+			
+			{
+			[DISCRIPTION] Find_Melee_Weapon
+			[GET] false
+			[LEVEL] 3				
+			[KEYITEM] Dumbbell
+			}
+			
+			{
+			[DISCRIPTION] Find_Disguise
+			[GET] false
+			[LEVEL] 4
+			[KEYITEM] GuardUniform
+			}
+			
+			{
+			[DISCRIPTION] ESCAPE
+			[GET] false
+			[LEVEL] 5
+			[KEYITEM] Nil
+			}
+			
+		}
+
+	}
+
+}
+

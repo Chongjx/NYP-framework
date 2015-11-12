@@ -1,0 +1,14 @@
+# Player setup #
+# Init default player properties outside of source codes 
+{
+	[NAME] PlayerConfig
+	{
+		[NAME] Player1
+		# [Pos] 2880, -3936
+		[Pos] 20, 20
+		[Dir] 0, -1
+		[Mesh] GEO_PLAYER
+		[Tiles] 3
+		[MapLocation] 0	
+	}
+}

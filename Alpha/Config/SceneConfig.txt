@@ -1,0 +1,68 @@
+# Scenesetup #
+# Init all the scene properties outside of source codes #
+{
+	[NAME] SceneConfig
+	{	
+		[NAME] Instructions
+		[Directory] Reader\\InstructionConfig.txt
+	}
+	{
+		[NAME] Shader
+		[VertexShader] Shader//comg.vertexshader
+		[FragmentShader] Shader//comg.fragmentshader
+	}
+	{
+		[NAME] Settings
+		[Directory] Reader\\SettingConfig.txt
+	}
+	{
+		[NAME] Variables
+		[Directory] Reader\\VariableConfig.txt
+	}
+	{
+		[NAME] Objectives
+		[Directory] Reader\\LevelConfig.txt
+	}
+	{
+		[NAME] Color
+		[Directory] Reader\\ColorConfig.txt
+	}
+	{
+		[NAME] Mesh
+		[Directory] Reader\\MeshConfig.txt
+	}
+	{
+		[NAME] Interface
+		[Directory] Reader\\InterfaceConfig.txt
+	}
+	{
+		[NAME] Layout
+		[Directory] Reader\\LayoutConfig.txt
+	}
+	{
+		[NAME] Sound
+		[Directory] Reader\\SoundConfig.txt
+	}
+	{
+		[NAME] Player
+		[Directory] Reader\\PlayerConfig.txt
+	}
+	{
+		[NAME] Item
+		[Directory] Reader\\ItemConfig.txt
+	}
+	{	
+		[NAME] AI
+		[Directory] Reader\\AIConfig.txt
+	}
+	{	
+		[NAME] Dialog
+		[Directory] Reader\\DialogConfig.txt
+	}
+
+	{	
+		[NAME] Score
+		[Directory] Reader\\ScoreConfig.txt
+	}
+	
+}

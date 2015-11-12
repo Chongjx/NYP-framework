@@ -1,0 +1,67 @@
+# Soundsetup #
+# Init all the Sounds #
+{
+	[NAME] SoundConfig
+	{
+		[SoundName] Sound_Footstep
+		[SoundFile] Sound\\Footstep.ogg
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	
+	{
+		[SoundName] Sound_Bookflip2
+		[SoundFile] Sound\\bookFlip2.ogg
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	{
+		[SoundName] Sound_Alert
+		[SoundFile] Sound\\Alert.wav
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	{
+		[SoundName] Sound_Caught
+		[SoundFile] Sound\\Caught.ogg
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	{
+		[SoundName] Sound_PickUp
+		[SoundFile] Sound\\PickUp.ogg
+		[Loop] false
+		[DefaultVol] 1.0f	
+	}
+	{
+		[SoundName] Sound_Beep
+		[SoundFile] Sound\\Beep.wav
+		[Loop] false
+		[DefaultVol] 0.3f	
+	}
+	{
+		[SoundName] Sound_DoorClose
+		[SoundFile] Sound\\DoorClose.wav
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	{
+		[SoundName] Sound_DoorOpen
+		[SoundFile] Sound\\DoorOpen.wav
+		[Loop] false
+		[DefaultVol] 0.5f	
+	}
+	{
+		[SoundName] Sound_Stun
+		[SoundFile] Sound\\Stun.mp3
+		[Loop] false
+		[DefaultVol] 0.7f	
+	}
+	{
+		[SoundName] Sound_Background
+		[SoundFile] Sound\\SlowSteady.mp3
+		[Loop] true
+		[DefaultVol] 0.1f	
+	}
+}
+#Volume range 1.0f - 0.1f#

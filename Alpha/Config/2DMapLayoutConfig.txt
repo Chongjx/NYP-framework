@@ -1,0 +1,782 @@
+# Game layout config #
+# Init all the scene properties outside of source codes #
+{
+	[NAME] LayoutConfig
+	{
+		[NAME] CellArea
+		[ID] 0
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 119 
+		# 32 * 160		
+		[MapHeight] 70
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 1
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\mainCell.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\mainCellBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[CellDoorClosed] 266
+				[CellDoorOpened] 307
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[Bed] 264
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to exercise room
+			{
+				[NAME] Door
+				[ID] 1
+				[Transition] 1
+				[Position] 88, 43
+			}
+			{
+				[NAME] Door
+				[ID] 2
+				[Transition] 1
+				[Position] 89, 43			
+			}
+			# Door to canteen
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 2
+				[Position] 77, 19
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 2
+				[Position] 78, 19
+			}
+			# Door to showerroom
+			{
+				[NAME] Door
+				[ID] 5
+				[Transition] 3
+				[Position] 101, 6
+			}
+			{
+				[NAME] Door
+				[ID] 6
+				[Transition] 3
+				[Position] 102, 6
+			}
+			[Directory] Image\\Map\\mainCellCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\mainCellWayPoint.csv
+		}
+	}
+	{
+		[NAME] ExerciseRoom
+		[ID] 1
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 42 
+		# 32 * 160		
+		[MapHeight] 28
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] true
+		[EnableYScroll] true
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\exerciseRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\exerciseRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[Threadmill] 184
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to main cell
+			{
+				[NAME] Door
+				[ID] 1
+				[Transition] 0
+				[Position] 21, 0
+			}
+			{
+				[NAME] Door
+				[ID] 2
+				[Transition] 0
+				[Position] 22, 0
+			}
+			[Directory] Image\\Map\\exerciseRoomCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\exerciseRoomWayPoint.csv
+		}
+	}
+	{
+		[NAME] Canteen
+		[ID] 2
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 66 
+		# 32 * 160		
+		[MapHeight] 38
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 1
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\canteenRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\canteenRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to main Cell
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 0
+				[Position] 51, 37
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 0
+				[Position] 52, 37
+			}
+			# Door to main Corridor
+			{
+				[NAME] Door
+				[ID] 1
+				[Transition] 4
+				[Position] 42, 0
+			}
+			{
+				[NAME] Door
+				[ID] 2
+				[Transition] 4
+				[Position] 43, 0
+			}
+			[Directory] Image\\Map\\canteenRoomCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\canteenRoomWayPoint.csv
+		}
+	}
+	{
+		[NAME] ShowerRoom
+		[ID] 3
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 37 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 0
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\showerRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\showerRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			{
+				[NAME] Door
+				[ID] 5
+				[Transition] 0
+				[Position] 9, 24
+			}
+			{
+				[NAME] Door
+				[ID] 6
+				[Transition] 0
+				[Position] 10, 24
+			}
+			[Directory] Image\\Map\\showerRoomCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\showerRoomWayPoint.csv
+		}
+	}
+	{
+		[NAME] MainCorridor
+		[ID] 4
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800s
+		# 32 * 256
+		[MapWidth] 142 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 0
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\corridor.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\corridorBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+				[D] 39
+			}
+			# Door to canteen
+			{
+				[NAME] Door
+				[ID] 1
+				[Transition] 2
+				[Position] 68, 24
+			}
+			{
+				[NAME] Door
+				[ID] 2
+				[Transition] 2
+				[Position] 69, 24
+			}
+			# Door to decoyRoom 1
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 5
+				[Position] 4, 5
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 5
+				[Position] 5, 5
+			}
+			# Door to decoyRoom 2
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 6
+				[Position] 11, 5
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 6
+				[Position] 12, 5
+			}
+			# Door to decoyRoom 3
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 7
+				[Position] 18, 5
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 7
+				[Position] 19, 5
+			}
+			# Door to decoyRoom 4
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 8
+				[Position] 32, 5
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 8
+				[Position] 33, 5
+			}
+			# Door to cameraRoom
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 9
+				[Position] 25, 5
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 9
+				[Position] 26, 5
+			}
+			# Door to courtyard
+			{
+				[NAME] Door
+				[ID] 0
+				[Transition] 10
+				[Position] 0, 13
+			}
+			[Directory] Image\\Map\\corridorCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\corridorWayPoint.csv
+		}
+	}
+	{
+		[NAME] GuardRoom
+		[ID] 5
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 32
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 1
+		[ScrollSpeed] 0
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\fakeRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\fakeRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 4
+				[Position] 15, 15
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 4
+				[Position] 16, 15
+			}
+			[Directory] Image\\Map\\fakeRoomCollision.csv
+		}
+	}
+	{
+		[NAME] GuardRoom
+		[ID] 6
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 32 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 0
+		[EnableYScroll] 0
+		[ScrollSpeed] 0
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\fakeRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\fakeRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 4
+				[Position] 15, 15
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 4
+				[Position] 16, 15
+			}
+			[Directory] Image\\Map\\fakeRoomCollision.csv
+		}
+	}
+	{
+		[NAME] GuardRoom
+		[ID] 7
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 32 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 0
+		[EnableYScroll] 0
+		[ScrollSpeed] 0
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\fakeRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\fakeRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 4
+				[Position] 15, 15
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 4
+				[Position] 16, 15
+			}
+			[Directory] Image\\Map\\fakeRoomCollision.csv
+		}
+	}
+	{
+		[NAME] GuardRoom
+		[ID] 8
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 32 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 0
+		[EnableYScroll] 0
+		[ScrollSpeed] 0
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\fakeRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\fakeRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 4
+				[Position] 15, 15
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 4
+				[Position] 16, 15
+			}
+			[Directory] Image\\Map\\fakeRoomCollision.csv
+		}
+	}
+	{
+		[NAME] CameraRoom
+		[ID] 9
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 32 
+		# 32 * 160		
+		[MapHeight] 25
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 0
+		[EnableYScroll] 0
+		[ScrollSpeed] 0
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\cameraRoom.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\cameraRoomBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[SwitchOn] 439
+				[SwitchOff] 398
+				[LeftChair] 343
+				[RightChair] 344
+				[A] 36
+				[B] 37
+				[C] 38
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 3
+				[Transition] 4
+				[Position] 15, 15
+			}
+			{
+				[NAME] Door
+				[ID] 4
+				[Transition] 4
+				[Position] 16, 15
+			}
+			[Directory] Image\\Map\\cameraRoomCollision.csv
+		}
+	}
+	{
+		[NAME] Courtyard
+		[ID] 10
+		[BackgroundID] 0
+		# ScreenWidth & ScreenHeight should be same as screen resolution
+		[ScreenWidth] 1024
+		[ScreenHeight] 800
+		# 32 * 256
+		[MapWidth] 93 
+		# 32 * 160		
+		[MapHeight] 82
+		[MapOffsetX] 0
+		[MapOffsetY] 0
+		[MapFineOffsetX] 0
+		[MapFineOffsetY] 0
+		[EnableXScroll] 1
+		[EnableYScroll] 1
+		[ScrollSpeed] 500
+		[TileSize] 32
+		{
+			[Type] Visual
+			[Directory] Image\\Map\\courtyard.csv
+		}
+		{
+			[Type] Back
+			[Directory] Image\\Map\\courtyardBack.csv
+		}
+		{
+			[Type] Collision
+			{
+				[NAME] SpecialTiles
+				[Wall] 678
+				[PrisonDoorLeftClosed] 476
+				[PrisonDoorRightClosed] 477
+				[PrisonDoorLeftOpened] 474
+				[PrisonDoorRightOpened] 475
+				[Exit] 0
+				[A] 36
+				[B] 37
+				[C] 38
+				[D] 39
+				[E] 40
+				[F] 41
+				[G] 42
+				[H] 43
+				[I] 44
+				[J] 45
+
+			}
+			# Door to corridor
+			{
+				[NAME] Door
+				[ID] 0
+				[Transition] 4
+				[Position] 65, 47
+			}
+
+			[Directory] Image\\Map\\courtyardCollision.csv
+		}
+		{
+			[Type] WayPoint
+			[Directory] Image\\Map\\courtyardWayPoint.csv
+		}
+	}
+}
