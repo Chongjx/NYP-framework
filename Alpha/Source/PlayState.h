@@ -33,6 +33,7 @@ public:
 
 protected:
 	PlayState();
+	virtual ~PlayState();
 };
 
 #endif

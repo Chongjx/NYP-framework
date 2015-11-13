@@ -33,6 +33,7 @@ public:
 
 protected:
 	PauseState();
+	virtual ~PauseState();
 };
 
 #endif

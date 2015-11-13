@@ -1,0 +1,13 @@
+Todo:
+
+Camera implementation
+Third Person Camera implementation
+Proper Scene Graph implementation, with adding and retrieving of scene nodes functions
+Game Objects
+Game States
+Spatial Partition - 2D & 3D
+Input Manager
+Resource Manager
+AABB collision
+OBB collision
+IO Configuration

@@ -33,6 +33,7 @@ public:
 
 protected:
 	MenuState();
+	virtual ~MenuState();
 };
 
 #endif

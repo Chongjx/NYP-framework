@@ -33,6 +33,7 @@ public:
 
 protected:
 	OptionState();
+	virtual ~OptionState();
 };
 
 #endif
