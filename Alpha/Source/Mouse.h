@@ -18,12 +18,17 @@ enum MOUSE_KEY
 
 class Mouse
 {
+private:
+	double currentPosX;
+	double currentPosY;
+	Vector2 lastPos, diffPos;
+	double mouseYaw, mousePitch;
+	float sensitivity;
+
+	void Config(void);
 public:
-	static Mouse& getInstance()
-	{
-		static Mouse mouse;
-		return mouse;
-	}
+	Mouse();
+	~Mouse();
 
 	Branch mouseBranch;
 
@@ -45,18 +50,6 @@ public:
 	float getSensitivity(void) const;
 	GLFWwindow* m_window;
 	bool mouseButtonStatus[MAX_BUTTON];
-
-private:
-	Mouse();
-	~Mouse();
-
-	double currentPosX;
-	double currentPosY;
-	Vector2 lastPos, diffPos;
-	double mouseYaw, mousePitch;
-	float sensitivity;
-
-	void Config(void);
 };
 
 #endif

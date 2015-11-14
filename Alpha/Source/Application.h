@@ -31,8 +31,8 @@ public:
 	void Run(void);
 	void Exit(void);
 
-	Mouse& getMouse(void);
-	Keyboard& getKeyboard(void);
+	static Mouse* getMouse(void);
+	static Keyboard* getKeyboard(void);
 
 	bool getKeyboardUpdate(void);
 	bool getMouseUpdate(void);
@@ -60,8 +60,8 @@ private:
 
 	Branch engineBranch;
 
-	static Mouse &mouse;
-	static Keyboard &keyboard;
+	static Mouse *mouse;
+	static Keyboard *keyboard;
 
 	unsigned char FPS;
 	unsigned int frameTime;

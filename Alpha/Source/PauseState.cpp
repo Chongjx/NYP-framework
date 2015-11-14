@@ -3,3 +3,7 @@
 PauseState::PauseState()
 {
 }
+
+PauseState::~PauseState()
+{
+}

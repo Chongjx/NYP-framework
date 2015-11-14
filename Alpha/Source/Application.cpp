@@ -4,8 +4,8 @@
 int Application::windowWidth = 1;
 int Application::windowHeight = 1;
 bool Application::run = true;
-Mouse& Application::mouse = Mouse::getInstance();
-Keyboard& Application::keyboard = Keyboard::getInstance();
+Mouse* Application::mouse = NULL;
+Keyboard* Application::keyboard = NULL;
 
 // opengl stuff
 //Define an error callback
@@ -32,12 +32,12 @@ void resize_callback(GLFWwindow* window, int w, int h)
 	Application::setWindowHeight(h);
 }
 
-Mouse& Application::getMouse(void)
+Mouse* Application::getMouse(void)
 {
 	return mouse;
 }
 
-Keyboard& Application::getKeyboard(void)
+Keyboard* Application::getKeyboard(void)
 {
 	return keyboard;
 }
@@ -54,14 +54,14 @@ bool Application::getRun(void)
 
 bool Application::getKeyboardUpdate(void)
 {
-	this->keyboard.Update();
+	this->keyboard->Update();
 
 	return true;
 }
 
 bool Application::getMouseUpdate(void)
 {
-	this->mouse.Update();
+	this->mouse->Update();
 
 	return true;
 }
@@ -79,6 +79,7 @@ void Application::setWindowHeight(int height)
 int Application::getWindowWidth(void)
 {
 	return windowWidth;
+
 }
 
 int Application::getWindowHeight(void)
@@ -90,6 +91,8 @@ int Application::getWindowHeight(void)
 Application::Application() : 
 	gameStateManager(NULL)
 {
+	this->mouse = new Mouse();
+	this->keyboard = new Keyboard();
 }
 
 Application::~Application()
@@ -98,6 +101,17 @@ Application::~Application()
 	{
 		delete gameStateManager;
 		gameStateManager = NULL;
+	}
+
+	if (this->mouse != NULL)
+	{
+		delete mouse;
+		mouse = NULL;
+	}
+	if (this->keyboard != NULL)
+	{
+		delete keyboard;
+		mouse = NULL;
 	}
 }
 
@@ -164,8 +178,7 @@ void Application::Config(void)
 
 		else if (branch->branchName == "MouseConfig")
 		{
-			this->mouse.Init(branch->attributes[FIRST].value);
-			this->mouse.m_window = m_window;
+			this->mouse->Init(branch->attributes[FIRST].value);
 		}
 
 		else if (branch->branchName == "SceneConfig")
@@ -209,8 +222,7 @@ void Application::Init(string config)
 	{
 		m_window = glfwCreateWindow(windowWidth, windowHeight, title, NULL, NULL);
 	}
-
-	this->mouse.m_window = m_window;
+	this->mouse->m_window = m_window;
 
 	//If the window couldn't be created
 	if (!m_window)
@@ -257,7 +269,7 @@ void Application::Run(void)
 {
 	m_timer.startTimer();	// Start timer to calculate how long it takes to render this frame
 
-	while (!glfwWindowShouldClose(m_window) && !keyboard.getKey(VK_ESCAPE) && run)
+	while (!glfwWindowShouldClose(m_window) && !keyboard->getKey(VK_ESCAPE) && run)
 	{
 		// Get the elapsed time
 		m_dElapsedTime = m_timer.getElapsedTime();

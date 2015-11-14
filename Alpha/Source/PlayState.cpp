@@ -8,3 +8,7 @@ PlayState PlayState::playState;
 PlayState::PlayState()
 {
 }
+
+PlayState::~PlayState()
+{
+}

@@ -9,11 +9,8 @@ using std::vector;
 class Keyboard
 {
 public:
-	static Keyboard& getInstance()
-	{
-		static Keyboard keyboard;
-		return keyboard;
-	}
+	Keyboard(void);
+	~Keyboard(void);
 
 	void Init(void);
 	void Update(void);
@@ -23,9 +20,6 @@ public:
 	vector<bool> keys;
 
 private:
-	Keyboard();
-	~Keyboard();
-
 	bool isKeyPressed(unsigned short key);
 };
 

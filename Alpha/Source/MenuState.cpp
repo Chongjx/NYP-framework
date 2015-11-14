@@ -3,3 +3,7 @@
 MenuState::MenuState()
 {
 }
+
+MenuState::~MenuState()
+{
+}

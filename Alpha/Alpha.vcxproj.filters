@@ -147,6 +147,9 @@
     <ClCompile Include="Source\SceneManager3D.cpp">
       <Filter>Managers\SceneManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utility.h">
