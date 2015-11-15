@@ -1,5 +1,5 @@
 #include "Application.h"
-#include "IOManager.h"
+//#include "IOManager.h"
 
 int Application::windowWidth = 1;
 int Application::windowHeight = 1;
@@ -91,8 +91,6 @@ int Application::getWindowHeight(void)
 Application::Application() : 
 	gameStateManager(NULL)
 {
-	this->mouse = new Mouse();
-	this->keyboard = new Keyboard();
 }
 
 Application::~Application()
@@ -191,6 +189,9 @@ void Application::Config(void)
 // Init the engine settings
 void Application::Init(string config)
 {
+	this->mouse = new Mouse();
+	this->keyboard = new Keyboard();
+
 	engineBranch = TextTree::FileToRead(config);
 
 	Config();

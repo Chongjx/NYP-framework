@@ -6,9 +6,9 @@ GameStateManager::GameStateManager() :
 	windowWidth(1920),
 	windowHeight(1080),
 	running(true),
-	fullscreen(false)
+	fullscreen(false),
+	resourcePool(NULL)
 {
-	resourcePool = new ResourcePool();
 }
 
 GameStateManager::~GameStateManager()

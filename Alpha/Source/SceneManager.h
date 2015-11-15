@@ -1,6 +1,7 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
+#include "Scene.h"
 #include "Mtx44.h"
 #include "FPCamera.h"
 #include "TPCamera.h"
@@ -8,6 +9,8 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "Fog.h"
+#include "ResourceManager.h"
+#include "InputManager.h"
 
 struct KEYS
 {
@@ -16,7 +19,7 @@ struct KEYS
 	bool pressed;
 };
 
-class SceneManager
+class SceneManager// : public Scene
 {
 public:
 	SceneManager();
@@ -40,6 +43,9 @@ protected:
 	MS projectionStack;
 
 	vector<Light> lights;
+
+	ResourceManager resourceManager;
+	InputManager inputManager;
 
 	bool lightEnabled;
 	float fps;

@@ -302,6 +302,25 @@ Vector3 Mtx44::operator*(const Vector3& rhs) const {
 /******************************************************************************/
 /*!
 \brief
+operator* overload for matrix-vector2 multiplication
+
+\param rhs
+Vector2 to multiply with
+\return
+Resulting vector
+*/
+/******************************************************************************/
+Vector2 Mtx44::operator*(const Vector2& rhs) const {
+	float b[3];
+	for (int i = 0; i < 3; i++)
+		b[i] = a[0 * 3 + i] * rhs.x + a[1 * 3 + i] * rhs.y + a[2 * 3 + i] * 0;
+	Vector2 ret(b[0], b[1]);
+	return ret;
+}
+
+/******************************************************************************/
+/*!
+\brief
 Set Matrix to a rotation matrix about arbitrary axis
 
 \param	degrees

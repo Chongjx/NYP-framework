@@ -13,13 +13,13 @@ public:
 	ResourcePool();
 	~ResourcePool();
 
-	void AddMesh(string meshName, Mesh* mesh);
+	bool AddMesh(string meshName, Mesh* mesh);
 	Mesh* RetrieveMesh(string resourceName);
 
-	void AddTexture(string textureName, string directory);
+	bool AddTexture(string textureName, string directory);
 	string RetrieveTexture(string textureName);
 
-	void AddColor(string colorName, Color color);
+	bool AddColor(string colorName, Color color);
 	Color RetrieveColor(string colorName);
 
 	// void AddSound(string soundName, Sound sound);
