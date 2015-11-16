@@ -52,7 +52,7 @@
     <Filter Include="GameObjects\ChildObject">
       <UniqueIdentifier>{fc88ceb4-42be-45b6-b660-c17a8e7c4d77}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameObjects\BaseObject">
+    <Filter Include="GameObjects\ParentObject">
       <UniqueIdentifier>{89c825dc-6802-4501-b8b2-81bb590e4b34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -145,22 +145,22 @@
       <Filter>Managers</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObject.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObject2D.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObject3D.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\GameObjectSprite2D.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\MobileGameObject.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\StaticGameObject.cpp">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClCompile>
     <ClCompile Include="Source\Button2D.cpp">
       <Filter>GameObjects\ChildObject</Filter>
@@ -279,22 +279,22 @@
       <Filter>Managers</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameObject.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameObject2D.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameObject3D.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\GameObjectSprite2D.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\MobileGameObject.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\StaticGameObject.h">
-      <Filter>GameObjects\BaseObject</Filter>
+      <Filter>GameObjects\ParentObject</Filter>
     </ClInclude>
     <ClInclude Include="Source\Button2D.h">
       <Filter>GameObjects\ChildObject</Filter>

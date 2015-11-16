@@ -27,3 +27,8 @@ Color ResourceManager::retrieveColor(string name)
 {
 	return resourcePool->retrieveColor(name);
 }
+
+SHADER ResourceManager::retrieveShader(string name)
+{
+	return resourcePool->retrieveShader(name);
+}
