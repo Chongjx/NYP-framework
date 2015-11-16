@@ -115,6 +115,7 @@
     <ClCompile Include="Source\ResourcePool.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneManagerGameplay.cpp" />
+    <ClCompile Include="Source\SceneManagerInfo.cpp" />
     <ClCompile Include="Source\SceneManagerSelection.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneManagerGameplay.h" />
+    <ClInclude Include="Source\SceneManagerInfo.h" />
     <ClInclude Include="Source\SceneManagerSelection.h" />
     <ClInclude Include="Source\SceneNode.h" />
     <ClInclude Include="Source\shader.hpp" />

@@ -22,7 +22,7 @@ GameStateManager::~GameStateManager()
 
 	if (resourcePool)
 	{
-		resourcePool->CleanUp();
+		resourcePool->cleanUp();
 		delete resourcePool;
 		resourcePool = NULL;
 	}
@@ -35,7 +35,6 @@ void GameStateManager::Init()
 	this->windowHeight = 1080;
 	this->running = true;
 	this->fullscreen = false;
-	resourcePool = new ResourcePool();
 }
 
 void GameStateManager::Init(string title, int width, int height, bool run, bool fullScreen)
@@ -45,7 +44,12 @@ void GameStateManager::Init(string title, int width, int height, bool run, bool 
 	this->windowHeight = height;
 	this->running = run;
 	this->fullscreen = fullScreen;
+}
+
+void GameStateManager::InitResources(string config)
+{
 	this->resourcePool = new ResourcePool();
+	resourcePool->Init(config);
 }
 
 void GameStateManager::CleanUp()
@@ -60,7 +64,7 @@ void GameStateManager::CleanUp()
 	// Cleanup all the resources used
 	if (resourcePool)
 	{
-		resourcePool->CleanUp();
+		resourcePool->cleanUp();
 		delete resourcePool;
 		resourcePool = NULL;
 	}

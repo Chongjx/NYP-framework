@@ -26,7 +26,8 @@ public:
 	~GameStateManager();
 
 	void Init();
-	void Init(string title, int width = 1920, int height = 1080, bool run = true, bool fullScreen = false);
+	void Init(string title, int width, int height, bool run = true, bool fullScreen = false);
+	void InitResources(string config);
 	void Config();
 
 	void CleanUp();

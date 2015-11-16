@@ -15,15 +15,15 @@ void ResourceManager::Init(ResourcePool* resourcePool)
 
 Mesh* ResourceManager::retrieveMesh(string name)
 {
-	return resourcePool->RetrieveMesh(name);
+	return resourcePool->retrieveMesh(name);
 }
 
 string ResourceManager::retrieveTexture(string name)
 {
-	return resourcePool->RetrieveTexture(name);
+	return resourcePool->retrieveTexture(name);
 }
 
 Color ResourceManager::retrieveColor(string name)
 {
-	return resourcePool->RetrieveColor(name);
+	return resourcePool->retrieveColor(name);
 }

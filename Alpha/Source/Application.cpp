@@ -183,6 +183,11 @@ void Application::Config(void)
 		{
 			this->sceneConfig = branch->attributes[FIRST].value;
 		}
+
+		else if (branch->branchName == "ResourceConfig")
+		{
+			this->gameStateManager->InitResources(branch->attributes[FIRST].value);
+		}
 	}
 }
 
@@ -191,6 +196,7 @@ void Application::Init(string config)
 {
 	this->mouse = new Mouse();
 	this->keyboard = new Keyboard();
+	this->gameStateManager = new GameStateManager();
 
 	engineBranch = TextTree::FileToRead(config);
 
@@ -260,7 +266,6 @@ void Application::Init(string config)
 	m_dAccumulatedTime_ThreadTwo = 0.0;
 
 	// Init the GameState Manager
-	gameStateManager = new GameStateManager();
 	gameStateManager->Init(windowTitle, windowWidth, windowHeight);
 	//gameStateManager->PushState(MenuState::Instance());
 }

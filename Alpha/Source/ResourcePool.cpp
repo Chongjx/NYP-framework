@@ -8,7 +8,54 @@ ResourcePool::~ResourcePool()
 {
 }
 
-bool ResourcePool::AddMesh(string meshName, Mesh* mesh)
+void ResourcePool::Init(string config)
+{
+	resourceBranch = TextTree::FileToRead(config);
+
+	Config();
+}
+
+void ResourcePool::Config()
+{
+	/*for (vector<Branch>::iterator branch = resourceBranch.childBranches.begin(); branch != resourceBranch.childBranches.end(); ++branch)
+	{
+		/*if (branch->branchName == "SetUp")
+		{
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+				if (attriName == "currentPos")
+				{
+					string xCoord;
+					string yCoord;
+					int lastContinue = 0;
+					for (unsigned j = 0; j < attriValue.size() && attriValue[j] != ','; ++j)
+					{
+						xCoord += attriValue[j];
+						lastContinue = j + 2;
+					}
+
+					for (unsigned j = lastContinue; j < attriValue.size(); ++j)
+					{
+						yCoord += attriValue[j];
+					}
+
+					this->currentPosX = stoi(xCoord);
+					this->currentPosY = stoi(yCoord);
+				}
+
+				else if (attriName == "sensitivity")
+				{
+					this->sensitivity = stof(attriValue);
+				}
+			}
+		}
+	}*/
+}
+
+bool ResourcePool::addMesh(string meshName, Mesh* mesh)
 {
 	map<string, Mesh*>::iterator it = meshContainer.find(meshName);
 
@@ -26,7 +73,7 @@ bool ResourcePool::AddMesh(string meshName, Mesh* mesh)
 	}
 }
 
-Mesh* ResourcePool::RetrieveMesh(string resourceName)
+Mesh* ResourcePool::retrieveMesh(string resourceName)
 {
 	map<string, Mesh*>::iterator it = meshContainer.find(resourceName);
 
@@ -38,7 +85,7 @@ Mesh* ResourcePool::RetrieveMesh(string resourceName)
 	return NULL;
 }
 
-bool ResourcePool::AddTexture(string textureName, string directory)
+bool ResourcePool::addTexture(string textureName, string directory)
 {
 	map<string, string>::iterator it = textureContainer.find(textureName);
 
@@ -56,7 +103,7 @@ bool ResourcePool::AddTexture(string textureName, string directory)
 	}
 }
 
-string ResourcePool::RetrieveTexture(string textureName)
+string ResourcePool::retrieveTexture(string textureName)
 {
 	map<string, string>::iterator it = textureContainer.find(textureName);
 
@@ -68,7 +115,7 @@ string ResourcePool::RetrieveTexture(string textureName)
 	return NULL;
 }
 
-bool ResourcePool::AddColor(string colorName, Color color)
+bool ResourcePool::addColor(string colorName, Color color)
 {
 	map<string, Color>::iterator it = colorContainer.find(colorName);
 
@@ -86,7 +133,7 @@ bool ResourcePool::AddColor(string colorName, Color color)
 	}
 }
 
-Color ResourcePool::RetrieveColor(string colorName)
+Color ResourcePool::retrieveColor(string colorName)
 {
 	map<string, Color>::iterator it = colorContainer.find(colorName);
 
@@ -98,7 +145,37 @@ Color ResourcePool::RetrieveColor(string colorName)
 	return NULL;
 }
 
-void ResourcePool::CleanUp(void)
+bool ResourcePool::addShader(string shaderName, SHADER shader)
+{
+	map<string, SHADER>::iterator it = shaderContainer.find(shaderName);
+
+	// If a mesh of the same name is found
+	if (it != shaderContainer.end())
+	{
+		return false;
+	}
+
+	else
+	{
+		shaderContainer.insert(std::pair<string, SHADER>(shaderName, shader));
+
+		return true;
+	}
+}
+
+SHADER ResourcePool::retrieveShader(string shaderName)
+{
+	map<string, SHADER>::iterator it = shaderContainer.find(shaderName);
+
+	if (it != shaderContainer.end())
+	{
+		return it->second;
+	}
+
+	return SHADER();
+}
+
+void ResourcePool::cleanUp(void)
 {
 	for (map<string, Mesh*>::iterator it = meshContainer.begin(); it != meshContainer.end(); ++it)
 	{

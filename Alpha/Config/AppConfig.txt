@@ -13,17 +13,18 @@
 		[Run] true
 	}
 
-	[OTHERS]
 	{
 		[NAME] MouseConfig
 		[Directory] Config\\MouseConfig.txt
 	}
+
+	{
+		[NAME] ResourceConfig
+		[Directory] Config\\Resources\\ResourcePoolConfig.txt
+	}
+
 	{
 		[NAME] SceneConfig
-		[Directory] Config\\SceneConfig.txt
-	}
-	{
-		[NAME] MeshConfig
-		[Directory] Config\\MeshConfig.txt
+		[Directory] Config\\GameStateConfig\\GameStates.txt
 	}
 }

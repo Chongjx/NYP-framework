@@ -3,9 +3,16 @@
 
 #include <map>
 
+#include "TextTree.h"
 #include "Mesh.h"
 
 using std::map;
+
+struct SHADER
+{
+	string vertexShaderDirectory = "";
+	string fragmentShaderDirectory = "";
+};
 
 class ResourcePool
 {
@@ -13,24 +20,30 @@ public:
 	ResourcePool();
 	~ResourcePool();
 
-	bool AddMesh(string meshName, Mesh* mesh);
-	Mesh* RetrieveMesh(string resourceName);
+	void Init(string config);
+	void Config();
 
-	bool AddTexture(string textureName, string directory);
-	string RetrieveTexture(string textureName);
+	Mesh* retrieveMesh(string resourceName);
+	string retrieveTexture(string textureName);
+	Color retrieveColor(string colorName);
+	SHADER retrieveShader(string shaderName);
+	// Sound retrieveSound(string soundName);
 
-	bool AddColor(string colorName, Color color);
-	Color RetrieveColor(string colorName);
-
-	// void AddSound(string soundName, Sound sound);
-	// Sound RetrieveSound(string soundName);
-
-	void CleanUp(void);
+	void cleanUp(void);
 private:
 	map<string, Mesh*> meshContainer;
 	map<string, string> textureContainer;
 	map<string, Color> colorContainer;
+	map<string, SHADER> shaderContainer;
 	// map<string, Sound> soundContanier;
+
+	bool addMesh(string meshName, Mesh* mesh);
+	bool addTexture(string textureName, string directory);
+	bool addColor(string colorName, Color color);
+	bool addShader(string shaderName, SHADER shader);
+	// void addSound(string soundName, Sound sound);
+
+	Branch resourceBranch;
 };
 
 #endif
