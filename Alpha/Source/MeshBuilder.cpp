@@ -4,6 +4,7 @@
 #include "Vertex.h"
 #include "MyMath.h"
 #include "LoadOBJ.h"
+#include "LoadHmap.h"
 /******************************************************************************/
 /*!
 \brief
@@ -384,6 +385,149 @@ Mesh* MeshBuilder::GenerateSphere(const std::string &meshName, Color color, unsi
 	return mesh;
 }
 
+Mesh* MeshBuilder::GenerateSkyPlane(const std::string & meshName, Color color, int slices, float PlanetRadius, float AtmosphereRadius, float hTile, float vTile)
+{
+	if (slices < 1 || slices > 256)
+		return NULL;
+
+	Vertex v;
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	float planeSize = 2.0f * (float)sqrtf((AtmosphereRadius * AtmosphereRadius) - (PlanetRadius * PlanetRadius));
+	float delta = planeSize / (float)slices;
+	float texDelta = 2.0f / (float)slices;
+
+	for (int z = 0; z <= slices; ++z)
+	{
+		for (int x = 0; x <= slices; ++x)
+		{
+			float xDist = (-0.5f * planeSize) + ((float)x * delta);
+			float zDist = (-0.5f * planeSize) + ((float)z * delta);
+
+			float xHeight = (xDist * xDist) / AtmosphereRadius;
+			float zHeight = (zDist * zDist) / AtmosphereRadius;
+			float height = xHeight + zHeight;
+
+			v.pos.x = xDist;
+			v.pos.y = 0.0f - height;
+			v.pos.z = zDist;
+
+			v.texCoord.u = hTile * ((float)x * texDelta * 0.5f);
+			v.texCoord.v = vTile * (1.0f - (float)z * texDelta * 0.5f);
+
+			v.color = color;
+
+			vertex_buffer_data.push_back(v);
+		}
+	}
+
+	for (int i = 0; i < slices; ++i)
+	{
+		for (int j = 0; j < slices; ++j)
+		{
+			int startvert = (i * (slices + 1) + j);
+			index_buffer_data.push_back(startvert);
+			index_buffer_data.push_back(startvert + 1);
+			index_buffer_data.push_back(startvert + slices + 1);
+
+			index_buffer_data.push_back(startvert + 1);
+			index_buffer_data.push_back(startvert + slices + 2);
+			index_buffer_data.push_back(startvert + slices + 1);
+		}
+	}
+
+	Mesh *mesh = new Mesh(meshName);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
+
+	return mesh;
+}
+
+Mesh* MeshBuilder::GenerateTerrain(const std::string & meshName, const std::string &file_path, std::vector<unsigned char> &heightMap)
+{
+	std::vector<Vertex> vertex_buffer_data;
+	std::vector<GLuint> index_buffer_data;
+
+	const float SCALE_FACTOR = 256.0f;
+
+	if (!LoadHeightMap(file_path.c_str(), heightMap))
+	{
+		return NULL;
+	}
+
+	Vertex v;
+
+	unsigned terrainSize = (unsigned)sqrt((double)heightMap.size());
+
+	for (unsigned z = 0; z < terrainSize; ++z)
+	{
+		for (unsigned x = 0; x < terrainSize; ++x)
+		{
+			float scaledHeight = (float)heightMap[z * terrainSize + x] / SCALE_FACTOR;
+
+			v.pos.Set(static_cast<float>(x) / terrainSize - 0.5f, scaledHeight, static_cast<float>(z) / terrainSize - 0.5f);
+
+			v.color.Set(scaledHeight, scaledHeight, scaledHeight);	 // for rendering height map without texture
+
+			v.texCoord.Set((float)x / terrainSize * 8, 1.f - (float)z / terrainSize * 8);
+
+			Vector3 origin((float)x, (float)(heightMap[z * terrainSize + x]), (float)z);
+
+			Vector3 U, V;
+
+			if (x + 1 < terrainSize && z + 1 < terrainSize)
+			{
+				U.Set((float)x + 1, (float)(heightMap[z * terrainSize + x + 1]), (float)z);
+				V.Set((float)x, (float)(heightMap[(z + 1) * terrainSize + x]), (float)z + 1);
+
+				v.normal = ((V - origin).Cross((U - origin))).Normalize();
+			}
+
+			else
+			{
+				v.normal.Set(0, 1, 0);
+			}
+
+			//std::cout << v.normal << std::endl;
+
+			vertex_buffer_data.push_back(v);
+		}
+	}
+
+	for (unsigned z = 0; z < terrainSize - 1; ++z)
+	{
+		for (unsigned x = 0; x < terrainSize - 1; ++x)
+		{
+			index_buffer_data.push_back(terrainSize * z + x + 0);
+			index_buffer_data.push_back(terrainSize *(z + 1) + x + 0);
+			index_buffer_data.push_back(terrainSize * z + x + 1);
+
+			index_buffer_data.push_back(terrainSize * (z + 1) + x + 1);
+			index_buffer_data.push_back(terrainSize * z + x + 1);
+			index_buffer_data.push_back(terrainSize * (z + 1) + x + 0);
+		}
+	}
+
+	Mesh *mesh = new Mesh(meshName);
+
+	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
+	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
+
+	mesh->indexSize = index_buffer_data.size();
+	mesh->mode = Mesh::DRAW_TRIANGLES;
+
+	return mesh;
+}
+
 Mesh* MeshBuilder::GenerateDebugQuad(const std::string &meshName, Color color, float length)
 {
 	Vertex v;
@@ -642,177 +786,6 @@ Mesh* MeshBuilder::GenerateText(const std::string &meshName, unsigned numRow, un
 
 	return mesh;
 }
-
-/******************************************************************************/
-/*!
-\brief
-Generate the vertices of a quad for a minimap; Use random color for each vertex
-Then generate the VBO/IBO and store them in Mesh object
-
-\param meshName - name of mesh
-\param lengthX - width of quad
-\param lengthY - height of quad
-
-\return Pointer to mesh storing VBO/IBO of quad
-*/
-/******************************************************************************/
-Mesh* MeshBuilder::GenerateMinimap(const std::string &meshName, Color color, float length)
-{
-	Vertex v;
-	std::vector<Vertex> vertex_buffer_data;
-	std::vector<GLuint> index_buffer_data;
-
-	// Draw the quad which contains the minimap's texture
-	v.pos.Set(-0.5f * length,-0.5f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(0, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f * length,-0.5f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(1.0f, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f * length, 0.5f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(1.0f, 1.0f);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(-0.5f * length, 0.5f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(0, 1.0f);
-	vertex_buffer_data.push_back(v);
-	
-	index_buffer_data.push_back(3);
-	index_buffer_data.push_back(0);
-	index_buffer_data.push_back(2);
-	index_buffer_data.push_back(1);
-	index_buffer_data.push_back(2);
-	index_buffer_data.push_back(0);
-
-	Mesh *mesh = new Mesh(meshName);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-
-	mesh->indexSize = index_buffer_data.size();
-	mesh->mode = Mesh::DRAW_TRIANGLES;
-
-	return mesh;
-}
-
-/******************************************************************************/
-/*!
-\brief
-Generate the borders for a minimap; Use random color for each vertex
-Then generate the VBO/IBO and store them in Mesh object
-
-\param meshName - name of mesh
-\param lengthX - width of quad
-\param lengthY - height of quad
-
-\return Pointer to mesh storing VBO/IBO of quad
-*/
-/******************************************************************************/
-Mesh* MeshBuilder::GenerateMinimapBorder(const std::string &meshName, Color color, float length)
-{
-	Vertex v;
-	std::vector<Vertex> vertex_buffer_data;
-	std::vector<GLuint> index_buffer_data;
-
-	// Draw the border of the minimap
-	// Draw the quad which contains the minimap's texture
-	v.pos.Set(-0.5f * length,-0.5f * length,0);
-	v.color = color;
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(-0.5f * length, 0.5f * length,0);
-	v.color = color;
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f * length, 0.5f * length,0);
-	v.color = color;
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.5f * length,-0.5f * length,0);
-	v.color = color;
-	vertex_buffer_data.push_back(v);
-
-	index_buffer_data.push_back(0);
-	index_buffer_data.push_back(1);
-	index_buffer_data.push_back(1);
-	index_buffer_data.push_back(2);
-	index_buffer_data.push_back(2);
-	index_buffer_data.push_back(3);
-	index_buffer_data.push_back(3);
-	index_buffer_data.push_back(0);
-
-	Mesh *mesh = new Mesh(meshName);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-
-	mesh->indexSize = index_buffer_data.size();
-	mesh->mode = Mesh::DRAW_LINES;
-
-	return mesh;
-}
-
-/******************************************************************************/
-/*!
-\brief
-Generate the avatar for a minimap; Use random color for each vertex
-Then generate the VBO/IBO and store them in Mesh object
-
-\param meshName - name of mesh
-\param lengthX - width of quad
-\param lengthY - height of quad
-
-\return Pointer to mesh storing VBO/IBO of quad
-*/
-/******************************************************************************/
-Mesh* MeshBuilder::GenerateMinimapAvatar(const std::string &meshName, Color color, float length)
-{
-	Vertex v;
-	std::vector<Vertex> vertex_buffer_data;
-	std::vector<GLuint> index_buffer_data;
-
-	// Draw the quad which contains the minimap's texture
-	v.pos.Set(-0.05f * length,-0.10f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(0, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0.05f * length,-0.10f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(1.0f, 0);
-	vertex_buffer_data.push_back(v);
-	v.pos.Set(0, 0.15f * length,0);
-	v.color = color;
-	v.normal.Set(0, 0, 1);
-	v.texCoord.Set(1.0f, 1.0f);
-	vertex_buffer_data.push_back(v);
-	
-	index_buffer_data.push_back(0);
-	index_buffer_data.push_back(1);
-	index_buffer_data.push_back(2);
-
-	Mesh *mesh = new Mesh(meshName);
-	
-	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
-	glBufferData(GL_ARRAY_BUFFER, vertex_buffer_data.size() * sizeof(Vertex), &vertex_buffer_data[0], GL_STATIC_DRAW);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, mesh->indexBuffer);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
-
-	mesh->indexSize = index_buffer_data.size();
-	mesh->mode = Mesh::DRAW_TRIANGLES;
-
-	return mesh;
-}
-
 
 /******************************************************************************/
 /*!

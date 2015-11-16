@@ -177,6 +177,9 @@
     <ClCompile Include="Source\SceneManagerInfo.cpp">
       <Filter>Managers\SceneManagers</Filter>
     </ClCompile>
+    <ClCompile Include="Source\LoadHmap.cpp">
+      <Filter>Loaders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utility.h">
@@ -313,6 +316,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManagerInfo.h">
       <Filter>Managers\SceneManagers</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoadHmap.h">
+      <Filter>Loaders</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

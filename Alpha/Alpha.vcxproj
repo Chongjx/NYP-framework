@@ -98,6 +98,7 @@
     <ClCompile Include="Source\GameStateManager.cpp" />
     <ClCompile Include="Source\InputManager.cpp" />
     <ClCompile Include="Source\Keyboard.cpp" />
+    <ClCompile Include="Source\LoadHmap.cpp" />
     <ClCompile Include="Source\LoadOBJ.cpp" />
     <ClCompile Include="Source\LoadTGA.cpp" />
     <ClCompile Include="Source\main.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Source\InputManager.h" />
     <ClInclude Include="Source\Keyboard.h" />
     <ClInclude Include="Source\Light.h" />
+    <ClInclude Include="Source\LoadHmap.h" />
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />
     <ClInclude Include="Source\Material.h" />

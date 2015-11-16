@@ -1,0 +1,27 @@
+# ResourcePoolConfig #
+# All resource type directories go here #
+# Mesh, Texture, Color, Shader, Sound #
+
+{
+	[NAME] ResourceDirectories
+	{
+		[NAME] MeshContainer
+		[Directory] Config\\Resources\\ResourceMesh.txt
+	}
+	{
+		[NAME] TextureContainer
+		[Directory] Config\\Resources\\ResourceTexture.txt
+	}
+	{
+		[NAME] ColorContainer
+		[Directory] Config\\Resources\\ResourceColor.txt
+	}
+	{
+		[NAME] ShaderContainer
+		[Directory] Config\\Resources\\ResourceShader.txt
+	}
+	{
+		[NAME] SoundContainer
+		[Directory] Config\\Resources\\ResourceSound.txt
+	}
+}
