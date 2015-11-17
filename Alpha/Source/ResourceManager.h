@@ -15,7 +15,7 @@ public:
 	unsigned retrieveTexture(string name);
 	Color retrieveColor(string name);
 	SHADER retrieveShader(string name);
-	// Sound retrieveSound(string name);
+	SOUND retrieveSound(string name);
 	
 private:
 	ResourcePool* resourcePool;

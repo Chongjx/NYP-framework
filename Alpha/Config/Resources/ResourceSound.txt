@@ -1,0 +1,9 @@
+# Scenesetup #
+# Init all the sounds#
+{
+	[NAME] SoundConfig
+	{
+		[NAME] MenuFeedback
+		[Directory] Config\\Resources\\Sound\\MenuFeedback.mp3
+	}
+}

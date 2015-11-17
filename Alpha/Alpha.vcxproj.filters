@@ -180,6 +180,9 @@
     <ClCompile Include="Source\LoadHmap.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
+    <ClCompile Include="Source\SoundManager.cpp">
+      <Filter>Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utility.h">
@@ -319,6 +322,9 @@
     </ClInclude>
     <ClInclude Include="Source\LoadHmap.h">
       <Filter>Loaders</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SoundManager.h">
+      <Filter>Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

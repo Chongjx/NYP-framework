@@ -9,8 +9,10 @@
 #include "MatrixStack.h"
 #include "Light.h"
 #include "Fog.h"
+
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "SoundManager.h"
 
 struct KEYS
 {
@@ -19,7 +21,7 @@ struct KEYS
 	bool pressed;
 };
 
-class SceneManager// : public Scene
+class SceneManager : public Scene
 {
 	enum UNIFORM_TYPE
 	{
@@ -54,10 +56,10 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	//virtual void Init();
-	//virtual void Update(double dt);
-	//virtual void Render();
-	//virtual void Exit();
+	virtual void Init();
+	virtual void Update(double dt);
+	virtual void Render();
+	virtual void Exit();
 
 protected:
 	unsigned vertexArrayID;
@@ -75,6 +77,7 @@ protected:
 
 	ResourceManager resourceManager;
 	InputManager inputManager;
+	SoundManager soundManager;
 
 	bool lightEnabled;
 	float fps;

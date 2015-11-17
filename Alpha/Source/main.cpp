@@ -1,5 +1,5 @@
 #include "Application.h"
-#include <vld.h>
+//#include <vld.h>
 #define _CRTDBG_MAP_ALLOC
 #include <stdlib.h>
 #include <crtdbg.h>
@@ -12,6 +12,6 @@ int main(void)
 	engine.Run();
 	engine.Exit();
 
-	_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
-	_CrtDumpMemoryLeaks();
+	//_CrtSetReportMode(_CRT_ERROR, _CRTDBG_MODE_DEBUG);
+	//_CrtDumpMemoryLeaks();
 }
