@@ -27,6 +27,7 @@ void ResourcePool::Config()
 				Attribute tempAttri = *attri;
 				string attriName = tempAttri.name;
 				string attriValue = tempAttri.value;
+
 				if (attriName == "Directory")
 				{
 					processMesh(attriValue);
@@ -41,6 +42,7 @@ void ResourcePool::Config()
 				Attribute tempAttri = *attri;
 				string attriName = tempAttri.name;
 				string attriValue = tempAttri.value;
+
 				if (attriName == "Directory")
 				{
 					processTexture(attriValue);
@@ -269,7 +271,7 @@ void ResourcePool::processMesh(string config)
 
 		else if (meshType == "Skyplane")
 		{
-			mesh = MeshBuilder::GenerateSkyPlane(meshName, meshColor, (unsigned)meshVar[VAR_SLICES], (unsigned)meshVar[VAR_INNER_RADIUS], (unsigned)meshVar[VAR_OUTER_RADIUS], (float)meshTileRow, (float)meshTileCol);
+			mesh = MeshBuilder::GenerateSkyPlane(meshName, meshColor, (float)meshVar[VAR_SLICES], (float)meshVar[VAR_INNER_RADIUS], (unsigned)meshVar[VAR_OUTER_RADIUS], (float)meshTileRow, (float)meshTileCol);
 		}
 
 		else if (meshType == "Terrain")
@@ -278,7 +280,10 @@ void ResourcePool::processMesh(string config)
 			tempHeightmap.name = meshName;
 			mesh = MeshBuilder::GenerateTerrain(meshName, directory, tempHeightmap.heightMap);
 
-			this->addHeightmap(tempHeightmap.name, tempHeightmap);
+			if (this->addHeightmap(tempHeightmap.name, tempHeightmap))
+			{
+				std::cout << "Successfully added new heightmap!" << std::endl;
+			}
 		}
 
 		else if (meshType == "Obj")
@@ -369,7 +374,10 @@ void ResourcePool::processMesh(string config)
 		// push back mesh
 		if (mesh != NULL)
 		{
-			addMesh(branch->branchName, mesh);
+			if (addMesh(branch->branchName, mesh))
+			{
+				std::cout << "Successfully added new mesh!" << std::endl;
+			}
 		}
 	}
 }
@@ -389,7 +397,10 @@ void ResourcePool::processTexture(string config)
 
 			if (attriName == "Directory")
 			{
-				this->addTexture(textureName, attriValue);
+				if (this->addTexture(textureName, attriValue))
+				{
+					std::cout << "Successfully added new texture!" << std::endl;
+				}
 			}
 		}
 	}
@@ -415,7 +426,11 @@ void ResourcePool::processColor(string config)
 
 			tempColor.Set(colorValue.x, colorValue.y, colorValue.z, branch->branchName);
 
-			this->addColor(branch->branchName, tempColor);
+
+			if (this->addColor(branch->branchName, tempColor))
+			{
+				std::cout << "Successfully added new color!" << std::endl;
+			}
 		}
 	}
 }
@@ -446,7 +461,11 @@ void ResourcePool::processShader(string config)
 		}
 
 		tempShader.name = branch->branchName;
-		this->addShader(tempShader.name, tempShader);
+
+		if (this->addShader(tempShader.name, tempShader))
+		{
+			std::cout << "Successfully added new shader!" << std::endl;
+		}
 	}
 }
 

@@ -10,3 +10,23 @@ SceneManager::SceneManager()
 SceneManager::~SceneManager()
 {
 }
+
+void SceneManager::Init()
+{
+
+}
+
+void SceneManager::Update(double dt)
+{
+
+}
+
+void SceneManager::Render()
+{
+
+}
+
+void SceneManager::Exit()
+{
+
+}

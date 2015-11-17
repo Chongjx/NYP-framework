@@ -14,4 +14,8 @@
 		[NAME] SKYPLANE_TOP
 		[Directory] Config\\Resources\\Texture\\top.tga
 	}
+	{
+		[NAME] MENU_BG
+		[Directory] Config\\Resources\\Texture\\menuBG.tga
+	}
 }

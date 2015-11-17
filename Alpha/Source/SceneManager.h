@@ -12,14 +12,7 @@
 #include "ResourceManager.h"
 #include "InputManager.h"
 
-struct KEYS
-{
-	std::string name;
-	int value;
-	bool pressed;
-};
-
-class SceneManager// : public Scene
+class SceneManager : public Scene
 {
 	enum UNIFORM_TYPE
 	{
@@ -54,10 +47,10 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	//virtual void Init();
-	//virtual void Update(double dt);
-	//virtual void Render();
-	//virtual void Exit();
+	virtual void Init();
+	virtual void Update(double dt);
+	virtual void Render();
+	virtual void Exit();
 
 protected:
 	unsigned vertexArrayID;

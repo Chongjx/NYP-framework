@@ -13,6 +13,10 @@
 		[Type] Quad
 	}
 	{
+		[NAME] MENU_BG
+		[Type] Quad
+	}	
+	{
 		# InnerRadius = PlanetRadius, OuterRadius = AtmosphereRadius
 		# TileRow = hTile, TileCol = vTile	
 		[NAME] SKYPLANE
