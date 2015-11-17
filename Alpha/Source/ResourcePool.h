@@ -95,6 +95,12 @@ struct HEIGHTMAP
 	string name = "";
 };
 
+struct SOUND
+{
+	string name = "";
+	string soundDirectory = "";
+};
+
 class ResourcePool
 {
 public:
@@ -109,7 +115,7 @@ public:
 	Color retrieveColor(string colorName);
 	SHADER retrieveShader(string shaderName);
 	HEIGHTMAP retrieveHeightmap(string heightmapName);
-	// Sound retrieveSound(string soundName);
+	SOUND retrieveSound(string soundName);
 
 	void cleanUp(void);
 private:
@@ -118,20 +124,20 @@ private:
 	map<string, Color> colorContainer;
 	map<string, SHADER> shaderContainer;
 	map<string, HEIGHTMAP> heightmapContainer;
-	// map<string, Sound> soundContanier;
+	map<string, SOUND> soundContainer;
 
 	void processMesh(string config);
 	void processTexture(string config);
 	void processColor(string config);
 	void processShader(string config);
-	// void processSound(string config);
+	void processSound(string config);
 
 	bool addMesh(string meshName, Mesh* mesh);
 	bool addTexture(string textureName, string directory);
 	bool addColor(string colorName, Color color);
 	bool addShader(string shaderName, SHADER shader);
 	bool addHeightmap(string heightmapName, HEIGHTMAP heightmap);
-	// void addSound(string soundName, Sound sound);
+	bool addSound(string soundName, SOUND sound);
 
 	Branch resourceBranch;
 };

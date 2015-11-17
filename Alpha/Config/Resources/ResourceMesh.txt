@@ -27,9 +27,9 @@
 		[TileCol] 1
 	}
 	{
-		[NAME] TERRAIN
-		[Type] Terrain
-		[Directory] Config\\Resources\\Texture\\heightmap.raw
+		#[NAME] TERRAIN
+		#[Type] Terrain
+		#[Directory] Config\\Resources\\Texture\\heightmap.raw
 	}
 }
 
