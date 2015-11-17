@@ -75,6 +75,7 @@ private:
 
 	GameStateManager* gameStateManager;
 	string sceneConfig;
+	string gameStateConfig;
 };
 
 #endif

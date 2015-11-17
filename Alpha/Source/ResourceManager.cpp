@@ -18,7 +18,7 @@ Mesh* ResourceManager::retrieveMesh(string name)
 	return resourcePool->retrieveMesh(name);
 }
 
-string ResourceManager::retrieveTexture(string name)
+unsigned ResourceManager::retrieveTexture(string name)
 {
 	return resourcePool->retrieveTexture(name);
 }

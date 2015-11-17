@@ -100,7 +100,6 @@ void ResourcePool::processMesh(string config)
 	{
 		string meshName = branch->branchName;
 		Color meshColor;
-		unsigned textureID = 0;
 
 		enum MISC_VARIABLE
 		{
@@ -222,11 +221,6 @@ void ResourcePool::processMesh(string config)
 				meshTileCol = stoi(attriValue);
 			}
 
-			else if (attriName == "Texture")
-			{
-				textureID = LoadTGA(attriValue.c_str());
-			}
-
 			else
 			{
 				for (int k = 0; k < MAX_VAR; ++k)
@@ -271,6 +265,20 @@ void ResourcePool::processMesh(string config)
 		else if (meshType == "Sphere")
 		{
 			mesh = MeshBuilder::GenerateSphere(meshName, meshColor, (unsigned)meshVar[VAR_STACKS], (unsigned)meshVar[VAR_SLICES], meshVar[VAR_RADIUS]);
+		}
+
+		else if (meshType == "Skyplane")
+		{
+			mesh = MeshBuilder::GenerateSkyPlane(meshName, meshColor, (unsigned)meshVar[VAR_SLICES], (unsigned)meshVar[VAR_INNER_RADIUS], (unsigned)meshVar[VAR_OUTER_RADIUS], (float)meshTileRow, (float)meshTileCol);
+		}
+
+		else if (meshType == "Terrain")
+		{
+			HEIGHTMAP tempHeightmap;
+			tempHeightmap.name = meshName;
+			mesh = MeshBuilder::GenerateTerrain(meshName, directory, tempHeightmap.heightMap);
+
+			this->addHeightmap(tempHeightmap.name, tempHeightmap);
 		}
 
 		else if (meshType == "Obj")
@@ -362,25 +370,84 @@ void ResourcePool::processMesh(string config)
 		if (mesh != NULL)
 		{
 			addMesh(branch->branchName, mesh);
-
-			if (textureID != NULL)
-			{
-				mesh->textureID = textureID;
-			}
 		}
 	}
 }
 
 void ResourcePool::processTexture(string config)
 {
+	Branch textureBranch = TextTree::FileToRead(config);
+
+	for (vector<Branch>::iterator branch = textureBranch.childBranches.begin(); branch != textureBranch.childBranches.end(); ++branch)
+	{
+		string textureName = branch->branchName;
+		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+		{
+			Attribute tempAttri = *attri;
+			string attriName = tempAttri.name;
+			string attriValue = tempAttri.value;
+
+			if (attriName == "Directory")
+			{
+				this->addTexture(textureName, attriValue);
+			}
+		}
+	}
 }
 
 void ResourcePool::processColor(string config)
 {
+	Branch colorBranch = TextTree::FileToRead(config);
+	// various colors needed for text
+
+	for (vector<Branch>::iterator branch = colorBranch.childBranches.begin(); branch != colorBranch.childBranches.end(); ++branch)
+	{
+		Color tempColor;
+		Vector3 colorValue;
+
+		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+		{
+			Attribute tempAttri = *attri;
+			string attriName = tempAttri.name;
+			string attriValue = tempAttri.value;
+
+			stringToVector(attriValue, colorValue);
+
+			tempColor.Set(colorValue.x, colorValue.y, colorValue.z, branch->branchName);
+
+			this->addColor(branch->branchName, tempColor);
+		}
+	}
 }
 
 void ResourcePool::processShader(string config)
 {
+	Branch shaderBranch = TextTree::FileToRead(config);
+
+	for (vector<Branch>::iterator branch = shaderBranch.childBranches.begin(); branch != shaderBranch.childBranches.end(); ++branch)
+	{
+		SHADER tempShader;
+
+		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+		{
+			Attribute tempAttri = *attri;
+			string attriName = tempAttri.name;
+			string attriValue = tempAttri.value;
+
+			if (tempAttri.name == "VertexShader")
+			{
+				tempShader.vertexShaderDirectory = tempAttri.value;
+			}
+
+			else if (tempAttri.name == "FragmentShader")
+			{
+				tempShader.fragmentShaderDirectory = tempAttri.value;
+			}
+		}
+
+		tempShader.name = branch->branchName;
+		this->addShader(tempShader.name, tempShader);
+	}
 }
 
 bool ResourcePool::addMesh(string meshName, Mesh* mesh)
@@ -415,7 +482,7 @@ Mesh* ResourcePool::retrieveMesh(string resourceName)
 
 bool ResourcePool::addTexture(string textureName, string directory)
 {
-	map<string, string>::iterator it = textureContainer.find(textureName);
+	map<string, unsigned>::iterator it = textureContainer.find(textureName);
 
 	// If a mesh of the same name is found
 	if (it != textureContainer.end())
@@ -425,15 +492,15 @@ bool ResourcePool::addTexture(string textureName, string directory)
 
 	else
 	{
-		textureContainer.insert(std::pair<string, string>(textureName, directory));
+		textureContainer.insert(std::pair<string, unsigned>(textureName, LoadTGA(directory.c_str())));
 
 		return true;
 	}
 }
 
-string ResourcePool::retrieveTexture(string textureName)
+unsigned ResourcePool::retrieveTexture(string textureName)
 {
-	map<string, string>::iterator it = textureContainer.find(textureName);
+	map<string, unsigned>::iterator it = textureContainer.find(textureName);
 
 	if (it != textureContainer.end())
 	{
@@ -503,11 +570,59 @@ SHADER ResourcePool::retrieveShader(string shaderName)
 	return SHADER();
 }
 
+bool ResourcePool::addHeightmap(string heightmapName, HEIGHTMAP heightmap)
+{
+	map<string, HEIGHTMAP>::iterator it = heightmapContainer.find(heightmapName);
+
+	// If a mesh of the same name is found
+	if (it != heightmapContainer.end())
+	{
+		return false;
+	}
+
+	else
+	{
+		heightmapContainer.insert(std::pair<string, HEIGHTMAP>(heightmapName, heightmap));
+
+		return true;
+	}
+}
+
+HEIGHTMAP ResourcePool::retrieveHeightmap(string heightmapName)
+{
+	map<string, HEIGHTMAP>::iterator it = heightmapContainer.find(heightmapName);
+
+	if (it != heightmapContainer.end())
+	{
+		return it->second;
+	}
+
+	return HEIGHTMAP();
+}
+
 void ResourcePool::cleanUp(void)
 {
-	for (map<string, Mesh*>::iterator it = meshContainer.begin(); it != meshContainer.end(); ++it)
+	map<string, Mesh*>::iterator it = meshContainer.begin();
+
+	while (it != meshContainer.end())
 	{
-		delete it->second;
-		meshContainer.erase(it);
+		if (it->second)
+		{
+			map<string, Mesh*>::iterator toErase = it;
+			++it;
+			meshContainer.erase(toErase);
+		}
+
+		else
+		{
+			++it;
+		}
 	}
+
+	meshContainer.clear();
+	textureContainer.clear();
+	colorContainer.clear();
+	shaderContainer.clear();
+	heightmapContainer.clear();
+	// soundContainer.clear();
 }

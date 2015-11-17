@@ -1,5 +1,4 @@
 #include "Application.h"
-//#include "IOManager.h"
 
 int Application::windowWidth = 1;
 int Application::windowHeight = 1;
@@ -186,7 +185,8 @@ void Application::Config(void)
 
 		else if (branch->branchName == "ResourceConfig")
 		{
-			this->gameStateManager->InitResources(branch->attributes[FIRST].value);
+			this->gameStateConfig = branch->attributes[FIRST].value;
+			//this->gameStateManager->InitResources(branch->attributes[FIRST].value);
 		}
 	}
 }
@@ -197,10 +197,6 @@ void Application::Init(string config)
 	this->mouse = new Mouse();
 	this->keyboard = new Keyboard();
 	this->gameStateManager = new GameStateManager();
-
-	engineBranch = TextTree::FileToRead(config);
-
-	Config();
 
 	//Set the error callback
 	glfwSetErrorCallback(error_callback);
@@ -217,6 +213,10 @@ void Application::Init(string config)
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3); //Request a specific OpenGL version
 	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // To make MacOS happy; should not be needed
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); //We don't want the old OpenGL 
+
+	engineBranch = TextTree::FileToRead(config);
+
+	Config();
 
 	//Create a window and create its OpenGL context
 	const char* title = windowTitle.c_str();
@@ -266,8 +266,9 @@ void Application::Init(string config)
 	m_dAccumulatedTime_ThreadTwo = 0.0;
 
 	// Init the GameState Manager
-	gameStateManager->Init(windowTitle, windowWidth, windowHeight);
-	//gameStateManager->PushState(MenuState::Instance());
+	this->gameStateManager->Init(windowTitle, windowWidth, windowHeight);
+	this->gameStateManager->InitResources(gameStateConfig);
+	//this->gameStateManager->PushState(MenuState::Instance());
 }
 
 // main game loop

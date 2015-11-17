@@ -3,259 +3,30 @@
 {
 	[NAME] MeshConfig
 	{
-		[NAME] GEO_FONT
+		[NAME] FONT
 		[Type] Text
 		[TextRow] 16
 		[TextCol] 16
-		[Texture] Image\\albaFont.tga
 	}
 	{
-		[NAME] GEO_CURSOR
+		[NAME] CURSOR
 		[Type] Quad
-		[Texture] Image\\cursorDefault.tga
 	}
 	{
-		[NAME] GEO_PLAYER
-		[Type] SpriteAnimation
-		[SpriteRow] 4
-		[SpriteCol] 6
-		[Texture] Image\\playerSprite.tga
-		
-		# Init all animations in the sprite 
-		{
-			[NAME] IDLE_UP
-			[ID] 0
-			[StartFrame] 4
-			[EndFrame] 4
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] IDLE_DOWN
-			[ID] 1
-			[StartFrame] 1
-			[EndFrame] 1
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] IDLE_LEFT
-			[ID] 2
-			[StartFrame] 13
-			[EndFrame] 13
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] IDLE_RIGHT
-			[ID] 3
-			[StartFrame] 16
-			[EndFrame] 16
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] WALK_UP
-			[ID] 4
-			[StartFrame] 3
-			[EndFrame] 5
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] WALK_DOWN
-			[ID] 5
-			[StartFrame] 0
-			[EndFrame] 2
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] WALK_LEFT
-			[ID] 6
-			[StartFrame] 12
-			[EndFrame] 14
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] WALK_RIGHT
-			[ID] 7
-			[StartFrame] 15
-			[EndFrame] 17
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] RUN_UP
-			[ID] 8
-			[StartFrame] 9
-			[EndFrame] 11
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] RUN_DOWN
-			[ID] 9
-			[StartFrame] 6
-			[EndFrame] 8
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] RUN_LEFT
-			[ID] 10
-			[StartFrame] 18
-			[EndFrame] 20
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-		{
-			[NAME] RUN_RIGHT
-			[ID] 11
-			[StartFrame] 21
-			[EndFrame] 23
-			[Repeat] true
-			[Pause] false
-			[AnimationTime] 1.0
-		}
-	}
-	#{
-	#	[NAME] GEO_TILESHEET
-	#	[Type] TileSheet
-	#	[TileRow] 25
-	#	[TileCol] 41
-	#	[Texture] Image\\Prison.tga
-	#}
-	{
-		[NAME] GEO_MOON
-		[Type] Quad
-		[Texture] Image\\Moon.tga
+		# InnerRadius = PlanetRadius, OuterRadius = AtmosphereRadius
+		# TileRow = hTile, TileCol = vTile	
+		[NAME] SKYPLANE
+		[Type] Skyplane
+		[InnerRadius] 2000
+		[OuterRadius] 4000
+		[TileRow] 1
+		[TileCol] 1
 	}
 	{
-		[NAME] GEO_SUN
-		[Type] Quad
-		[Texture] Image\\Sun.tga
+		[NAME] TERRAIN
+		[Type] Terrain
+		[Directory] Config\\Resources\\Texture\\heightmap.raw
 	}
-	{
-		[NAME] GEO_DEBUGQUAD
-		[Type] DebugQuad
-		[Length] 1
-		[ColorName] Red
-	}
-	{
-		[NAME] GEO_DEBUGCIRCLE
-		[Type] DebugCircle
-		[Slices] 36
-	}
-	{
-		[NAME] GEO_FOV_CLEAR
-		[Type] Quad
-		[Texture] Image\\FOV_Clear.tga
-	}
-	{
-		[NAME] GEO_FOV_SEMI
-		[Type] Quad
-		[Texture] Image\\FOV_SemiSolid.tga
-	}
-	{
-		[NAME] GEO_FOV_SOLID
-		[Type] Quad
-		[Texture] Image\\FOV_Solid.tga
-	}
-	{
-		[NAME] GEO_FOV_GUARD
-		[Type] Quad
-		[Texture Image\\FOV_Guard.tga
-	}
-	# Player's Inventory (UI)
-	{
-		[NAME] Inventory_Box
-		[Type] Quad
-		[Texture] Image\\ui_inventory_box.tga
-	}
-	
-	# Weapons
-	{
-		[NAME] ITEM_DUMBBELL
-		[Type] Quad
-		[Texture] Image\\Item\\item_dumbbell.tga
-	}
-	{
-		[NAME] ITEM_BATON
-		[Type] Quad
-		[Texture] Image\\Item\\item_baton.tga
-	}
-	{
-		[NAME] ITEM_TASER
-		[Type] Quad
-		[Texture] Image\\Item\\item_taser.tga
-	}
-	# Clothes
-	{
-		[NAME] ITEM_PRISONER
-		[Type] Quad
-		[Texture] Image\\Item\\item_prisoner.tga
-	}
-	{
-		[NAME] ITEM_GUARD
-		[Type] Quad
-		[Texture] Image\\Item\\item_guard.tga
-	}
-	{
-		[NAME] ITEM_VEST
-		[Type] Quad
-		[Texture] Image\\Item\\item_vest.tga
-	}
-	# Misc
-	{
-		[NAME] ITEM_FORK
-		[Type] Quad
-		[Texture] Image\\Item\\item_fork.tga
-	}
-	{
-		[NAME] ITEM_KEY
-		[Type] Quad
-		[Texture] Image\\Item\\item_key.tga
-	}
-	{
-		[NAME] ITEM_ACCESSCARD
-		[Type] Quad
-		[Texture] Image\\Item\\item_accesscard.tga
-	}
-	{
-		[NAME] ITEM_MATCHES
-		[Type] Quad
-		[Texture] Image\\Item\\item_matches.tga
-	}
-	{
-		[NAME] ITEM_TORCHLIGHT
-		[Type] Quad
-		[Texture] Image\\Item\\item_torchlight.tga
-	}
-	{
-		[NAME] ITEM_NOTES
-		[Type] Quad
-		[Texture] Image\\Item\\item_notes.tga
-	}
-	# Dialog Bubble
-	{
-		[NAME] GEO_BUBBLE
-		[Type] Quad
-		[Texture] Image\\chatBalloon.tga
-	}
-
 }
 
 # Types available
@@ -264,6 +35,7 @@
 # Circle
 # DebugQuad
 # DebugCircle
+# Skyplane
 # Sphere
 # Obj
 # Text

@@ -84,8 +84,15 @@ void static stringToBool(string text, bool &boo)
 
 struct SHADER
 {
+	string name = "";
 	string vertexShaderDirectory = "";
 	string fragmentShaderDirectory = "";
+};
+
+struct HEIGHTMAP
+{
+	vector <unsigned char> heightMap;
+	string name = "";
 };
 
 class ResourcePool
@@ -98,17 +105,19 @@ public:
 	void Config();
 
 	Mesh* retrieveMesh(string resourceName);
-	string retrieveTexture(string textureName);
+	unsigned retrieveTexture(string textureName);
 	Color retrieveColor(string colorName);
 	SHADER retrieveShader(string shaderName);
+	HEIGHTMAP retrieveHeightmap(string heightmapName);
 	// Sound retrieveSound(string soundName);
 
 	void cleanUp(void);
 private:
 	map<string, Mesh*> meshContainer;
-	map<string, string> textureContainer;
+	map<string, unsigned> textureContainer;
 	map<string, Color> colorContainer;
 	map<string, SHADER> shaderContainer;
+	map<string, HEIGHTMAP> heightmapContainer;
 	// map<string, Sound> soundContanier;
 
 	void processMesh(string config);
@@ -121,6 +130,7 @@ private:
 	bool addTexture(string textureName, string directory);
 	bool addColor(string colorName, Color color);
 	bool addShader(string shaderName, SHADER shader);
+	bool addHeightmap(string heightmapName, HEIGHTMAP heightmap);
 	// void addSound(string soundName, Sound sound);
 
 	Branch resourceBranch;

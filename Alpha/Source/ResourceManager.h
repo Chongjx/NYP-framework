@@ -12,7 +12,7 @@ public:
 	void Init(ResourcePool* resourcePool);
 
 	Mesh* retrieveMesh(string name);
-	string retrieveTexture(string name);
+	unsigned retrieveTexture(string name);
 	Color retrieveColor(string name);
 	SHADER retrieveShader(string name);
 	// Sound retrieveSound(string name);

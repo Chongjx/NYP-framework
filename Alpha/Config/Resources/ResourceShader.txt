@@ -1,0 +1,35 @@
+# Scenesetup #
+# Init all the possible shaders used in the game here#
+{
+	[NAME] ShaderConfig
+	{
+		[NAME] Comg
+		[VertexShader] Config\\Resources\\Shader\\comg.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\comg.fragmentShader
+	}
+	{
+		[NAME] Fog
+		[VertexShader] Config\\Resources\\Shader\\Fog.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\Fog.fragmentShader
+	}
+	{
+		[NAME] GPass
+		[VertexShader] Config\\Resources\\Shader\\GPass.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\GPass.fragmentShader
+	}
+	{
+		[NAME] Shading
+		[VertexShader] Config\\Resources\\Shader\\Shading.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\Shading.fragmentShader
+	}
+	{
+		[NAME] Shadow
+		[VertexShader] Config\\Resources\\Shader\\Shadow.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\Shadow.fragmentShader
+	}
+	{
+		[NAME] TextOnly
+		[VertexShader] Config\\Resources\\Shader\\TextOnly.vertexshader
+		[FragmentShader] Config\\Resources\\Shader\\TextOnly.fragmentShader
+	}
+}
