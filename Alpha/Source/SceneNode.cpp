@@ -24,7 +24,7 @@ void SceneNode::AddChildNode(SceneNode *childNode)
 {
 	childNode->SetParentNode(this);
 
-	this->childeNodes.push_back(childNode);
+	this->childNodes.push_back(childNode);
 }
 
 void SceneNode::AddChildToChildNode(string childName, SceneNode *childNode)
@@ -34,16 +34,23 @@ void SceneNode::AddChildToChildNode(string childName, SceneNode *childNode)
 
 SceneNode* SceneNode::GetChildNode(string childName)
 {
-	for (int i = 0; i < childeNodes.size(); ++i)
+	SceneNode *resultNode;
+
+	for (int i = 0; i < childNodes.size(); ++i)
 	{
-		if (childeNodes[i]->GetGameObject()->getName() == childName)
+		if (childNodes[i]->GetGameObject()->getName() == childName)
 		{
-			return childeNodes[i];
+			return childNodes[i];
 		}
 
-		else
+		else if (childNodes[i]->childNodes.size() > 0)
 		{
-			return childeNodes[i]->GetChildNode(childName);
+			resultNode = childNodes[i]->GetChildNode(childName);
+
+			if (resultNode != NULL)
+			{
+				return resultNode;
+			}
 		}
 	}
 

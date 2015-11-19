@@ -22,7 +22,7 @@ public:
 protected:
 	GameObject3D* gameObject3D;
 	SceneNode *parentNode;
-	vector<SceneNode*> childeNodes;
+	vector<SceneNode*> childNodes;
 };
 
 #endif
