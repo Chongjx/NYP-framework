@@ -15,11 +15,11 @@ SceneManager::~SceneManager()
 
 void SceneManager::Init(const int width, const int height, ResourcePool* RM)
 {
-	this->sceneWidth = width;
-	this->sceneHeight = height;
+	this->sceneWidth = (float)width;
+	this->sceneHeight = (float)height;
 	this->resourceManager.Init(RM);
 
-	glClearColor(1.0f, 1.0f, 1.0f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
 	// Accept fragment if it closer to the camera than the former one

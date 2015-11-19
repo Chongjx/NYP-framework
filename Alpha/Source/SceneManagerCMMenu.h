@@ -23,9 +23,6 @@ public:
 	void RenderBG();
 	void RenderStaticObject();
 	void RenderMobileObject();
-
-private:
-	Mesh* menuMesh;
 };
 
 #endif

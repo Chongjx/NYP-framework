@@ -23,9 +23,6 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	projectionStack.LoadMatrix(perspective);
 
 	lightEnabled = true;
-
-	menuMesh = resourceManager.retrieveMesh("MENU_BG");
-	menuMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
 }
 
 void SceneManagerCMMenu::Update(double dt)
@@ -152,9 +149,18 @@ void SceneManagerCMMenu::RenderBG()
 
 void SceneManagerCMMenu::RenderStaticObject()
 {
-	//modelStack.PushMatrix();
-	Render2DMesh(menuMesh, false, Vector2(100, 100), Vector2(0, 0), 0);
-	//modelStack.PopMatrix();
+	Mesh* drawMesh = resourceManager.retrieveMesh("MENU_BG");
+	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
+
+	modelStack.PushMatrix();
+	modelStack.Translate(500, 500, 0);
+	modelStack.Scale(1000, 1000, 1000);
+	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(986, 500), 0);
+	modelStack.PopMatrix();
+
+	drawMesh = resourceManager.retrieveMesh("FONT");
+	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
+	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Pink"), 200, 100, 500, 0);
 }
 
 void SceneManagerCMMenu::RenderMobileObject()
