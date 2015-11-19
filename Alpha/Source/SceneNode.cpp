@@ -46,6 +46,8 @@ SceneNode* SceneNode::GetChildNode(string childName)
 			return childeNodes[i]->GetChildNode(childName);
 		}
 	}
+
+	return NULL;
 }
 
 GameObject3D* SceneNode::GetGameObject()
