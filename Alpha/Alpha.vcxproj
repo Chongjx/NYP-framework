@@ -117,7 +117,7 @@
     <ClCompile Include="Source\SceneManagerCMMenu.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
-    <ClCompile Include="Source\SoundManager.cpp" />
+    <ClCompile Include="Source\SoundPool.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
     <ClCompile Include="Source\StaticGameObject.cpp" />
     <ClCompile Include="Source\TileSheet.cpp" />
@@ -168,7 +168,7 @@
     <ClInclude Include="Source\SceneManagerSelection.h" />
     <ClInclude Include="Source\SceneNode.h" />
     <ClInclude Include="Source\shader.hpp" />
-    <ClInclude Include="Source\SoundManager.h" />
+    <ClInclude Include="Source\SoundPool.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
     <ClInclude Include="Source\StaticGameObject.h" />
     <ClInclude Include="Source\TileSheet.h" />

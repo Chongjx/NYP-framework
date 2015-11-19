@@ -28,6 +28,9 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 void SceneManagerCMMenu::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
+	
+	/*Uncomment the following line to play sound*/
+	//resourceManager.retrieveSound("MenuFeedback");
 
 	fpCamera.Update(dt, 0);
 }

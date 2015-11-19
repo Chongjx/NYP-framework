@@ -174,9 +174,6 @@
     <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Managers\Others</Filter>
     </ClCompile>
-    <ClCompile Include="Source\SoundManager.cpp">
-      <Filter>Managers\Others</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MenuStateCM.cpp">
       <Filter>States\StatesCM</Filter>
     </ClCompile>
@@ -191,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManager.cpp">
       <Filter>Managers\SceneManagers\Template</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SoundPool.cpp">
+      <Filter>Handlers\Resource Handler</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,9 +302,6 @@
     <ClInclude Include="Source\ResourceManager.h">
       <Filter>Managers\Others</Filter>
     </ClInclude>
-    <ClInclude Include="Source\SoundManager.h">
-      <Filter>Managers\Others</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MenuState.h">
       <Filter>States\Template</Filter>
     </ClInclude>
@@ -343,6 +340,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManagerSelection.h">
       <Filter>Managers\SceneManagers\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SoundPool.h">
+      <Filter>Handlers\Resource Handler</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
