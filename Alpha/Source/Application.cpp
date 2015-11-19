@@ -268,7 +268,7 @@ void Application::Init(string config)
 	// Init the GameState Manager
 	this->gameStateManager->Init(windowTitle, windowWidth, windowHeight);
 	this->gameStateManager->InitResources(gameStateConfig);
-	//this->gameStateManager->PushState(MenuState::Instance());
+	this->gameStateManager->PushState(MenuStateCM::Instance());
 }
 
 // main game loop
@@ -295,6 +295,7 @@ void Application::Run(void)
 			
 			m_dAccumulatedTime_ThreadOne = 0.0;
 		}
+
 		if (m_dAccumulatedTime_ThreadTwo > 1.0)
 		{
 			m_dAccumulatedTime_ThreadTwo = 0.0;
@@ -305,6 +306,7 @@ void Application::Run(void)
 		{
 			gameStateManager->Draw();
 		}
+
 		//Swap buffers
 		glfwSwapBuffers(m_window);
 		//Get and organize events, like keyboard and mouse input, window resizing, etc...
@@ -313,7 +315,10 @@ void Application::Run(void)
 	}
 
 	// Delete the scene
-	gameStateManager->CleanUp();
+	if (gameStateManager->validCheck())
+	{
+		gameStateManager->CleanUp();
+	}
 }
 
 // clean up

@@ -14,6 +14,8 @@
 #include "Keyboard.h"
 #include "GameStateManager.h"
 
+#include "MenuStateCM.h"
+
 #define FIRST 0
 
 using std::string;

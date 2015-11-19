@@ -3,6 +3,10 @@
 
 #include <vector>
 #include <string>
+
+#include "SceneManagerSelection.h"
+#include "SceneManagerGameplay.h"
+#include "SceneManagerInfo.h"
 #include "ResourcePool.h"
 
 using std::vector;

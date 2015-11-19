@@ -6,14 +6,10 @@
 class GameState
 {
 public:
-	virtual void Init() = 0;
-	virtual void Init(const int width, const int height) = 0;
+	virtual void Init(const int width, const int height, ResourcePool* RP) = 0;
 	virtual void CleanUp() = 0;
 
 	virtual void Config() = 0;
-
-	virtual void Pause() = 0;
-	virtual void Resume() = 0;
 
 	virtual void HandleEvents(GameStateManager* gameStateManager) = 0;
 	virtual void HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status = true) = 0;
@@ -21,40 +17,54 @@ public:
 	virtual void HandleEvents(GameStateManager* gameStateManager, const double yaw, const double pitch) = 0;
 	
 	virtual void Update(GameStateManager* gameStateManager) = 0;
-	virtual void Update(GameStateManager* gameStateManager, const double m_dElapsedTime) = 0;
+	virtual void Update(GameStateManager* gameStateManager, const double dt) = 0;
 	
 	virtual void Draw(GameStateManager* gameStateManager) = 0;
 
-	void ChangeState(GameStateManager* gameStateManager, GameState* state)
+	virtual void Pause()
+	{
+		this->update = false;
+		this->draw = false;
+	}
+
+	virtual void Resume()
+	{
+		this->update = true;
+		this->draw = true;
+	}
+
+	virtual void ChangeState(GameStateManager* gameStateManager, GameState* state)
 	{
 		gameStateManager->ChangeState(state);
 	}
 
-	void PushState(GameStateManager* gameStateManager, GameState* state)
+	virtual void PushState(GameStateManager* gameStateManager, GameState* state)
 	{
 		gameStateManager->PushState(state);
 	}
 
-	void PopState(GameStateManager* gameStateManager, GameState* state)
+	virtual void PopState(GameStateManager* gameStateManager, GameState* state)
 	{
 		gameStateManager->PopState(state);
 	}
 
-	void SetName(string stateName)
+	virtual void SetName(string stateName)
 	{
 		this->stateName = stateName;
 	}
 
-	string GetName(void)
+	virtual string GetName(void)
 	{
 		return stateName;
 	}
 
 protected:
-	GameState();
-	virtual ~GameState();
+	GameState() {}
+	virtual ~GameState() {}
 
 	string stateName;
+	bool update;
+	bool draw;
 };
 
 #endif

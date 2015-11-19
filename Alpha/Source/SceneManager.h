@@ -2,20 +2,24 @@
 #define SCENE_MANAGER_H
 
 #include "Scene.h"
+#include "GL\glew.h"
+#include "shader.hpp"
 #include "Mtx44.h"
 #include "FPCamera.h"
 #include "TPCamera.h"
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-#include "Fog.h"
 
-#include "ResourceManager.h"
+#include "Button2D.h"
+#include "Button3D.h"
+
 #include "InputManager.h"
 #include "SoundManager.h"
 
 class SceneManager : public Scene
 {
+public:
 	enum UNIFORM_TYPE
 	{
 		U_MVP = 0,
@@ -49,12 +53,22 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	virtual void Init();
+	virtual void Init(const int width, const int height, ResourcePool* RP);
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
 
+	virtual void InitShader();
+	virtual void RenderLight();
+
+	void RenderText(Mesh* mesh, std::string text, Color color);
+	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, float rotation = 0.f);
+	void Render3DMesh(Mesh *mesh, bool enableLight);
+	void Render2DMesh(Mesh *mesh, const bool enableLight, const Vector2 size, const Vector2 pos, const float rotation = 0.f);
 protected:
+	float sceneWidth;
+	float sceneHeight;
+
 	unsigned vertexArrayID;
 	unsigned programID;
 	vector<unsigned> parameters;

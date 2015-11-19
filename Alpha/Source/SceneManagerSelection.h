@@ -3,11 +3,48 @@
 
 #include "SceneManager.h"
 
-class SceneManagerSelection// : public SceneManager
+class SceneManagerSelection : public SceneManager
 {
+protected:
+	vector<Button2D> interactiveButtons;
+
 public:
-	SceneManagerSelection();
-	~SceneManagerSelection();
+	SceneManagerSelection() {}
+	virtual ~SceneManagerSelection() {}
+
+	virtual void Init(const int width, const int height, ResourcePool* RP)
+	{
+		SceneManager::Init(width, height, RP);
+
+		interactiveButtons.clear();
+	}
+
+	virtual void Update(double dt)
+	{
+		SceneManager::Update(dt);
+	}
+
+	virtual void Render()
+	{
+		SceneManager::Render();
+	}
+
+	virtual void Exit()
+	{
+		interactiveButtons.clear();
+
+		SceneManager::Exit();
+	}
+
+	virtual void InitShader() {}
+	virtual void InitLight() {}
+
+	virtual void RenderLight() {}
+	virtual void RenderBG() {}
+	virtual void RenderStaticObject() {}
+	virtual void RenderMobileObject() {}
+
+	virtual void UpdateSelection() {}
 };
 
 #endif

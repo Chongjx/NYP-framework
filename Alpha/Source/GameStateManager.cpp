@@ -90,7 +90,7 @@ void GameStateManager::ChangeState(GameState* state)
 
 	// store and init the new state
 	statesStack.push_back(state);
-	statesStack.back()->Init(windowWidth, windowHeight);
+	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool);
 }
 
 void GameStateManager::PushState(GameState* state)
@@ -102,7 +102,7 @@ void GameStateManager::PushState(GameState* state)
 
 	// store and init the new state
 	statesStack.push_back(state);
-	statesStack.back()->Init(windowWidth, windowHeight);
+	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool);
 }
 
 void GameStateManager::PopState(GameState* state)
