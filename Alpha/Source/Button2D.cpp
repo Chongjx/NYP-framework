@@ -64,6 +64,44 @@ void Button2D::Update(bool pressed, Vector2 mouse)
 	prevStatus = status;
 }
 
+void Button2D::Update(bool pressed, double mouseX, double mouseY)
+{
+	// update Button2D status based on mouse position
+
+	if (mouseX < this->position.x + this->scale.x && mouseX > this->position.x)
+	{
+		if (mouseY < this->position.y + this->scale.y && mouseY > this->position.y)
+		{
+			if (prevStatus == BUTTON_PRESSED)
+			{
+				this->status = BUTTON_RELEASED;
+			}
+
+			else if (pressed)
+			{
+				this->status = BUTTON_PRESSED;
+			}
+
+			else
+			{
+				this->status = BUTTON_HOVER;
+			}
+		}
+
+		else
+		{
+			this->status = BUTTON_IDLE;
+		}
+	}
+
+	else
+	{
+		this->status = BUTTON_IDLE;
+	}
+
+	prevStatus = status;
+}
+
 void Button2D::setName(string name)
 {
 	this->name = name;

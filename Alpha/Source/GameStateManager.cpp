@@ -7,7 +7,8 @@ GameStateManager::GameStateManager() :
 	windowHeight(1080),
 	running(true),
 	fullscreen(false),
-	resourcePool(NULL)
+	resourcePool(NULL),
+	controls(NULL)
 {
 }
 
@@ -25,6 +26,12 @@ GameStateManager::~GameStateManager()
 		resourcePool->cleanUp();
 		delete resourcePool;
 		resourcePool = NULL;
+	}
+
+	if (controls)
+	{
+		delete controls;
+		controls = NULL;
 	}
 }
 
@@ -52,6 +59,12 @@ void GameStateManager::InitResources(string config)
 	resourcePool->Init(config);
 }
 
+void GameStateManager::InitControls(string config)
+{
+	this->controls = new InputManager();
+	this->controls->Init(config);
+}
+
 void GameStateManager::CleanUp()
 {
 	// Cleanup all the states
@@ -67,6 +80,12 @@ void GameStateManager::CleanUp()
 		resourcePool->cleanUp();
 		delete resourcePool;
 		resourcePool = NULL;
+	}
+
+	if (controls)
+	{
+		delete controls;
+		controls = NULL;
 	}
 }
 
@@ -90,7 +109,7 @@ void GameStateManager::ChangeState(GameState* state)
 
 	// store and init the new state
 	statesStack.push_back(state);
-	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool);
+	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool, this->controls);
 }
 
 void GameStateManager::PushState(GameState* state)
@@ -102,7 +121,7 @@ void GameStateManager::PushState(GameState* state)
 
 	// store and init the new state
 	statesStack.push_back(state);
-	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool);
+	statesStack.back()->Init(this->windowWidth, this->windowHeight, this->resourcePool, this->controls);
 }
 
 void GameStateManager::PopState(GameState* state)

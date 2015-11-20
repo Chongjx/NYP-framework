@@ -6,7 +6,7 @@
 class GameState
 {
 public:
-	virtual void Init(const int width, const int height, ResourcePool* RP) = 0;
+	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls) = 0;
 	virtual void CleanUp() = 0;
 
 	virtual void Config() = 0;

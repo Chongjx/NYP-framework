@@ -32,6 +32,7 @@ public:
 	void Init();
 	void Init(string title, int width, int height, bool run = true, bool fullScreen = false);
 	void InitResources(string config);
+	void InitControls(string config);
 	void Config();
 
 	void CleanUp();
@@ -53,6 +54,7 @@ public:
 	void Quit(void);
 
 	ResourcePool* resourcePool;
+	InputManager* controls;
 };
 
 #endif

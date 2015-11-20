@@ -29,6 +29,7 @@ public:
 	void Init(string name, string text, Mesh* mesh, Vector2 pos, Vector2 scale, float rotation, Color textColor, BUTTON_TYPE type, BUTTON_STATUS status = BUTTON_IDLE);
 
 	void Update(bool pressed, Vector2 mouse);
+	void Update(bool pressed, double mouseX, double mouseY);
 
 	void setName(string name);
 	void setText(string text);

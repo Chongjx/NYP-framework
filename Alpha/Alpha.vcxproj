@@ -109,12 +109,12 @@
     <ClCompile Include="Source\Mouse.cpp" />
     <ClCompile Include="Source\OBB2D.cpp" />
     <ClCompile Include="Source\OBB3D.cpp" />
-    <ClCompile Include="Source\OptionStateCM.cpp" />
     <ClCompile Include="Source\PlayStateCM.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourcePool.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneManagerCMMenu.cpp" />
+    <ClCompile Include="Source\SceneManagerCMPlay.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SoundPool.cpp" />
@@ -155,7 +155,6 @@
     <ClInclude Include="Source\OBB2D.h" />
     <ClInclude Include="Source\OBB3D.h" />
     <ClInclude Include="Source\OptionState.h" />
-    <ClInclude Include="Source\OptionStateCM.h" />
     <ClInclude Include="Source\PlayState.h" />
     <ClInclude Include="Source\PlayStateCM.h" />
     <ClInclude Include="Source\ResourceManager.h" />
@@ -163,6 +162,7 @@
     <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneManagerCMMenu.h" />
+    <ClInclude Include="Source\SceneManagerCMPlay.h" />
     <ClInclude Include="Source\SceneManagerGameplay.h" />
     <ClInclude Include="Source\SceneManagerInfo.h" />
     <ClInclude Include="Source\SceneManagerSelection.h" />
@@ -175,6 +175,22 @@
     <ClInclude Include="Source\TPCamera.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Config\AppConfig.txt" />
+    <Text Include="Config\GameStateConfig\MenuConfig.txt" />
+    <Text Include="Config\GameStateConfig\OptionConfig.txt" />
+    <Text Include="Config\GameStateConfig\PauseConfig.txt" />
+    <Text Include="Config\GameStateConfig\PlayConfig.txt" />
+    <Text Include="Config\InputConfig.txt" />
+    <Text Include="Config\InterfaceConfig.txt" />
+    <Text Include="Config\MouseConfig.txt" />
+    <Text Include="Config\Resources\ResourceColor.txt" />
+    <Text Include="Config\Resources\ResourceMesh.txt" />
+    <Text Include="Config\Resources\ResourcePoolConfig.txt" />
+    <Text Include="Config\Resources\ResourceShader.txt" />
+    <Text Include="Config\Resources\ResourceSound.txt" />
+    <Text Include="Config\Resources\ResourceTexture.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

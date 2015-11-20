@@ -5,16 +5,16 @@
 
 class SceneManagerSelection : public SceneManager
 {
-protected:
+public:
 	vector<Button2D> interactiveButtons;
 
 public:
 	SceneManagerSelection() {}
 	virtual ~SceneManagerSelection() {}
 
-	virtual void Init(const int width, const int height, ResourcePool* RP)
+	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
 	{
-		SceneManager::Init(width, height, RP);
+		SceneManager::Init(width, height, RP, controls);
 
 		interactiveButtons.clear();
 	}

@@ -73,6 +73,15 @@
     <Filter Include="Managers\SceneManagers\SceneTest">
       <UniqueIdentifier>{b53880ab-d6fa-4c5c-af30-95a8f0d02c9a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Config">
+      <UniqueIdentifier>{c63fd767-0503-4fe8-a2c6-f74fc0e0ad2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config\Resources">
+      <UniqueIdentifier>{f7d20023-68e0-4380-aa76-d2ed63741aed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Config\State">
+      <UniqueIdentifier>{4ff9688e-f6cf-4a9f-a0f0-bb3550d19669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility.cpp">
@@ -177,9 +186,6 @@
     <ClCompile Include="Source\MenuStateCM.cpp">
       <Filter>States\StatesCM</Filter>
     </ClCompile>
-    <ClCompile Include="Source\OptionStateCM.cpp">
-      <Filter>States\StatesCM</Filter>
-    </ClCompile>
     <ClCompile Include="Source\PlayStateCM.cpp">
       <Filter>States\StatesCM</Filter>
     </ClCompile>
@@ -191,6 +197,9 @@
     </ClCompile>
     <ClCompile Include="Source\SoundPool.cpp">
       <Filter>Handlers\Resource Handler</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManagerCMPlay.cpp">
+      <Filter>Managers\SceneManagers\SceneCM</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -314,9 +323,6 @@
     <ClInclude Include="Source\MenuStateCM.h">
       <Filter>States\StatesCM</Filter>
     </ClInclude>
-    <ClInclude Include="Source\OptionStateCM.h">
-      <Filter>States\StatesCM</Filter>
-    </ClInclude>
     <ClInclude Include="Source\PlayStateCM.h">
       <Filter>States\StatesCM</Filter>
     </ClInclude>
@@ -325,9 +331,6 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManagerCMMenu.h">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Scene.h">
-      <Filter>Managers\SceneManagers\Template</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneManager.h">
       <Filter>Managers\SceneManagers\Template</Filter>
@@ -344,5 +347,55 @@
     <ClInclude Include="Source\SoundPool.h">
       <Filter>Handlers\Resource Handler</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Managers\SceneManagers\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManagerCMPlay.h">
+      <Filter>Managers\SceneManagers\SceneCM</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Config\AppConfig.txt">
+      <Filter>Config</Filter>
+    </Text>
+    <Text Include="Config\InterfaceConfig.txt">
+      <Filter>Config</Filter>
+    </Text>
+    <Text Include="Config\MouseConfig.txt">
+      <Filter>Config</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourceTexture.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourceColor.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourceMesh.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourcePoolConfig.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourceShader.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\Resources\ResourceSound.txt">
+      <Filter>Config\Resources</Filter>
+    </Text>
+    <Text Include="Config\GameStateConfig\MenuConfig.txt">
+      <Filter>Config\State</Filter>
+    </Text>
+    <Text Include="Config\GameStateConfig\OptionConfig.txt">
+      <Filter>Config\State</Filter>
+    </Text>
+    <Text Include="Config\GameStateConfig\PauseConfig.txt">
+      <Filter>Config\State</Filter>
+    </Text>
+    <Text Include="Config\GameStateConfig\PlayConfig.txt">
+      <Filter>Config\State</Filter>
+    </Text>
+    <Text Include="Config\InputConfig.txt">
+      <Filter>Config</Filter>
+    </Text>
   </ItemGroup>
 </Project>

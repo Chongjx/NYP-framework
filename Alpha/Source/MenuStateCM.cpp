@@ -1,4 +1,7 @@
+#include "Application.h"
+
 #include "MenuStateCM.h"
+#include "PlayStateCM.h"
 
 MenuStateCM MenuStateCM::menuState;
 
@@ -12,14 +15,14 @@ MenuStateCM::~MenuStateCM()
 {
 }
 
-void MenuStateCM::Init(const int width, const int height, ResourcePool* RP)
+void MenuStateCM::Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
 {
 	this->update = true;
 	this->draw = true;
 
 	this->scene = new SceneManagerCMMenu();
 
-	scene->Init(width, height, RP);
+	scene->Init(width, height, RP, controls);
 }
 
 void MenuStateCM::CleanUp()
@@ -50,6 +53,29 @@ void MenuStateCM::Resume()
 
 void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
+	if (scene->inputManager->getKey("Select"))
+	{
+		gameStateManager->PushState(PlayStateCM::Instance());
+
+
+	}
+	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
+
+	for (unsigned i = 0; i < scene->interactiveButtons.size(); ++i)
+	{
+		/*if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
+		{
+			if (scene->interactiveButtons[i].getName() == "Play")
+			{
+				gameStateManager->PushState(PlayStateCM::Instance());
+			}
+		}*/
+	}
+
+	/*if (inputManager->getKey("Select"))
+	{
+
+	}*/
 }
 
 void MenuStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)

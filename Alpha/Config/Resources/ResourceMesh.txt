@@ -21,10 +21,15 @@
 		# TileRow = hTile, TileCol = vTile	
 		[NAME] SKYPLANE
 		[Type] Skyplane
+		[Slices] 128
 		[InnerRadius] 2000
 		[OuterRadius] 4000
 		[TileRow] 1
 		[TileCol] 1
+	}
+	{
+		[NAME] FLOOR
+		[Type] Quad
 	}
 	{
 		#[NAME] TERRAIN

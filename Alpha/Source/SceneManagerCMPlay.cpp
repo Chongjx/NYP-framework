@@ -1,20 +1,20 @@
-#include "SceneManagerCMMenu.h"
+#include "SceneManagerCMPlay.h"
 
-SceneManagerCMMenu::SceneManagerCMMenu()
+SceneManagerCMPlay::SceneManagerCMPlay()
 {
 }
 
-SceneManagerCMMenu::~SceneManagerCMMenu()
+SceneManagerCMPlay::~SceneManagerCMPlay()
 {
 }
 
-void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
+void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
 {
-	SceneManagerSelection::Init(width, height, RM, controls);
+	SceneManagerGameplay::Init(width, height, RM, controls);
 
 	this->InitShader();
 
-	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
@@ -25,19 +25,19 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	lightEnabled = true;
 }
 
-void SceneManagerCMMenu::Update(double dt)
+void SceneManagerCMPlay::Update(double dt)
 {
-	SceneManagerSelection::Update(dt);
-	
+	SceneManagerGameplay::Update(dt);
+
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
 
-	fpCamera.Update(dt, 0);
+	tpCamera.Update(dt);
 }
 
-void SceneManagerCMMenu::Render()
+void SceneManagerCMPlay::Render()
 {
-	SceneManagerSelection::Render();
+	SceneManagerGameplay::Render();
 
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
@@ -46,9 +46,9 @@ void SceneManagerCMMenu::Render()
 
 	// Set up the view
 	viewStack.LoadIdentity();
-	viewStack.LookAt(fpCamera.getPosition().x, fpCamera.getPosition().y, fpCamera.getPosition().z,
-		fpCamera.getTarget().x, fpCamera.getTarget().y, fpCamera.getTarget().z,
-		fpCamera.getUp().x, fpCamera.getUp().y, fpCamera.getUp().z);
+	viewStack.LookAt(tpCamera.getPosition().x, tpCamera.getPosition().y, tpCamera.getPosition().z,
+		tpCamera.getTarget().x, tpCamera.getTarget().y, tpCamera.getTarget().z,
+		tpCamera.getUp().x, tpCamera.getUp().y, tpCamera.getUp().z);
 
 	// Model matrix : an identity matrix (model will be at the origin)
 	modelStack.LoadIdentity();
@@ -59,14 +59,14 @@ void SceneManagerCMMenu::Render()
 	RenderMobileObject();
 }
 
-void SceneManagerCMMenu::Exit()
+void SceneManagerCMPlay::Exit()
 {
-	SceneManagerSelection::Exit();
+	SceneManagerGameplay::Exit();
 }
 
 
 // Other specific init, update and render classes
-void SceneManagerCMMenu::InitShader()
+void SceneManagerCMPlay::InitShader()
 {
 	SHADER thisShader = resourceManager.retrieveShader("Comg");
 	programID = LoadShaders(thisShader.vertexShaderDirectory.c_str(), thisShader.fragmentShaderDirectory.c_str());
@@ -136,36 +136,42 @@ void SceneManagerCMMenu::InitShader()
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 }
 
-void SceneManagerCMMenu::InitLight()
+void SceneManagerCMPlay::InitLight()
 {
 }
 
-void SceneManagerCMMenu::RenderLight()
-{
-
-}
-
-void SceneManagerCMMenu::RenderBG()
+void SceneManagerCMPlay::RenderLight()
 {
 
 }
 
-void SceneManagerCMMenu::RenderStaticObject()
+void SceneManagerCMPlay::RenderBG()
 {
-	Mesh* drawMesh = resourceManager.retrieveMesh("MENU_BG");
-	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
 
-	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(1920 *0.5f, 1080 * 0.5f), 0);
-
-	drawMesh = resourceManager.retrieveMesh("FONT");
-	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
-	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Pink"), 75, 400, 550, 0);
 }
 
-void SceneManagerCMMenu::RenderMobileObject()
+void SceneManagerCMPlay::RenderStaticObject()
 {
+	Mesh* drawMesh = resourceManager.retrieveMesh("SKYPLANE");
+	drawMesh->textureID = resourceManager.retrieveTexture("SKYPLANE_TOP");
+
+	modelStack.PushMatrix();
+	modelStack.Translate(0, 2000, 0);
+	Render3DMesh(drawMesh, false);
+	modelStack.PopMatrix();
+
+	drawMesh = resourceManager.retrieveMesh("FLOOR");
+	drawMesh->textureID = resourceManager.retrieveTexture("GRASS");
+
+	modelStack.PushMatrix();
+	modelStack.Rotate(-90, 1, 0, 0);
+	modelStack.Translate(0, 0, -10);
+	modelStack.Rotate(-90, 0, 0, 1);
+	modelStack.Scale(100.0f, 100.0f, 100.0f);
+	Render3DMesh(drawMesh, false);
+	modelStack.PopMatrix();
 }
 
-void SceneManagerCMMenu::UpdateSelection()
+void SceneManagerCMPlay::RenderMobileObject()
 {
 }

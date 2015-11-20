@@ -9,9 +9,35 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::Init()
+void InputManager::Init(string config)
 {
+	inputBranch = TextTree::FileToRead(config);
 
+	Config();
+}
+
+void InputManager::Config()
+{
+	for (vector<Branch>::iterator branch = inputBranch.childBranches.begin(); branch != inputBranch.childBranches.end(); ++branch)
+	{
+		KEYS tempKey;
+
+		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+		{
+			Attribute tempAttri = *attri;
+			string attriName = tempAttri.name;
+			string attriValue = tempAttri.value;
+			
+			tempKey.name = branch->branchName;
+
+			if (attriName == "Key")
+			{
+				tempKey.value = stol(attriValue, NULL, 16);
+			}
+		}
+
+		inputKeys.push_back(tempKey);
+	}
 }
 
 void InputManager::Update()

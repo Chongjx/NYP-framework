@@ -38,7 +38,7 @@ void SoundPool::retrieveSound(string soundName)
 
 	if (it != soundContainer.end())
 	{
-		engine->play2D(it->second.soundDirectory.c_str(),false);
+		engine->play2D(it->second.soundDirectory.c_str(), false);
 	}
 }
 

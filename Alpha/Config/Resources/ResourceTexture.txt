@@ -18,4 +18,8 @@
 		[NAME] MENU_BG
 		[Directory] Config\\Resources\\Texture\\menuBG.tga
 	}
+	{
+		[NAME] GRASS
+		[Directory] Config\\Resources\\Texture\\grass.tga
+	}
 }

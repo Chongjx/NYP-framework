@@ -11,9 +11,9 @@ public:
 	SceneManagerGameplay() {}
 	virtual ~SceneManagerGameplay() {}
 
-	virtual void Init(const int width, const int height, ResourcePool* RP)
+	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
 	{
-		SceneManager::Init(width, height, RP);
+		SceneManager::Init(width, height, RP, controls);
 	}
 
 	virtual void Update(double dt)
@@ -32,7 +32,12 @@ public:
 	}
 
 	virtual void InitShader() {}
+	virtual void InitLight() {}
+
 	virtual void RenderLight() {}
+	virtual void RenderBG() {}
+	virtual void RenderStaticObject() {}
+	virtual void RenderMobileObject() {}
 };
 
 #endif

@@ -178,15 +178,14 @@ void Application::Config(void)
 			this->mouse->Init(branch->attributes[FIRST].value);
 		}
 
-		else if (branch->branchName == "SceneConfig")
+		else if (branch->branchName == "InputConfig")
 		{
-			this->sceneConfig = branch->attributes[FIRST].value;
+			this->inputConfig = branch->attributes[FIRST].value;
 		}
 
 		else if (branch->branchName == "ResourceConfig")
 		{
-			this->gameStateConfig = branch->attributes[FIRST].value;
-			//this->gameStateManager->InitResources(branch->attributes[FIRST].value);
+			this->resourceConfig = branch->attributes[FIRST].value;
 		}
 	}
 }
@@ -258,7 +257,7 @@ void Application::Init(string config)
 	}
 
 	// Hide the cursor
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	// Set these 2 variables to zero
 	m_dElapsedTime = 0.0;
@@ -267,7 +266,8 @@ void Application::Init(string config)
 
 	// Init the GameState Manager
 	this->gameStateManager->Init(windowTitle, windowWidth, windowHeight);
-	this->gameStateManager->InitResources(gameStateConfig);
+	this->gameStateManager->InitResources(resourceConfig);
+	this->gameStateManager->InitControls(inputConfig);
 	this->gameStateManager->PushState(MenuStateCM::Instance());
 }
 

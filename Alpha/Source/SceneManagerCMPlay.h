@@ -1,14 +1,15 @@
-#ifndef SCENE_MANAGER_CM_MENU_H
-#define SCENE_MANAGER_CM_MENU_H
+#ifndef SCENE_MANAGER_CM_PLAY_H
+#define SCENE_MANAGER_CM_PLAY_H
 
-#include "SceneManagerSelection.h"
+#include "SceneManagerGameplay.h"
+#include "SceneNode.h"
 
-class SceneManagerCMMenu : public SceneManagerSelection
+class SceneManagerCMPlay : public SceneManagerGameplay
 {
 public:
-	SceneManagerCMMenu();
-	~SceneManagerCMMenu();
-	
+	SceneManagerCMPlay();
+	~SceneManagerCMPlay();
+
 	void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
 	void Update(double dt);
 	void Render();
@@ -17,8 +18,6 @@ public:
 	void InitShader();
 	void InitLight();
 	void InitCamera();
-
-	void UpdateSelection();
 
 	void RenderLight();
 	void RenderBG();

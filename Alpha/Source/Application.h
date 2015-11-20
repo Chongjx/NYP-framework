@@ -76,8 +76,8 @@ private:
 	bool fullScreen;
 
 	GameStateManager* gameStateManager;
-	string sceneConfig;
-	string gameStateConfig;
+	string inputConfig;
+	string resourceConfig;
 };
 
 #endif

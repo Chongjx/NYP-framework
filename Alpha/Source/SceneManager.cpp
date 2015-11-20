@@ -13,11 +13,12 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::Init(const int width, const int height, ResourcePool* RM)
+void SceneManager::Init(const int width, const int height, ResourcePool* RM, InputManager* controls)
 {
 	this->sceneWidth = (float)width;
 	this->sceneHeight = (float)height;
 	this->resourceManager.Init(RM);
+	this->inputManager = controls;
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 	// Enable depth test
@@ -46,6 +47,8 @@ void SceneManager::RenderLight()
 void SceneManager::Update(double dt)
 {
 	fps = (float)(1.f / dt);
+
+	this->inputManager->Update();
 }
 
 void SceneManager::Render()
@@ -137,6 +140,9 @@ Render a mesh in 3D
 ********************************************************************************/
 void SceneManager::Render3DMesh(Mesh* mesh, bool enableLight)
 {
+	if (!mesh || mesh->textureID <= 0)
+		return;
+
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
 	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
@@ -182,6 +188,9 @@ Render a mesh in 2D
 ********************************************************************************/
 void SceneManager::Render2DMesh(Mesh *mesh, const bool enableLight, const Vector2 scale, const Vector2 pos, const float rotation)
 {
+	if (!mesh || mesh->textureID <= 0)
+		return;
+
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, double(sceneWidth), 0, double(sceneHeight), -100, 100);
 	projectionStack.PushMatrix();

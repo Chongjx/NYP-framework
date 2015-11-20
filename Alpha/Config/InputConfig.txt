@@ -1,0 +1,46 @@
+# Scene setting #
+# Resolution, camera, gameSpeed everything here
+{
+	[NAME] Controls
+	{
+		[NAME] Select
+		[Key] 0x01
+		# [Key] VK_LBUTTON
+	}
+	{
+		[NAME] RSelect
+		[Key] 0x02
+		# [Key] VK_RBUTTON
+	}
+	{
+		[NAME] Up
+		[Key] 0x57
+		# [Key] VK_W
+	}
+	{
+		[NAME] Down
+		[Key] 0x53
+		# [Key] VK_S
+	}
+	{
+		[NAME] Left
+		[Key] 0x41
+		# [Key] VK_A
+	}
+	{
+		[NAME] Right
+		[Key] 0x44
+		# [Key] VK_D
+	}
+	{
+			[NAME] ToggleShift
+		[Key] 0xA0
+		# [Key] VK_LSHIFT
+	}
+	{
+		[NAME] Enter
+		[Key] 0x0D
+		# [Key] VK_RETURN
+	}
+}
+# https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx

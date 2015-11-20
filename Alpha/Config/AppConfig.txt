@@ -24,7 +24,7 @@
 	}
 
 	{
-		[NAME] SceneConfig
-		[Directory] Config\\GameStateConfig\\GameStates.txt
+		[NAME] InputConfig
+		[Directory] Config\\InputConfig.txt
 	}
 }

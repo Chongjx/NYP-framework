@@ -14,8 +14,6 @@
 #include "Button2D.h"
 #include "Button3D.h"
 
-#include "InputManager.h"
-
 class SceneManager : public Scene
 {
 public:
@@ -52,7 +50,7 @@ public:
 	SceneManager();
 	~SceneManager();
 
-	virtual void Init(const int width, const int height, ResourcePool* RP);
+	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
@@ -64,6 +62,8 @@ public:
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, float rotation = 0.f);
 	void Render3DMesh(Mesh *mesh, bool enableLight);
 	void Render2DMesh(Mesh *mesh, const bool enableLight, const Vector2 size, const Vector2 pos, const float rotation = 0.f);
+
+	InputManager* inputManager;
 protected:
 	float sceneWidth;
 	float sceneHeight;
@@ -82,7 +82,6 @@ protected:
 	vector<Light> lights;
 
 	ResourceManager resourceManager;
-	InputManager inputManager;
 
 	bool lightEnabled;
 	float fps;

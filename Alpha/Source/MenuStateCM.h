@@ -11,7 +11,7 @@ private:
 	static MenuStateCM menuState;
 
 public:
-	void Init(const int width, const int height, ResourcePool* RP);
+	void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
 	void CleanUp();
 
 	void Config();
