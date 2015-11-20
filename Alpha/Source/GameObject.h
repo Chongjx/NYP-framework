@@ -48,6 +48,8 @@ protected:
 	bool render;
 	bool reflectLight;
 	bool update;
+	bool collidable;
+
 public:
 	GameObject();
 	~GameObject(void);
@@ -59,6 +61,7 @@ public:
 	virtual void setRender(bool render);
 	virtual void setReflectLight(bool lighting);
 	virtual void setUpdate(bool update);
+	virtual void setCollidable(bool collide);
 
 	virtual Mesh* getMesh(void) const;
 	virtual string getName(void) const;
@@ -67,6 +70,7 @@ public:
 	virtual bool getRender(void) const;
 	virtual bool getReflectLight(void) const;
 	virtual bool getUpdate(void) const;
+	virtual bool getCollidable(void) const;
 };
 
 #endif

@@ -56,6 +56,38 @@ void SceneManager::Render()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
+void SceneManager::PreRender(bool enableLight)
+{
+	Mtx44 MVP, modelView, modelView_inverse_transpose;
+
+	MVP = projectionStack.Top() * viewStack.Top() * modelStack.Top();
+	glUniformMatrix4fv(parameters[U_MVP], 1, GL_FALSE, &MVP.a[0]);
+	if (enableLight && lightEnabled)
+	{
+		glUniform1i(parameters[U_LIGHTENABLED], 1);
+		modelView = viewStack.Top() * modelStack.Top();
+		glUniformMatrix4fv(parameters[U_MODELVIEW], 1, GL_FALSE, &modelView.a[0]);
+		modelView_inverse_transpose = modelView.GetInverse().GetTranspose();
+		glUniformMatrix4fv(parameters[U_MODELVIEW_INVERSE_TRANSPOSE], 1, GL_FALSE, &modelView.a[0]);
+	}
+	else
+	{
+		glUniform1i(parameters[U_LIGHTENABLED], 0);
+	}
+}
+
+void SceneManager::RenderPush(Mtx44 properties)
+{
+	modelStack.PushMatrix();
+	modelStack.LoadMatrix(properties);
+}
+
+void SceneManager::RenderPop()
+{
+	modelStack.PopMatrix();
+}
+
+
 /********************************************************************************
 Render text onto the screen with reference position in the middle of the image
 ********************************************************************************/
