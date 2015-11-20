@@ -2,6 +2,7 @@
 #define TP_CAMERA_H
 
 #include "Camera.h"
+#include "InputManager.h"
 
 class TPCamera : public Camera
 {
@@ -54,6 +55,14 @@ public:
 	float MoveVel_A;
 	float MoveVel_D;
 
+	void calcZoom(void);
+	void calcPitch(void);
+	void calcRotation(void);
+
+	float calcHDist(void);
+	float calcVDist(void);
+	float GetCamAngle(void);
+
 private:
 	bool myKeys[255];
 
@@ -67,6 +76,14 @@ private:
 
 	// Maximum movement speed and acceleration
 	float CAMERA_ACCEL;
+
+	//Offset distance for the camera from the target
+	float m_fTPVCameraOffset = 50.0f;
+	float m_fTPVCameraAngle = 0.f;
+	float m_fTPVCameraPitch = 45.f;
+
+	float pitchChange;
+	float angleChange;
 };
 
 #endif

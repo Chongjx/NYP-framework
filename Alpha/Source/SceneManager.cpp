@@ -49,6 +49,7 @@ void SceneManager::Update(double dt)
 	fps = (float)(1.f / dt);
 
 	this->inputManager->Update();
+	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
 }
 
 void SceneManager::Render()

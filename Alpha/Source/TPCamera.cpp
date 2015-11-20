@@ -2,6 +2,12 @@
 #include "Application.h"
 #include "Mtx44.h"
 
+#define CAM_TPS_HEIGHT_MAX 60.f
+#define CAM_TPS_HEIGHT_MIN -10.f
+#define CAM_ROTATION_SPEED_LIMIT 3.f
+#define CAM_PITCH_SPEED_LIMIT 3.f
+#define CAM_ZOOM_SPEED_LIMIT 15.f
+
 // The default camera speed
 static const float CAMERA_SPEED = 200.f;
 const float m_fTPVCameraOffset = 30.00f;	   // Offset distance for the camera from the target
@@ -139,12 +145,130 @@ void TPCamera::Update(double dt)
 Update the camera for third person view
 Vector3 newPosition is the new position which the camera is to be based on
 ********************************************************************************/
-void TPCamera::UpdatePosition(Vector3 newPosition, Vector3 newDirection)
+void TPCamera::UpdatePosition(Vector3 newPos, Vector3 newDir)
 {
-	position = newPosition - newDirection.Normalized() * m_fTPVCameraOffset;
-	target = newPosition; // + newDirection.Normalized() * m_fTPVCameraOffset;
+	//Controls zoom with MMB
+	if (myKeys[VK_MBUTTON])
+		calcZoom();
+
+	//Rotate and adjust pitch with RMB
+	//if (myKeys[VK_RBUTTON])
+	{
+		//calcPitch();
+		calcRotation();
+	}
+	//else
+	{
+		//pitchChange = 0.f;
+		//angleChange = 0.f;
+	}
+
+	float theta = m_fTPVCameraAngle;
+	float offSet_X = calcHDist() * sin(Math::DegreeToRadian(theta));
+	float offSet_Z = calcHDist() * cos(Math::DegreeToRadian(theta));
+
+	//Target is at player
+	target.x = newPos.x + offSet_X * 2;
+	target.y = newPos.y + 5.f;
+	target.z = newPos.z + offSet_Z * 2;
+
+	//Focus mode
+	//if (myKeys[VK_RBUTTON])
+	//{
+	//	position.x = newPos.x - offSet_X * 0.5f;
+	//	position.y = newPos.y + calcVDist() * 0.5f;
+	//	position.z = newPos.z - offSet_Z * 0.5f;
+	//}
+	//else
+	{
+		position.x = newPos.x - offSet_X;
+		position.y = newPos.y + calcVDist();
+		position.z = newPos.z - offSet_Z;
+	}
 }
 
+void TPCamera::calcZoom(void)
+{
+	float zoomLevel = Application::getMouse()->getDiffPos().y;
+	
+	if (zoomLevel > CAM_ZOOM_SPEED_LIMIT)
+	{
+		zoomLevel = CAM_ZOOM_SPEED_LIMIT;
+	}
+	else if (zoomLevel < -CAM_ZOOM_SPEED_LIMIT)
+	{
+		zoomLevel = -CAM_ZOOM_SPEED_LIMIT;
+	}
+	//Zoom in
+	if (zoomLevel > 0.0 && m_fTPVCameraOffset > 50.f)
+		m_fTPVCameraOffset -= zoomLevel;
+	//Zoom out
+	else if (zoomLevel < 0.0 && m_fTPVCameraOffset < 200.f)
+		m_fTPVCameraOffset -= zoomLevel;
+}
+
+void TPCamera::calcPitch(void)
+{
+	//Pitch inertia
+	//Speed limit
+	//if (pitchChange < CAM_PITCH_SPEED_LIMIT && pitchChange > -CAM_PITCH_SPEED_LIMIT)
+	pitchChange = Application::getMouse()->getDiffPos().y * 0.03f;
+	//std::cout << pitchChange << std::endl;
+	//Slowing down
+	//if (pitchChange != 0.0f && Application::mouse_diff_y == 0.f)
+	//	pitchChange -= pitchChange * 0.25f;
+
+	//Prevent cam from going too low
+	if (Application::getMouse()->getMousePitch() > 0.0)
+	{
+		m_fTPVCameraPitch -= pitchChange;
+
+		if (m_fTPVCameraPitch < CAM_TPS_HEIGHT_MIN)
+			m_fTPVCameraPitch = CAM_TPS_HEIGHT_MIN;
+	}
+	else if (Application::getMouse()->getMousePitch() < 0.0)
+	{
+		m_fTPVCameraPitch -= pitchChange;
+
+		if (m_fTPVCameraPitch > CAM_TPS_HEIGHT_MAX)
+			m_fTPVCameraPitch = CAM_TPS_HEIGHT_MAX;
+	}
+
+}
+
+void TPCamera::calcRotation(void)
+{
+	//Rotation inertia
+	//Speed limit
+	if (angleChange < CAM_ROTATION_SPEED_LIMIT && angleChange > -CAM_ROTATION_SPEED_LIMIT)
+		angleChange += Application::getMouse()->getDiffPos().x * 0.01f;
+
+	//Slowing down
+	if (angleChange != 0.0f && Application::getMouse()->getDiffPos().x == 0.f)
+		angleChange -= angleChange * 0.25f;
+
+	m_fTPVCameraAngle -= angleChange;
+	//360/0 limiter
+	if (m_fTPVCameraAngle > 360.f)
+		m_fTPVCameraAngle = 0.f;
+	else if (m_fTPVCameraAngle < 0.f)
+		m_fTPVCameraAngle = 360.f;
+}
+
+float TPCamera::calcHDist(void)
+{
+	return (float)(m_fTPVCameraOffset * cos(Math::DegreeToRadian(m_fTPVCameraPitch)));
+}
+
+float TPCamera::calcVDist(void)
+{
+	return (float)(m_fTPVCameraOffset * sin(Math::DegreeToRadian(m_fTPVCameraPitch)));
+}
+
+float TPCamera::GetCamAngle(void)
+{
+	return m_fTPVCameraAngle;
+}
 /********************************************************************************
 Update the camera status
 ********************************************************************************/
