@@ -2,6 +2,7 @@
 #define SCENE_NODE_H
 
 #include "GameObject3D.h"
+#include "SceneManager.h"
 
 class SceneNode
 {
@@ -14,6 +15,9 @@ public:
 
 	void AddChildNode(SceneNode *childNode);
 	void AddChildToChildNode(string childName, SceneNode *childNode);
+
+	void Draw(SceneManager *sceneManager);
+	void DrawChild(SceneManager *sceneManager);
 
 	SceneNode* GetChildNode(string childName);
 	

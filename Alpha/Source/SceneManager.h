@@ -60,6 +60,9 @@ public:
 	virtual void InitShader();
 	virtual void RenderLight();
 
+	void PreRender(bool enableLight);
+	void RenderPush(Mtx44 properties);
+	void RenderPop();
 	void RenderText(Mesh* mesh, std::string text, Color color);
 	void RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, float rotation = 0.f);
 	void Render3DMesh(Mesh *mesh, bool enableLight);

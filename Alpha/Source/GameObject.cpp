@@ -46,6 +46,12 @@ void GameObject::setReflectLight(bool lighting)
 	this->reflectLight = lighting;
 }
 
+
+void GameObject::setCollidable(bool collide)
+{
+	this->collidable = collide;
+}
+
 void GameObject::setUpdate(bool update)
 {
 	this->update = update;
@@ -89,4 +95,9 @@ bool GameObject::getReflectLight(void) const
 bool GameObject::getUpdate(void) const
 {
 	return this->update;
+}
+
+bool GameObject::getCollidable(void) const
+{
+	return this->collidable;
 }
