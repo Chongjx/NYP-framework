@@ -12,7 +12,8 @@ ResourcePool::~ResourcePool()
 void ResourcePool::Init(string config)
 {
 	resourceBranch = TextTree::FileToRead(config);
-
+	soundPool = new SoundPool();
+	soundPool->Init();
 	Config();
 }
 
@@ -87,7 +88,7 @@ void ResourcePool::Config()
 				string attriValue = tempAttri.value;
 				if (attriName == "Directory")
 				{
-					processSound(attriValue);
+					soundPool->processSound(attriValue);
 				}
 			}
 		}
@@ -469,31 +470,6 @@ void ResourcePool::processShader(string config)
 	}
 }
 
-void ResourcePool::processSound(string config)
-{
-	Branch soundBranch = TextTree::FileToRead(config);
-
-	for (vector<Branch>::iterator branch = soundBranch.childBranches.begin(); branch != soundBranch.childBranches.end(); ++branch)
-	{
-		SOUND tempSound;
-
-		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
-		{
-			Attribute tempAttri = *attri;
-			string attriName = tempAttri.name;
-			string attriValue = tempAttri.value;
-
-			if (attriName == "Directory")
-			{
-				tempSound.soundDirectory = tempAttri.value;
-			}
-
-			tempSound.name = branch->branchName;
-			this->addSound(tempSound.name, tempSound);
-		}
-	}
-}
-
 bool ResourcePool::addMesh(string meshName, Mesh* mesh)
 {
 	map<string, Mesh*>::iterator it = meshContainer.find(meshName);
@@ -644,35 +620,6 @@ HEIGHTMAP ResourcePool::retrieveHeightmap(string heightmapName)
 	return HEIGHTMAP();
 }
 
-bool ResourcePool::addSound(string soundName, SOUND sound)
-{
-	map<string, SOUND>::iterator it = soundContainer.find(soundName);
-
-	if (it != soundContainer.end())
-	{
-		return false;
-	}
-
-	else
-	{
-		soundContainer.insert(std::pair<string, SOUND>(soundName, sound));
-
-		return true;
-	}
-}
-
-SOUND ResourcePool::retrieveSound(string soundName)
-{
-	map<string, SOUND>::iterator it = soundContainer.find(soundName);
-
-	if (it != soundContainer.end())
-	{
-		return it->second;
-	}
-
-	return SOUND();
-}
-
 void ResourcePool::cleanUp(void)
 {
 	map<string, Mesh*>::iterator it = meshContainer.begin();
@@ -697,5 +644,4 @@ void ResourcePool::cleanUp(void)
 	colorContainer.clear();
 	shaderContainer.clear();
 	heightmapContainer.clear();
-	// soundContainer.clear();
 }

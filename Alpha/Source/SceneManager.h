@@ -15,7 +15,6 @@
 #include "Button3D.h"
 
 #include "InputManager.h"
-#include "SoundManager.h"
 
 class SceneManager : public Scene
 {
@@ -84,7 +83,6 @@ protected:
 
 	ResourceManager resourceManager;
 	InputManager inputManager;
-	SoundManager soundManager;
 
 	bool lightEnabled;
 	float fps;

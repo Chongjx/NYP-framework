@@ -7,6 +7,7 @@
 #include "Vector2.h"
 #include "Vector3.h"
 #include "MeshBuilder.h"
+#include "SoundPool.h"
 
 using std::map;
 
@@ -95,12 +96,6 @@ struct HEIGHTMAP
 	string name = "";
 };
 
-struct SOUND
-{
-	string name = "";
-	string soundDirectory = "";
-};
-
 class ResourcePool
 {
 public:
@@ -115,16 +110,18 @@ public:
 	Color retrieveColor(string colorName);
 	SHADER retrieveShader(string shaderName);
 	HEIGHTMAP retrieveHeightmap(string heightmapName);
-	SOUND retrieveSound(string soundName);
+	void retrieveSound(string soundName);
 
 	void cleanUp(void);
+
+	SoundPool *soundPool; //Contains sound engine and sound files
+
 private:
 	map<string, Mesh*> meshContainer;
 	map<string, unsigned> textureContainer;
 	map<string, Color> colorContainer;
 	map<string, SHADER> shaderContainer;
 	map<string, HEIGHTMAP> heightmapContainer;
-	map<string, SOUND> soundContainer;
 
 	void processMesh(string config);
 	void processTexture(string config);
@@ -137,7 +134,6 @@ private:
 	bool addColor(string colorName, Color color);
 	bool addShader(string shaderName, SHADER shader);
 	bool addHeightmap(string heightmapName, HEIGHTMAP heightmap);
-	bool addSound(string soundName, SOUND sound);
 
 	Branch resourceBranch;
 };

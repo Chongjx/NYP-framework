@@ -33,7 +33,7 @@ SHADER ResourceManager::retrieveShader(string name)
 	return resourcePool->retrieveShader(name);
 }
 
-SOUND ResourceManager::retrieveSound(string name)
+void ResourceManager::retrieveSound(string name)
 {
-	return resourcePool->retrieveSound(name);
+	resourcePool->soundPool->retrieveSound(name);
 }

@@ -81,6 +81,7 @@ void SceneManager::RenderText(Mesh* mesh, std::string text, Color color)
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glUniform1i(parameters[U_TEXT_ENABLED], 0);
 	glEnable(GL_DEPTH_TEST);
+
 }
 
 /********************************************************************************
