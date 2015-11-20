@@ -2,6 +2,7 @@
 #define SCENE_MANAGER_CM_MENU_H
 
 #include "SceneManagerSelection.h"
+#include "SceneNode.h"
 
 class SceneManagerCMMenu : public SceneManagerSelection
 {

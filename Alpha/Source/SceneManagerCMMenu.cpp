@@ -23,6 +23,38 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	projectionStack.LoadMatrix(perspective);
 
 	lightEnabled = true;
+
+	/*GameObject3D* parent = new GameObject3D();
+	parent->setName("parent1");
+
+	GameObject3D* parent2 = new GameObject3D();
+	parent2->setName("parent2");
+
+	GameObject3D* child1 = new GameObject3D();
+	child1->setName("child1");
+
+	GameObject3D* child2 = new GameObject3D();
+	child2->setName("child2");
+
+	SceneNode* pew = new SceneNode();
+	SceneNode* sceneNode = new SceneNode();
+	sceneNode->SetGameObject(parent);
+
+	pew->AddChildNode(sceneNode);
+
+	sceneNode = new SceneNode();
+	sceneNode->SetGameObject(parent2);
+	pew->AddChildNode(sceneNode);
+
+	sceneNode = new SceneNode();
+	sceneNode->SetGameObject(child1);
+	pew->AddChildToChildNode("parent2", sceneNode);
+
+	sceneNode = new SceneNode();
+	sceneNode->SetGameObject(child2);
+	pew->AddChildToChildNode("parent2", sceneNode);
+
+	sceneNode = pew->GetChildNode("child2");*/
 }
 
 void SceneManagerCMMenu::Update(double dt)
