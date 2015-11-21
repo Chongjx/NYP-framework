@@ -28,6 +28,11 @@ Color ResourceManager::retrieveColor(string name)
 	return resourcePool->retrieveColor(name);
 }
 
+Color ResourceManager::retrieveRandomColor(void)
+{
+	return resourcePool->retrieveRandomColor();
+}
+
 SHADER ResourceManager::retrieveShader(string name)
 {
 	return resourcePool->retrieveShader(name);

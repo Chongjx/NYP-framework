@@ -46,7 +46,6 @@ public:
 		U_TOTAL,
 	};
 
-public:
 	SceneManager();
 	~SceneManager();
 

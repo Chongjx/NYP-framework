@@ -48,6 +48,26 @@ public:
 		gameStateManager->PopState(state);
 	}
 
+	virtual void PopToState(GameStateManager* gameStateManager, GameState* toState)
+	{
+		gameStateManager->PopToState(toState);
+	}
+
+	virtual void PopToState(GameStateManager* gameStateManager, string stateName)
+	{
+		gameStateManager->PopToState(stateName);
+	}
+
+	GameState* GetPrevious(GameStateManager* gameStateManager)
+	{
+		gameStateManager->GetPrevious();
+	}
+
+	GameState* GetPrevious(GameStateManager* gameStateManager, unsigned index)
+	{
+		gameStateManager->GetPrevious(index);
+	}
+
 	virtual void SetName(string stateName)
 	{
 		this->stateName = stateName;

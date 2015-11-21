@@ -9,6 +9,7 @@ MenuStateCM::MenuStateCM()
 {
 	this->update = true;
 	this->draw = true;
+	this->stateName = "Menu";
 }
 
 MenuStateCM::~MenuStateCM()
@@ -19,6 +20,7 @@ void MenuStateCM::Init(const int width, const int height, ResourcePool* RP, Inpu
 {
 	this->update = true;
 	this->draw = true;
+	this->stateName = "Menu";
 
 	this->scene = new SceneManagerCMMenu();
 
@@ -56,8 +58,6 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 	if (scene->inputManager->getKey("Select"))
 	{
 		gameStateManager->PushState(PlayStateCM::Instance());
-
-
 	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
 

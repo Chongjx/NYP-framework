@@ -14,6 +14,7 @@ public:
 	Mesh* retrieveMesh(string name);
 	unsigned retrieveTexture(string name);
 	Color retrieveColor(string name);
+	Color retrieveRandomColor(void);
 	SHADER retrieveShader(string name);
 	void retrieveSound(string name);
 	

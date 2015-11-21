@@ -33,7 +33,7 @@
 		# [Key] VK_D
 	}
 	{
-			[NAME] ToggleShift
+		[NAME] ToggleShift
 		[Key] 0xA0
 		# [Key] VK_LSHIFT
 	}

@@ -108,6 +108,7 @@ public:
 	Mesh* retrieveMesh(string resourceName);
 	unsigned retrieveTexture(string textureName);
 	Color retrieveColor(string colorName);
+	Color retrieveRandomColor();
 	SHADER retrieveShader(string shaderName);
 	HEIGHTMAP retrieveHeightmap(string heightmapName);
 	void retrieveSound(string soundName);

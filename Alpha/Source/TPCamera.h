@@ -2,7 +2,6 @@
 #define TP_CAMERA_H
 
 #include "Camera.h"
-#include "InputManager.h"
 
 class TPCamera : public Camera
 {

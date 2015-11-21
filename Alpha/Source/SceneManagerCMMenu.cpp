@@ -22,7 +22,7 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
 
-	lightEnabled = true;
+	lightEnabled = false;
 }
 
 void SceneManagerCMMenu::Update(double dt)
@@ -31,8 +31,6 @@ void SceneManagerCMMenu::Update(double dt)
 	
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
-
-	fpCamera.Update(dt, 0);
 }
 
 void SceneManagerCMMenu::Render()
@@ -155,11 +153,11 @@ void SceneManagerCMMenu::RenderStaticObject()
 	Mesh* drawMesh = resourceManager.retrieveMesh("MENU_BG");
 	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
 
-	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(1920 *0.5f, 1080 * 0.5f), 0);
+	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(sceneWidth *0.5f, sceneHeight * 0.5f), 0);
 
 	drawMesh = resourceManager.retrieveMesh("FONT");
 	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
-	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Pink"), 75, 400, 550, 0);
+	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Red"), 75, 400, 550, 0);
 }
 
 void SceneManagerCMMenu::RenderMobileObject()

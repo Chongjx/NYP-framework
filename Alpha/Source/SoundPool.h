@@ -20,9 +20,12 @@ struct SOUND
 class SoundPool
 {
 public:
-	void retrieveSound(string soundName);
 	void Init();
 	void processSound(string config);
+
+	void retrieveSound(string soundName);
+
+	void cleanUp();
 
 	SoundPool();
 	~SoundPool();

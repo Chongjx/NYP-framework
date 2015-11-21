@@ -146,7 +146,6 @@
     <ClInclude Include="Source\LoadOBJ.h" />
     <ClInclude Include="Source\LoadTGA.h" />
     <ClInclude Include="Source\Material.h" />
-    <ClInclude Include="Source\MenuState.h" />
     <ClInclude Include="Source\MenuStateCM.h" />
     <ClInclude Include="Source\Mesh.h" />
     <ClInclude Include="Source\MeshBuilder.h" />
@@ -154,8 +153,6 @@
     <ClInclude Include="Source\Mouse.h" />
     <ClInclude Include="Source\OBB2D.h" />
     <ClInclude Include="Source\OBB3D.h" />
-    <ClInclude Include="Source\OptionState.h" />
-    <ClInclude Include="Source\PlayState.h" />
     <ClInclude Include="Source\PlayStateCM.h" />
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourcePool.h" />

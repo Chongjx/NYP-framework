@@ -38,7 +38,7 @@ void SceneNode::Draw(SceneManager *sceneManager)
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
 	gameObject3D->getMesh()->Render();
 
-	for (int i = 0; i < childNodes.size(); ++i)
+	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
 		this->childNodes[i]->DrawChild(sceneManager);
 	}
@@ -51,7 +51,7 @@ void SceneNode::DrawChild(SceneManager *sceneManager)
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
 	gameObject3D->getMesh()->Render();
 
-	for (int i = 0; i < childNodes.size(); ++i)
+	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
 		this->childNodes[i]->DrawChild(sceneManager);
 	}
@@ -63,7 +63,7 @@ SceneNode* SceneNode::GetChildNode(string childName)
 {
 	SceneNode *resultNode;
 
-	for (int i = 0; i < childNodes.size(); ++i)
+	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
 		if (childNodes[i]->GetGameObject()->getName() == childName)
 		{

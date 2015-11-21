@@ -138,6 +138,63 @@ void GameStateManager::PopState(GameState* state)
 	}
 }
 
+void GameStateManager::PopToState(GameState* state)
+{
+	// cleanup the current state
+	if (!statesStack.empty()) 
+	{
+		for (vector<GameState*>::iterator it = statesStack.end(); it != statesStack.begin(); --it)
+		{
+			if (statesStack.back() != state)
+			{
+				statesStack.back()->CleanUp();
+				statesStack.pop_back();
+			}
+		}
+	}
+
+	// resume previous state
+	if (!statesStack.empty()) {
+		statesStack.back()->Resume();
+	}
+}
+
+void GameStateManager::PopToState(string stateName)
+{
+	while (statesStack.back()->GetName() != stateName)
+	{
+		statesStack.back()->CleanUp();
+		statesStack.pop_back();
+	}
+
+	// resume previous state
+	if (!statesStack.empty()) 
+	{
+		statesStack.back()->Resume();
+	}
+}
+
+GameState* GameStateManager::GetPrevious()
+{
+	// cleanup the current state
+	if (statesStack.size() > 2)
+	{
+		return statesStack.rbegin()[1];
+	}
+
+	return NULL;
+}
+
+GameState* GameStateManager::GetPrevious(unsigned index)
+{
+	if (statesStack.size() > index)
+	{
+		return statesStack[index];
+	}
+
+	return NULL;
+}
+
 void GameStateManager::HandleEvents(void)
 {
 	// let the state handle events

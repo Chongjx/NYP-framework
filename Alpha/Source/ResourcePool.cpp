@@ -557,7 +557,21 @@ Color ResourcePool::retrieveColor(string colorName)
 		return it->second;
 	}
 
-	return NULL;
+	return Color(1, 1, 1);
+}
+
+Color ResourcePool::retrieveRandomColor()
+{
+	if (colorContainer.size() > 0)
+	{
+		auto it = colorContainer.begin();
+
+		std::advance(it, Math::RandIntMinMax(0, colorContainer.size() - 1));
+
+		return (*it).second;
+	}
+
+	return Color(1, 1, 1);
 }
 
 bool ResourcePool::addShader(string shaderName, SHADER shader)
@@ -644,4 +658,6 @@ void ResourcePool::cleanUp(void)
 	colorContainer.clear();
 	shaderContainer.clear();
 	heightmapContainer.clear();
+
+	soundPool->cleanUp();
 }

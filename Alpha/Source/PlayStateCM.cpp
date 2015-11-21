@@ -9,6 +9,7 @@ PlayStateCM::PlayStateCM()
 {
 	this->update = true;
 	this->draw = true;
+	this->stateName = "Play";
 }
 
 PlayStateCM::~PlayStateCM()
@@ -19,6 +20,7 @@ void PlayStateCM::Init(const int width, const int height, ResourcePool* RP, Inpu
 {
 	this->update = true;
 	this->draw = true;
+	this->stateName = "Play";
 
 	this->scene = new SceneManagerCMPlay();
 
@@ -55,7 +57,8 @@ void PlayStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
 	if (scene->inputManager->getKey("RSelect"))
 	{
-		gameStateManager->PushState(MenuStateCM::Instance());
+		gameStateManager->PopToState("Menu");
+		//gameStateManager->PopState(this);
 	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
 }

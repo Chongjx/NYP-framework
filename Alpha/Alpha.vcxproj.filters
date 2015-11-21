@@ -61,9 +61,6 @@
     <Filter Include="States\StatesCM">
       <UniqueIdentifier>{fc4ca3ca-de21-4a4c-8871-7fd23e346f67}</UniqueIdentifier>
     </Filter>
-    <Filter Include="States\Template">
-      <UniqueIdentifier>{7a0e500a-cc9e-4177-9824-4ed3d28ab368}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Managers\SceneManagers\SceneCM">
       <UniqueIdentifier>{e9c0f355-df36-4cc8-99af-f74284032ec0}</UniqueIdentifier>
     </Filter>
@@ -311,23 +308,11 @@
     <ClInclude Include="Source\ResourceManager.h">
       <Filter>Managers\Others</Filter>
     </ClInclude>
-    <ClInclude Include="Source\MenuState.h">
-      <Filter>States\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\OptionState.h">
-      <Filter>States\Template</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\PlayState.h">
-      <Filter>States\Template</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MenuStateCM.h">
       <Filter>States\StatesCM</Filter>
     </ClInclude>
     <ClInclude Include="Source\PlayStateCM.h">
       <Filter>States\StatesCM</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\GameState.h">
-      <Filter>States\Template</Filter>
     </ClInclude>
     <ClInclude Include="Source\SceneManagerCMMenu.h">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
@@ -352,6 +337,9 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManagerCMPlay.h">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameState.h">
+      <Filter>States</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

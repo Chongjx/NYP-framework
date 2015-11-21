@@ -40,6 +40,11 @@ public:
 	void ChangeState(GameState* state);
 	void PushState(GameState* state);
 	void PopState(GameState* state);
+	void PopToState(GameState* toState);
+	void PopToState(string stateName);
+
+	GameState* GetPrevious();
+	GameState* GetPrevious(unsigned index);
 	
 	bool validCheck(void);
 

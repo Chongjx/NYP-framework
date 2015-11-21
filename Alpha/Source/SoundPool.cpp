@@ -83,3 +83,17 @@ bool SoundPool::addSound(string soundName, SOUND sound)
 		return true;
 	}
 }
+
+void SoundPool::cleanUp()
+{
+	if (Sound)
+	{
+		delete Sound;
+		Sound = NULL;
+	}
+	if (engine)
+	{
+		delete engine;
+		engine = NULL;
+	}
+}

@@ -31,8 +31,9 @@ void SceneManagerCMPlay::Update(double dt)
 
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
-
-	tpCamera.Update(dt);
+	
+	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
+	//tpCamera.Update(dt);
 }
 
 void SceneManagerCMPlay::Render()
