@@ -62,6 +62,11 @@ void SceneManagerCMMenu::Exit()
 	SceneManagerSelection::Exit();
 }
 
+void SceneManagerCMMenu::BindShaders()
+{
+	glGenVertexArrays(1, &vertexArrayID);
+	glBindVertexArray(vertexArrayID);
+}
 
 // Other specific init, update and render classes
 void SceneManagerCMMenu::InitShader()
@@ -69,9 +74,7 @@ void SceneManagerCMMenu::InitShader()
 	SHADER thisShader = resourceManager.retrieveShader("Comg");
 	programID = LoadShaders(thisShader.vertexShaderDirectory.c_str(), thisShader.fragmentShaderDirectory.c_str());
 
-	glGenVertexArrays(1, &vertexArrayID);
-	glBindVertexArray(vertexArrayID);
-
+	this->BindShaders();
 	parameters.resize(U_TOTAL);
 	lights.resize(1);
 

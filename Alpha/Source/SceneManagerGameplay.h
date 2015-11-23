@@ -31,6 +31,7 @@ public:
 		SceneManager::Exit();
 	}
 
+	virtual void BindShaders() {}
 	virtual void InitShader() {}
 	virtual void InitLight() {}
 

@@ -49,6 +49,7 @@ void MenuStateCM::Pause()
 
 void MenuStateCM::Resume()
 {
+	this->scene->BindShaders();
 	this->update = true;
 	this->draw = true;
 }

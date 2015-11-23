@@ -49,6 +49,7 @@ void PlayStateCM::Pause()
 
 void PlayStateCM::Resume()
 {
+	this->scene->BindShaders();
 	this->update = true;
 	this->draw = true;
 }

@@ -40,6 +40,10 @@ void SceneManager::InitShader()
 {
 }
 
+void SceneManager::BindShaders()
+{
+}
+
 void SceneManager::RenderLight()
 {
 }

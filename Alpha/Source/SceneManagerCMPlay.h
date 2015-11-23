@@ -15,6 +15,7 @@ public:
 	void Render();
 	void Exit();
 
+	void BindShaders();
 	void InitShader();
 	void InitLight();
 	void InitCamera();

@@ -54,6 +54,7 @@ public:
 	virtual void Render();
 	virtual void Exit();
 
+	virtual void BindShaders();
 	virtual void InitShader();
 	virtual void RenderLight();
 
