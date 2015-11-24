@@ -13,6 +13,10 @@
 		# [Key] VK_RBUTTON
 	}
 	{
+		[NAME] Pause
+		[Key] 0x50
+	}
+	{
 		[NAME] Up
 		[Key] 0x57
 		# [Key] VK_W

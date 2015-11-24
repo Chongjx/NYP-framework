@@ -1,14 +1,14 @@
-#include "SceneManagerCMMenu.h"
+#include "SceneManagerCMPause.h"
 
-SceneManagerCMMenu::SceneManagerCMMenu()
+SceneManagerCMPause::SceneManagerCMPause()
 {
 }
 
-SceneManagerCMMenu::~SceneManagerCMMenu()
+SceneManagerCMPause::~SceneManagerCMPause()
 {
 }
 
-void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
+void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
 {
 	SceneManagerSelection::Init(width, height, RM, controls);
 
@@ -25,17 +25,17 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	lightEnabled = false;
 }
 
-void SceneManagerCMMenu::Update(double dt)
+void SceneManagerCMPause::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
-	
+
 	//Uncomment the following line to play sound
-	//resourceManager.retrieveSound("MenuFeedback");
+	//resourceManager.retrieveSound("PauseFeedback");
 }
 
-void SceneManagerCMMenu::Render()
+void SceneManagerCMPause::Render()
 {
-	SceneManagerSelection::Render();
+	//SceneManagerSelection::Render();
 
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
@@ -57,18 +57,18 @@ void SceneManagerCMMenu::Render()
 	RenderMobileObject();
 }
 
-void SceneManagerCMMenu::Exit()
+void SceneManagerCMPause::Exit()
 {
 	SceneManagerSelection::Exit();
 }
 
-void SceneManagerCMMenu::BindShaders()
+void SceneManagerCMPause::BindShaders()
 {
 	SceneManagerSelection::BindShaders();
 }
 
 // Other specific init, update and render classes
-void SceneManagerCMMenu::InitShader()
+void SceneManagerCMPause::InitShader()
 {
 	SHADER thisShader = resourceManager.retrieveShader("Comg");
 	programID = LoadShaders(thisShader.vertexShaderDirectory.c_str(), thisShader.fragmentShaderDirectory.c_str());
@@ -136,36 +136,31 @@ void SceneManagerCMMenu::InitShader()
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 }
 
-void SceneManagerCMMenu::InitLight()
+void SceneManagerCMPause::InitLight()
 {
 }
 
-void SceneManagerCMMenu::RenderLight()
-{
-
-}
-
-void SceneManagerCMMenu::RenderBG()
+void SceneManagerCMPause::RenderLight()
 {
 
 }
 
-void SceneManagerCMMenu::RenderStaticObject()
+void SceneManagerCMPause::RenderBG()
 {
-	Mesh* drawMesh = resourceManager.retrieveMesh("MENU_BG");
-	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
 
-	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(sceneWidth *0.5f, sceneHeight * 0.5f), 0);
+}
 
-	drawMesh = resourceManager.retrieveMesh("FONT");
+void SceneManagerCMPause::RenderStaticObject()
+{
+	Mesh* drawMesh = resourceManager.retrieveMesh("FONT");
 	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
 	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Red"), 75, 400, 550, 0);
 }
 
-void SceneManagerCMMenu::RenderMobileObject()
+void SceneManagerCMPause::RenderMobileObject()
 {
 }
 
-void SceneManagerCMMenu::UpdateSelection()
+void SceneManagerCMPause::UpdateSelection()
 {
 }

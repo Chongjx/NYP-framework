@@ -109,12 +109,14 @@
     <ClCompile Include="Source\Mouse.cpp" />
     <ClCompile Include="Source\OBB2D.cpp" />
     <ClCompile Include="Source\OBB3D.cpp" />
+    <ClCompile Include="Source\PauseStateCM.cpp" />
     <ClCompile Include="Source\PlayStateCM.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourcePool.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
     <ClCompile Include="Source\SceneManagerCMMenu.cpp" />
     <ClCompile Include="Source\SceneManagerCMPlay.cpp" />
+    <ClCompile Include="Source\SceneManagerCMPause.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SoundPool.cpp" />
@@ -153,6 +155,7 @@
     <ClInclude Include="Source\Mouse.h" />
     <ClInclude Include="Source\OBB2D.h" />
     <ClInclude Include="Source\OBB3D.h" />
+    <ClInclude Include="Source\PauseStateCM.h" />
     <ClInclude Include="Source\PlayStateCM.h" />
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourcePool.h" />
@@ -162,6 +165,7 @@
     <ClInclude Include="Source\SceneManagerCMPlay.h" />
     <ClInclude Include="Source\SceneManagerGameplay.h" />
     <ClInclude Include="Source\SceneManagerInfo.h" />
+    <ClInclude Include="Source\SceneManagerCMPause.h" />
     <ClInclude Include="Source\SceneManagerSelection.h" />
     <ClInclude Include="Source\SceneNode.h" />
     <ClInclude Include="Source\shader.hpp" />

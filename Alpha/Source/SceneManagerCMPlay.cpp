@@ -67,9 +67,9 @@ void SceneManagerCMPlay::Exit()
 
 void SceneManagerCMPlay::BindShaders()
 {
-	glGenVertexArrays(1, &vertexArrayID);
-	glBindVertexArray(vertexArrayID);
+	SceneManagerGameplay::BindShaders();
 }
+
 // Other specific init, update and render classes
 void SceneManagerCMPlay::InitShader()
 {

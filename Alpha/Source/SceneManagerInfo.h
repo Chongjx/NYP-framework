@@ -35,7 +35,10 @@ public:
 		SceneManager::Exit();
 	}
 
-	virtual void BindShaders() {}
+	virtual void BindShaders() 
+	{
+		SceneManager::BindShaders();
+	}
 	virtual void InitShader() {}
 	virtual void InitLight() {}
 

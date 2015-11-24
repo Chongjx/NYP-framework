@@ -67,9 +67,6 @@
     <Filter Include="Managers\SceneManagers\Template">
       <UniqueIdentifier>{aec86a7c-17fd-4684-a116-c50137580834}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers\SceneManagers\SceneTest">
-      <UniqueIdentifier>{b53880ab-d6fa-4c5c-af30-95a8f0d02c9a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Config">
       <UniqueIdentifier>{c63fd767-0503-4fe8-a2c6-f74fc0e0ad2a}</UniqueIdentifier>
     </Filter>
@@ -196,6 +193,12 @@
       <Filter>Handlers\Resource Handler</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneManagerCMPlay.cpp">
+      <Filter>Managers\SceneManagers\SceneCM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PauseStateCM.cpp">
+      <Filter>States\StatesCM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneManagerCMPause.cpp">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
     </ClCompile>
   </ItemGroup>
@@ -340,6 +343,12 @@
     </ClInclude>
     <ClInclude Include="Source\GameState.h">
       <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PauseStateCM.h">
+      <Filter>States\StatesCM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneManagerCMPause.h">
+      <Filter>Managers\SceneManagers\SceneCM</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

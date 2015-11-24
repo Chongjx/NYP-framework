@@ -56,27 +56,22 @@ void MenuStateCM::Resume()
 
 void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
+	for (unsigned i = 0; i < scene->interactiveButtons.size(); ++i)
+	{
+		/*if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
+		{
+		if (scene->interactiveButtons[i].getName() == "Play")
+		{
+		gameStateManager->PushState(PlayStateCM::Instance());
+		}
+		}*/
+	}
+
 	if (scene->inputManager->getKey("Select"))
 	{
 		gameStateManager->PushState(PlayStateCM::Instance());
 	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
-
-	for (unsigned i = 0; i < scene->interactiveButtons.size(); ++i)
-	{
-		/*if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
-		{
-			if (scene->interactiveButtons[i].getName() == "Play")
-			{
-				gameStateManager->PushState(PlayStateCM::Instance());
-			}
-		}*/
-	}
-
-	/*if (inputManager->getKey("Select"))
-	{
-
-	}*/
 }
 
 void MenuStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)

@@ -21,6 +21,16 @@ public:
 	
 	virtual void Draw(GameStateManager* gameStateManager) = 0;
 
+	virtual void OverrideUpdate(void)
+	{
+		this->update = !update;
+	}
+
+	virtual void OverrideRender(void)
+	{
+		this->draw = !draw;
+	}
+
 	virtual void Pause()
 	{
 		this->update = false;

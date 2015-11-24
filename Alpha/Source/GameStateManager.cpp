@@ -7,6 +7,8 @@ GameStateManager::GameStateManager() :
 	windowHeight(1080),
 	running(true),
 	fullscreen(false),
+	overrideUpdate(false),
+	overrideRender(false),
 	resourcePool(NULL),
 	controls(NULL)
 {
@@ -42,6 +44,8 @@ void GameStateManager::Init()
 	this->windowHeight = 1080;
 	this->running = true;
 	this->fullscreen = false;
+	this->overrideUpdate = false;
+	this->overrideRender = false;
 }
 
 void GameStateManager::Init(string title, int width, int height, bool run, bool fullScreen)
@@ -51,6 +55,8 @@ void GameStateManager::Init(string title, int width, int height, bool run, bool 
 	this->windowHeight = height;
 	this->running = run;
 	this->fullscreen = fullScreen;
+	this->overrideUpdate = false;
+	this->overrideRender = false;
 }
 
 void GameStateManager::InitResources(string config)
@@ -223,13 +229,35 @@ void GameStateManager::HandleEvents(const double yaw, const double pitch)
 void GameStateManager::Update(const double m_dElapsedTime)
 {
 	// let the state update the gameStateManager
-	statesStack.back()->Update(this, m_dElapsedTime);
+	if (overrideUpdate)
+	{
+		for (vector<GameState*>::iterator it = statesStack.begin(); it != statesStack.end(); ++it)
+		{
+			GameState *gs = *it;
+			gs->Update(this, m_dElapsedTime);
+		}
+	}
+	else
+	{
+		statesStack.back()->Update(this, m_dElapsedTime);
+	}
 }
 
 void GameStateManager::Draw()
 {
 	// let the state draw the screen
-	statesStack.back()->Draw(this);
+	if (overrideRender)
+	{
+		for (vector<GameState*>::iterator it = statesStack.begin(); it != statesStack.end(); ++it)
+		{
+			GameState *gs = *it;
+			gs->Draw(this);
+		}
+	}
+	else
+	{
+		statesStack.back()->Draw(this);
+	}
 }
 
 bool GameStateManager::Running(void)
@@ -240,4 +268,14 @@ bool GameStateManager::Running(void)
 void GameStateManager::Quit(void)
 {
 	running = false;
+}
+
+void GameStateManager::SetOverrideUpdate(bool update)
+{
+	this->overrideUpdate = update;
+}
+
+void GameStateManager::SetOverrideRender(bool render)
+{
+	this->overrideRender = render;
 }

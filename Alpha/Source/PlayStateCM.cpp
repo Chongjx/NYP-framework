@@ -2,6 +2,7 @@
 
 #include "MenuStateCM.h"
 #include "PlayStateCM.h"
+#include "PauseStateCM.h"
 
 PlayStateCM PlayStateCM::playState;
 
@@ -56,9 +57,12 @@ void PlayStateCM::Resume()
 
 void PlayStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
-	if (scene->inputManager->getKey("RSelect"))
+	if (scene->inputManager->getKey("Pause"))
 	{
-		gameStateManager->PopToState("Menu");
+		gameStateManager->PushState(PauseStateCM::Instance());
+		this->draw = true;
+		this->update = true;
+		gameStateManager->SetOverrideRender(true);
 		//gameStateManager->PopState(this);
 	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/

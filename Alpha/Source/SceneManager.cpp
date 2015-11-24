@@ -42,6 +42,8 @@ void SceneManager::InitShader()
 
 void SceneManager::BindShaders()
 {
+	glGenVertexArrays(1, &vertexArrayID);
+	glBindVertexArray(vertexArrayID);
 }
 
 void SceneManager::RenderLight()

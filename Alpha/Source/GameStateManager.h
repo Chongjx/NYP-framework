@@ -25,6 +25,8 @@ private:
 
 	bool running;
 	bool fullscreen;
+	bool overrideUpdate;
+	bool overrideRender;
 public:
 	GameStateManager();
 	~GameStateManager();
@@ -57,6 +59,9 @@ public:
 
 	bool Running(void);
 	void Quit(void);
+
+	void SetOverrideUpdate(bool update);
+	void SetOverrideRender(bool render);
 
 	ResourcePool* resourcePool;
 	InputManager* controls;
