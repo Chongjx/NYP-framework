@@ -36,6 +36,11 @@
 		#[Type] Terrain
 		#[Directory] Config\\Resources\\Texture\\heightmap.raw
 	}
+	{
+		[NAME] WARRIOR_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\Warrior.obj
+	}
 }
 
 # Types available

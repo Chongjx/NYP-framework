@@ -30,6 +30,13 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
 
+	GameObject3D* newModel = new GameObject3D;
+
+	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
+	newModel->setMesh(drawMesh);
+	sceneGraph->SetGameObject(newModel);
+
 	lightEnabled = true;
 }
 
@@ -193,4 +200,5 @@ void SceneManagerCMPlay::RenderStaticObject()
 
 void SceneManagerCMPlay::RenderMobileObject()
 {
+	sceneGraph->Draw(this);
 }

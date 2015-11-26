@@ -22,4 +22,8 @@
 		[NAME] GRASS
 		[Directory] Config\\Resources\\Texture\\grass.tga
 	}
+	{
+		[NAME] WARRIOR
+		[Directory] Config\\Resources\\Texture\\Warrior.tga
+	}
 }
