@@ -209,11 +209,17 @@ public:
 						else if (attriName == "Mesh")
 						{
 							mesh = resourceManager.retrieveMesh(attriValue);
+
+							if (type == Button2D::TEXT_BUTTON)
+								mesh->textureID = resourceManager.retrieveTexture("AlbaFont");
+
+							//else
+							//	mesh->textureID = resourceManager.retrieveTexture("Button");
 						}
 					}
 
 					Button2D tempButton;
-					mesh->textureID = resourceManager.retrieveTexture("AlbaFont");
+					
 					tempButton.Init(name, text, mesh, pos, scale, rotation, tempColor, type);
 					interactiveButtons.push_back(tempButton);
 				}
