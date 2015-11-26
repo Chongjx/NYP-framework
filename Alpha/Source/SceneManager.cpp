@@ -37,7 +37,7 @@ void SceneManager::Init(const int width, const int height, ResourcePool* RM, Inp
 	Math::InitRNG();
 }
 
-void SceneManager::Config()
+void SceneManager::Config(string directory)
 {
 }
 
