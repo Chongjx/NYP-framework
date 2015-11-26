@@ -50,7 +50,7 @@ public:
 	~SceneManager();
 
 	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
-	virtual void Config();
+	virtual void Config(string directory);
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
