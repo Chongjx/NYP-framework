@@ -1,16 +1,24 @@
 #include "SceneManagerCMPlay.h"
 
-SceneManagerCMPlay::SceneManagerCMPlay()
+SceneManagerCMPlay::SceneManagerCMPlay() : 
+sceneGraph(NULL)
 {
 }
 
 SceneManagerCMPlay::~SceneManagerCMPlay()
 {
+	if (sceneGraph)
+	{
+		delete sceneGraph;
+		sceneGraph = NULL;
+	}
 }
 
 void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
 {
 	SceneManagerGameplay::Init(width, height, RM, controls);
+
+	this->sceneGraph = new SceneNode();
 
 	this->InitShader();
 
@@ -23,6 +31,11 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	projectionStack.LoadMatrix(perspective);
 
 	lightEnabled = true;
+}
+
+void SceneManagerCMPlay::Config()
+{
+
 }
 
 void SceneManagerCMPlay::Update(double dt)
@@ -62,6 +75,12 @@ void SceneManagerCMPlay::Render()
 
 void SceneManagerCMPlay::Exit()
 {
+	if (sceneGraph)
+	{
+		delete sceneGraph;
+		sceneGraph = NULL;
+	}
+
 	SceneManagerGameplay::Exit();
 }
 
@@ -138,10 +157,6 @@ void SceneManagerCMPlay::InitShader()
 	glUniform1f(parameters[U_LIGHT0_COSCUTOFF], lights[0].cosCutoff);
 	glUniform1f(parameters[U_LIGHT0_COSINNER], lights[0].cosInner);
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
-}
-
-void SceneManagerCMPlay::InitLight()
-{
 }
 
 void SceneManagerCMPlay::RenderLight()

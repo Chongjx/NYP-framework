@@ -10,7 +10,6 @@
 		[WindowHeight] 1080
 		[FullScreen] false
 		[FrameRate] 120
-		[Run] true
 	}
 
 	{

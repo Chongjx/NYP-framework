@@ -10,14 +10,13 @@ public:
 	~SceneManagerCMPause();
 
 	void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
+	void Config();
 	void Update(double dt);
 	void Render();
 	void Exit();
 
 	void BindShaders();
 	void InitShader();
-	void InitLight();
-	void InitCamera();
 
 	void UpdateSelection();
 

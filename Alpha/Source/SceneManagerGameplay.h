@@ -16,6 +16,8 @@ public:
 		SceneManager::Init(width, height, RP, controls);
 	}
 
+	virtual void Config() {}
+
 	virtual void Update(double dt)
 	{
 		SceneManager::Update(dt);
@@ -37,7 +39,6 @@ public:
 	}
 
 	virtual void InitShader() {}
-	virtual void InitLight() {}
 
 	virtual void RenderLight() {}
 	virtual void RenderBG() {}

@@ -12,9 +12,9 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 {
 	SceneManagerSelection::Init(width, height, RM, controls);
 
-	this->InitShader();
+	Config();
 
-	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	this->InitShader();
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
@@ -25,10 +25,184 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	lightEnabled = false;
 }
 
+void SceneManagerCMMenu::Config()
+{
+	sceneBranch = TextTree::FileToRead("Config\\GameStateConfig\\MenuConfig.txt");
+
+	for (vector<Branch>::iterator branch = sceneBranch.childBranches.begin(); branch != sceneBranch.childBranches.end(); ++branch)
+	{
+		// setting up camera for the scene
+		if (branch->branchName == "Camera")
+		{
+			std::cout << "Setting up camera!" << std::endl;
+			Vector3 tempPos, tempTarget, tempUp;
+			string cameraType;
+
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+
+				if (attriName == "Type")
+				{
+					cameraType = attriValue;
+				}
+
+				else if (attriName == "CameraPos")
+				{
+					stringToVector(attriValue, tempPos);
+				}
+
+				else if (attriName == "CameraTarget")
+				{
+					stringToVector(attriValue, tempTarget);
+				}
+
+				else if (attriName == "CameraUp")
+				{
+					stringToVector(attriValue, tempUp);
+				}
+			}
+
+			if (cameraType == "FP")
+			{
+				fpCamera.Init(tempPos, tempTarget, tempUp);
+			}
+
+			else if (cameraType == "TP")
+			{
+				tpCamera.Init(tempPos, tempTarget, tempUp);
+			}
+
+			// default camera chosen for this scene. Shld vary depending on scene type
+			else
+			{
+				fpCamera.Init(tempPos, tempTarget, tempUp);
+			}
+		}
+
+		else if (branch->branchName == "Font")
+		{
+			std::cout << "Setting up font" << std::endl;
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+
+				if (attriName == "Default")
+				{
+					fontSize = stof(attriValue);
+				}
+
+				else if (attriName == "Special")
+				{
+					specialFontSize = stof(attriValue);
+				}
+			}
+		}
+
+		else if (branch->branchName == "Light")
+		{
+			std::cout << "Setting up lights" << std::endl;
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+
+				if (attriName == "Enable")
+				{
+					stringToBool(attriValue, lightEnabled);
+				}
+			}
+		}
+
+		else if (branch->branchName == "Buttons")
+		{
+			std::cout << "Loading buttons" << std::endl;
+			for (vector<Branch>::iterator childbranch = branch->childBranches.begin(); childbranch != branch->childBranches.end(); ++childbranch)
+			{
+				string name = "";
+				string text = "";
+				Button2D::BUTTON_TYPE type = Button2D::TEXT_BUTTON;
+				Vector2 pos;
+				float rotation = 0.f;
+				Color tempColor;
+				tempColor.Set(1, 1, 1);
+				Vector2 scale;
+				Mesh* mesh = NULL;
+
+				for (vector<Attribute>::iterator attri = childbranch->attributes.begin(); attri != childbranch->attributes.end(); ++attri)
+				{
+					Attribute tempAttri = *attri;
+					string attriName = tempAttri.name;
+					string attriValue = tempAttri.value;
+
+					name = childbranch->branchName;
+
+					if (attriName == "Type")
+					{
+						if (attriValue == "Text")
+						{
+							type = Button2D::TEXT_BUTTON;
+						}
+
+						else
+						{
+							type = Button2D::IMAGE_BUTTON;
+						}
+					}
+
+					else if (attriName == "Text")
+					{
+						text = attriValue;
+					}
+
+					else if (attriName == "Pos")
+					{
+						stringToVector(attriValue, pos);
+					}
+
+					else if (attriName == "Scale")
+					{
+						stringToVector(attriValue, scale);
+					}
+
+					else if (attriName == "Rotation")
+					{
+						rotation = stof(attriValue);
+					}
+
+					else if (attriName == "Color")
+					{
+						Vector3 tempCol;
+
+						stringToVector(attriValue, tempCol);
+
+						tempColor.Set(tempCol.x, tempCol.y, tempCol.z);
+					}
+
+					else if (attriName == "Mesh")
+					{
+						mesh = resourceManager.retrieveMesh(attriValue);
+					}
+				}
+
+				Button2D tempButton;
+				mesh->textureID = resourceManager.retrieveTexture("AlbaFont");
+				tempButton.Init(name, text, mesh, pos, scale, rotation, tempColor, type);
+				interactiveButtons.push_back(tempButton);
+			}
+		}
+	}
+}
+
 void SceneManagerCMMenu::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
-	
+
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
 }
@@ -55,6 +229,7 @@ void SceneManagerCMMenu::Render()
 	RenderBG();
 	RenderStaticObject();
 	RenderMobileObject();
+	RenderSelection();
 }
 
 void SceneManagerCMMenu::Exit()
@@ -136,10 +311,6 @@ void SceneManagerCMMenu::InitShader()
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 }
 
-void SceneManagerCMMenu::InitLight()
-{
-}
-
 void SceneManagerCMMenu::RenderLight()
 {
 
@@ -156,14 +327,34 @@ void SceneManagerCMMenu::RenderStaticObject()
 	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
 
 	Render2DMesh(drawMesh, false, Vector2(this->sceneWidth, this->sceneHeight), Vector2(sceneWidth *0.5f, sceneHeight * 0.5f), 0);
-
-	drawMesh = resourceManager.retrieveMesh("FONT");
-	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
-	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Red"), 75, 400, 550, 0);
 }
 
 void SceneManagerCMMenu::RenderMobileObject()
 {
+}
+
+void SceneManagerCMMenu::RenderSelection()
+{
+	for (unsigned i = 0; i < interactiveButtons.size(); ++i)
+	{
+		if (interactiveButtons[i].getType() == Button2D::TEXT_BUTTON)
+		{
+			RenderTextOnScreen(interactiveButtons[i].getMesh(), interactiveButtons[i].getText(), interactiveButtons[i].getColor(), fontSize, interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y, interactiveButtons[i].getRotation());
+
+		}
+
+		else
+		{
+			Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y), interactiveButtons[i].getRotation());
+		}
+
+		/*if (DEBUG)
+		{
+			Render2DMesh(findMesh("GEO_DEBUGQUAD"), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPos().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPos().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
+		}*/
+	}
+
+	glDisable(GL_DEPTH_TEST);
 }
 
 void SceneManagerCMMenu::UpdateSelection()

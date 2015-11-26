@@ -6,19 +6,21 @@
 
 class SceneManagerCMPlay : public SceneManagerGameplay
 {
+private:
+	vector<GameObject3D*> objectList;
+	SceneNode* sceneGraph;
 public:
 	SceneManagerCMPlay();
 	~SceneManagerCMPlay();
 
 	void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
+	void Config();
 	void Update(double dt);
 	void Render();
 	void Exit();
 
 	void BindShaders();
 	void InitShader();
-	void InitLight();
-	void InitCamera();
 
 	void RenderLight();
 	void RenderBG();

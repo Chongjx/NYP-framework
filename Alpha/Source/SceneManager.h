@@ -50,6 +50,7 @@ public:
 	~SceneManager();
 
 	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
+	virtual void Config();
 	virtual void Update(double dt);
 	virtual void Render();
 	virtual void Exit();
@@ -88,6 +89,10 @@ protected:
 
 	bool lightEnabled;
 	float fps;
+	float fontSize;
+	float specialFontSize;
+
+	Branch sceneBranch;
 };
 
 #endif

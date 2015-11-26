@@ -350,6 +350,9 @@
     <ClInclude Include="Source\SceneManagerCMPause.h">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SceneManagerTransition.h">
+      <Filter>Managers\SceneManagers\Template</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\AppConfig.txt">

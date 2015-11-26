@@ -8,7 +8,6 @@ class SceneManagerSelection : public SceneManager
 public:
 	vector<Button2D> interactiveButtons;
 
-public:
 	SceneManagerSelection() {}
 	virtual ~SceneManagerSelection() {}
 
@@ -18,6 +17,8 @@ public:
 
 		interactiveButtons.clear();
 	}
+
+	virtual void Config() {}
 
 	virtual void Update(double dt)
 	{
@@ -40,14 +41,15 @@ public:
 	{
 		SceneManager::BindShaders();
 	}
+
 	virtual void InitShader() {}
-	virtual void InitLight() {}
 
 	virtual void RenderLight() {}
 	virtual void RenderBG() {}
 	virtual void RenderStaticObject() {}
 	virtual void RenderMobileObject() {}
 
+	virtual void RenderSelection() {}
 	virtual void UpdateSelection() {}
 };
 

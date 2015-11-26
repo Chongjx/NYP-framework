@@ -27,6 +27,8 @@ private:
 	bool fullscreen;
 	bool overrideUpdate;
 	bool overrideRender;
+
+	bool run;
 public:
 	GameStateManager();
 	~GameStateManager();

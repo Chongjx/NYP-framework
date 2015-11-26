@@ -71,6 +71,11 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 	{
 		gameStateManager->PushState(PlayStateCM::Instance());
 	}
+
+	else if (scene->inputManager->getKey("RSelect"))
+	{
+		gameStateManager->Quit();
+	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
 }
 

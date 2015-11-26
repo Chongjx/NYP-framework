@@ -39,9 +39,6 @@ public:
 	bool getKeyboardUpdate(void);
 	bool getMouseUpdate(void);
 
-	static void setRun(bool run);
-	static bool getRun(void);
-
 	static void setWindowWidth(int width);
 	static void setWindowHeight(int height);
 
@@ -72,7 +69,6 @@ private:
 	static int windowWidth;
 	static int windowHeight;
 	string windowTitle;
-	static bool run;
 	bool fullScreen;
 
 	GameStateManager* gameStateManager;

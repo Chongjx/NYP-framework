@@ -1,21 +1,32 @@
-#ifndef SCENE_MANAGER_INFO_H
-#define SCENE_MANAGER_INFO_H
+#ifndef SCENE_MANAGER_TRANSITION_H
+#define SCENE_MANAGER_TRANSITION_H
 
 #include "SceneManager.h"
 
-class SceneManagerInfo : public SceneManager
+class SceneManagerTransition : public SceneManager
 {
+protected:
+	bool run;
+	bool repeat;
+	int repeatCount;
+	int runCount;
+	bool complete;
+	bool shldExit;
 public:
-	vector<Button2D> interactiveButtons;
 
-	SceneManagerInfo() {}
-	virtual ~SceneManagerInfo() {}
+	SceneManagerTransition() {}
+	virtual ~SceneManagerTransition() {}
 
 	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
 	{
 		SceneManager::Init(width, height, RP, controls);
 
-		interactiveButtons.clear();
+		this->run = true;
+		this->repeat = false;
+		this->repeatCount = 0;
+		this->runCount = 0;
+		this->complete = false;
+		this->shldExit = false;
 	}
 
 	virtual void Config() {}
@@ -32,22 +43,19 @@ public:
 
 	virtual void Exit()
 	{
-		interactiveButtons.clear();
-
 		SceneManager::Exit();
 	}
 
-	virtual void BindShaders() 
+	virtual void BindShaders()
 	{
 		SceneManager::BindShaders();
 	}
+
 	virtual void InitShader() {}
 	virtual void InitLight() {}
 
 	virtual void RenderLight() {}
-	virtual void RenderBG() {}
-	virtual void RenderStaticObject() {}
-	virtual void RenderMobileObject() {}
+	virtual void RenderTransition() {}
 };
 
 #endif

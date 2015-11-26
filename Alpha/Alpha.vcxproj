@@ -167,6 +167,7 @@
     <ClInclude Include="Source\SceneManagerInfo.h" />
     <ClInclude Include="Source\SceneManagerCMPause.h" />
     <ClInclude Include="Source\SceneManagerSelection.h" />
+    <ClInclude Include="Source\SceneManagerTransition.h" />
     <ClInclude Include="Source\SceneNode.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SoundPool.h" />

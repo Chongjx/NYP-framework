@@ -2,7 +2,6 @@
 
 int Application::windowWidth = 1;
 int Application::windowHeight = 1;
-bool Application::run = true;
 Mouse* Application::mouse = NULL;
 Keyboard* Application::keyboard = NULL;
 
@@ -39,16 +38,6 @@ Mouse* Application::getMouse(void)
 Keyboard* Application::getKeyboard(void)
 {
 	return keyboard;
-}
-
-void Application::setRun(bool brun)
-{
-	run = brun;
-}
-
-bool Application::getRun(void)
-{
-	return run;
 }
 
 bool Application::getKeyboardUpdate(void)
@@ -157,19 +146,6 @@ void Application::Config(void)
 					this->FPS = stoi(attriValue);
 					this->frameTime = 1000 / FPS;
 				}
-
-				else if (attriName == "Run")
-				{
-					if (attriValue == "true" || attriValue == "1")
-					{
-						this->run = true;
-					}
-
-					else
-					{
-						this->run = false;
-					}
-				}
 			}
 		}
 
@@ -276,7 +252,7 @@ void Application::Run(void)
 {
 	m_timer.startTimer();	// Start timer to calculate how long it takes to render this frame
 
-	while (!glfwWindowShouldClose(m_window) && !keyboard->getKey(VK_ESCAPE) && run)
+	while (!glfwWindowShouldClose(m_window) && gameStateManager->Running())
 	{
 		// Get the elapsed time
 		m_dElapsedTime = m_timer.getElapsedTime();

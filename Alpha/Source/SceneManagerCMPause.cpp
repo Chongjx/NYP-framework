@@ -25,6 +25,11 @@ void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *
 	lightEnabled = false;
 }
 
+void SceneManagerCMPause::Config()
+{
+
+}
+
 void SceneManagerCMPause::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
@@ -134,10 +139,6 @@ void SceneManagerCMPause::InitShader()
 	glUniform1f(parameters[U_LIGHT0_COSCUTOFF], lights[0].cosCutoff);
 	glUniform1f(parameters[U_LIGHT0_COSINNER], lights[0].cosInner);
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
-}
-
-void SceneManagerCMPause::InitLight()
-{
 }
 
 void SceneManagerCMPause::RenderLight()

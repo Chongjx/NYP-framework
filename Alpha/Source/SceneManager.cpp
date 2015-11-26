@@ -7,6 +7,7 @@ SceneManager::SceneManager()
 	parameters.clear();
 	lights.clear();
 	lightEnabled = true;
+	fontSize = specialFontSize = 1.f;
 }
 
 SceneManager::~SceneManager()
@@ -34,6 +35,10 @@ void SceneManager::Init(const int width, const int height, ResourcePool* RM, Inp
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	Math::InitRNG();
+}
+
+void SceneManager::Config()
+{
 }
 
 void SceneManager::InitShader()
