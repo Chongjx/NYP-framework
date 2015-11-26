@@ -36,7 +36,7 @@ void SceneNode::Draw(SceneManager *sceneManager)
 {
 	sceneManager->PreRender(true);
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	gameObject3D->getMesh()->Render();
+	sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
@@ -49,7 +49,7 @@ void SceneNode::Draw(SceneManager *sceneManager)
 void SceneNode::DrawChild(SceneManager *sceneManager)
 {
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	gameObject3D->getMesh()->Render();
+	sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
