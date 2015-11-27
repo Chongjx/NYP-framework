@@ -58,18 +58,22 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
 	for (unsigned i = 0; i < scene->interactiveButtons.size(); ++i)
 	{
-		/*if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
+		if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
 		{
-		if (scene->interactiveButtons[i].getName() == "Play")
-		{
-		gameStateManager->PushState(PlayStateCM::Instance());
-		}
-		}*/
-	}
+			if (scene->interactiveButtons[i].getName == "Play")
+			{
+				gameStateManager->PushState(PlayStateCM::Instance());
+			}
 
-	if (scene->inputManager->getKey("Select"))
-	{
-		gameStateManager->PushState(PlayStateCM::Instance());
+			else if (scene->interactiveButtons[i].getName == "Instruction")
+			{
+			}
+
+			else if (scene->interactiveButtons[i].getName == "Quit")
+			{
+				gameStateManager->Quit();
+			}
+		}
 	}
 
 	else if (scene->inputManager->getKey("RSelect"))
