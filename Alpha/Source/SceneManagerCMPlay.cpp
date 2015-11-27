@@ -18,12 +18,10 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 {
 	SceneManagerGameplay::Init(width, height, RM, controls);
 
-	this->sceneGraph = new SceneNode();
-
 	this->InitShader();
 
 	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-
+	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
@@ -49,6 +47,16 @@ void SceneManagerCMPlay::Update(double dt)
 	
 	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
 	//tpCamera.Update(dt);
+
+	if (inputManager->getKey("ToggleWireFrame"))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	else if (inputManager->getKey("ToggleFill"))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 }
 
 void SceneManagerCMPlay::Render()
@@ -201,31 +209,42 @@ void SceneManagerCMPlay::RenderMobileObject()
 
 void SceneManagerCMPlay::InitSceneGraph()
 {
+	this->sceneGraph = new SceneNode();
+
 	GameObject3D* newModel = new GameObject3D;
+	SceneNode* newNode = new SceneNode;
 	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
+
 	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
 	newModel->setMesh(drawMesh);
-	sceneGraph->SetGameObject(newModel);
-
-	SceneNode* newNode = new SceneNode;
-	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
-	newModel->setMesh(drawMesh);
+	newModel->setName("Warrior");
 	newNode->SetGameObject(newModel);
 	sceneGraph->AddChildNode(newNode);
+
+	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("WarriorSword");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildToChildNode("Warrior", newNode);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SHIELD_OBJ");
 	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("WarriorShield");
 	newModel->setMesh(drawMesh);
 	newNode->SetGameObject(newModel);
-	sceneGraph->SetGameObject(newModel);
-	sceneGraph->AddChildNode(newNode);
+	sceneGraph->AddChildToChildNode("Warrior", newNode);
 }
 
 void SceneManagerCMPlay::FSMApplication()
 {
 	Vector3 newPosition;
-	newPosition.Set(-20, 0, 0);
-	sceneGraph->GetGameObject()->setPosition(newPosition);
+	newPosition.Set(-40, 0, 0);
+	sceneGraph->GetChildNode("Warrior")->GetGameObject()->setPosition(newPosition);
+	//sceneGraph->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetGameObject()->setRotation(90,0,1,0);
 }

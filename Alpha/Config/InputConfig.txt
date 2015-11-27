@@ -13,6 +13,14 @@
 		# [Key] VK_RBUTTON
 	}
 	{
+		[NAME] ToggleWireFrame
+		[Key] 0x31
+	}
+	{
+		[NAME] ToggleFill
+		[Key] 0x32
+	}
+	{
 		[NAME] Pause
 		[Key] 0x50
 	}

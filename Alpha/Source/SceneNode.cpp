@@ -35,15 +35,22 @@ void SceneNode::AddChildToChildNode(string childName, SceneNode *childNode)
 void SceneNode::Draw(SceneManager *sceneManager)
 {
 	sceneManager->PreRender(true);
-	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
+
+	if (gameObject3D != NULL)
+	{
+		sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
+		sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
+	}
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
 		this->childNodes[i]->DrawChild(sceneManager);
 	}
 
-	sceneManager->RenderPop();
+	if (gameObject3D != NULL)
+	{
+		sceneManager->RenderPop();
+	}
 }
 
 void SceneNode::DrawChild(SceneManager *sceneManager)
