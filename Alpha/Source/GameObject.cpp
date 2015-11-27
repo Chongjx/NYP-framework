@@ -31,6 +31,13 @@ void GameObject::setPosition(Vector3 position)
 	this->TRS.translation.SetToTranslation(position);
 }
 
+void GameObject::setRotation(float Angle, float x, float y, float z)
+{
+	this->rotation = Angle;
+
+	this->TRS.rotation.SetToRotation(Angle,x,y,z);
+}
+
 void GameObject::setTRS(Properties _TRS)
 {
 	this->TRS = _TRS;
@@ -70,6 +77,11 @@ string GameObject::getName(void) const
 Vector3 GameObject::getPosition(void) const
 {
 	return this->position;
+}
+
+Vector3 GameObject::getMtxRotation(void) const
+{
+	return this->rotation;
 }
 
 Properties GameObject::getProperties(void)

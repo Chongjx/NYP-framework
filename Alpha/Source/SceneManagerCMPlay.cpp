@@ -200,5 +200,9 @@ void SceneManagerCMPlay::RenderStaticObject()
 
 void SceneManagerCMPlay::RenderMobileObject()
 {
+	Vector3 newPosition;
+	newPosition.Set(-20, 0, 0);
+	sceneGraph->GetGameObject()->setPosition(newPosition);
+	//sceneGraph->GetGameObject()->setRotation(90,0,1,0);
 	sceneGraph->Draw(this);
 }

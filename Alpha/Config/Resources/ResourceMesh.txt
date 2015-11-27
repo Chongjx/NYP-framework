@@ -43,7 +43,7 @@
 	{
 		[NAME] WARRIOR_OBJ
 		[Type] Obj
-		[Directory] Config\\Resources\\Obj\\Warrior.obj
+		[Directory] Config\\Resources\\Obj\\AI\\Warrior.obj
 	}
 }
 
