@@ -45,6 +45,16 @@
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Warrior.obj
 	}
+	{
+		[NAME] WARRIOR_SWORD_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Sword.obj
+	}
+	{
+		[NAME] WARRIOR_SHIELD_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Shield.obj
+	}
 }
 
 # Types available

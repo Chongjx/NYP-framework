@@ -30,12 +30,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
 
-	GameObject3D* newModel = new GameObject3D;
-
-	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
-	newModel->setMesh(drawMesh);
-	sceneGraph->SetGameObject(newModel);
+	InitSceneGraph();
 
 	lightEnabled = true;
 }
@@ -200,9 +195,37 @@ void SceneManagerCMPlay::RenderStaticObject()
 
 void SceneManagerCMPlay::RenderMobileObject()
 {
+	FSMApplication();
+	sceneGraph->Draw(this);
+}
+
+void SceneManagerCMPlay::InitSceneGraph()
+{
+	GameObject3D* newModel = new GameObject3D;
+	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
+	newModel->setMesh(drawMesh);
+	sceneGraph->SetGameObject(newModel);
+
+	SceneNode* newNode = new SceneNode;
+	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildNode(newNode);
+
+	drawMesh = resourceManager.retrieveMesh("WARRIOR_SHIELD_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->SetGameObject(newModel);
+	sceneGraph->AddChildNode(newNode);
+}
+
+void SceneManagerCMPlay::FSMApplication()
+{
 	Vector3 newPosition;
 	newPosition.Set(-20, 0, 0);
 	sceneGraph->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetGameObject()->setRotation(90,0,1,0);
-	sceneGraph->Draw(this);
 }

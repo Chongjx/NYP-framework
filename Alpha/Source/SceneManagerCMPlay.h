@@ -22,6 +22,9 @@ public:
 	void BindShaders();
 	void InitShader();
 
+	void InitSceneGraph();
+	void FSMApplication();
+
 	void RenderLight();
 	void RenderBG();
 	void RenderStaticObject();

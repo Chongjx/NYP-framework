@@ -26,4 +26,8 @@
 		[NAME] WARRIOR
 		[Directory] Config\\Resources\\Texture\\AI\\Warrior.tga
 	}
+	{
+		[NAME] WEAPONS
+		[Directory] Config\\Resources\\Texture\\AI\\Weapons.tga
+	}
 }
