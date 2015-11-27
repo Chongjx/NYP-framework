@@ -15,6 +15,10 @@
 	{
 		[NAME] MENU_BG
 		[Type] Quad
+	}
+	{
+		[NAME] DEBUG_QUAD
+		[Type] DebugQuad
 	}	
 	{
 		# InnerRadius = PlanetRadius, OuterRadius = AtmosphereRadius

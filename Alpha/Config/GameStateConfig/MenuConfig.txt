@@ -46,7 +46,7 @@
 			[Text] Quit
 			[Pos] 400, 350
 			[Rotation] 0
-			[Scale] 800, 55
+			[Scale] 270, 55
 			[Mesh] FONT
 		}
 	}
