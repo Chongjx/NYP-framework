@@ -177,10 +177,11 @@ void SceneManagerCMMenu::RenderSelection()
 			Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y), interactiveButtons[i].getRotation());
 		}
 
-		/*if (DEBUG)
+#if _DEBUG
 		{
-			Render2DMesh(findMesh("GEO_DEBUGQUAD"), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPos().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPos().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
-		}*/
+			Render2DMesh(resourceManager.retrieveMesh("DEBUG_QUAD"), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPosition().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
+		}
+#endif
 	}
 
 	glDisable(GL_DEPTH_TEST);

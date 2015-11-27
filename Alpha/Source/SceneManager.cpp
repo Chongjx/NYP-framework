@@ -231,7 +231,7 @@ Render a mesh in 2D
 ********************************************************************************/
 void SceneManager::Render2DMesh(Mesh *mesh, const bool enableLight, const Vector2 scale, const Vector2 pos, const float rotation)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh)
 		return;
 
 	Mtx44 ortho;
