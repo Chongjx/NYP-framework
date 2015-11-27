@@ -60,22 +60,27 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 	{
 		if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
 		{
-			if (scene->interactiveButtons[i].getName == "Play")
+			if (scene->interactiveButtons[i].getName() == "Play")
 			{
 				gameStateManager->PushState(PlayStateCM::Instance());
 			}
 
-			else if (scene->interactiveButtons[i].getName == "Instruction")
+			else if (scene->interactiveButtons[i].getName() == "Instruction")
 			{
 			}
 
-			else if (scene->interactiveButtons[i].getName == "Quit")
+			else if (scene->interactiveButtons[i].getName() == "Quit")
 			{
 				gameStateManager->Quit();
 			}
 		}
 	}
 
+	if (scene->inputManager->getKey("Select"))
+	{
+		gameStateManager->PushState(PlayStateCM::Instance());
+	}
+	
 	else if (scene->inputManager->getKey("RSelect"))
 	{
 		gameStateManager->Quit();
