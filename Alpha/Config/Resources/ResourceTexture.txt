@@ -27,6 +27,14 @@
 		[Directory] Config\\Resources\\Texture\\AI\\Warrior.tga
 	}
 	{
+		[NAME] MAGE
+		[Directory] Config\\Resources\\Texture\\AI\\Mage.tga
+	}
+	{
+		[NAME] HEALER
+		[Directory] Config\\Resources\\Texture\\AI\\Healer.tga
+	}
+	{
 		[NAME] WEAPONS
 		[Directory] Config\\Resources\\Texture\\AI\\Weapons.tga
 	}

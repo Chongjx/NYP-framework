@@ -211,13 +211,16 @@ void SceneManagerCMPlay::InitSceneGraph()
 {
 	this->sceneGraph = new SceneNode();
 
+	//**********//
+	//Warrior	//
+	//**********//
 	GameObject3D* newModel = new GameObject3D;
 	SceneNode* newNode = new SceneNode;
 	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
 
 	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
 	newModel->setMesh(drawMesh);
-	newModel->setName("Warrior");
+	newModel->setName("WARRIOR");
 	newNode->SetGameObject(newModel);
 	sceneGraph->AddChildNode(newNode);
 
@@ -225,29 +228,87 @@ void SceneManagerCMPlay::InitSceneGraph()
 	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
-	newModel->setName("WarriorSword");
+	newModel->setName("WARRIOR_SWORD");
 	newModel->setMesh(drawMesh);
 	newNode->SetGameObject(newModel);
-	sceneGraph->AddChildToChildNode("Warrior", newNode);
+	sceneGraph->AddChildToChildNode("WARRIOR", newNode);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SHIELD_OBJ");
 	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
-	newModel->setName("WarriorShield");
+	newModel->setName("WARRIOR_SHIELD");
 	newModel->setMesh(drawMesh);
 	newNode->SetGameObject(newModel);
-	sceneGraph->AddChildToChildNode("Warrior", newNode);
+	sceneGraph->AddChildToChildNode("WARRIOR", newNode);
+
+
+	//**********//
+	//Healer	//
+	//**********//
+	drawMesh = resourceManager.retrieveMesh("HEALER_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("HEALER");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setMesh(drawMesh);
+	newModel->setName("HEALER");
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildNode(newNode);
+
+	drawMesh = resourceManager.retrieveMesh("HEALER_ROD_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("HEALER_ROD");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildToChildNode("HEALER", newNode);
+
+
+	////**********//
+	////Mage		//
+	////**********//
+	//drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
+	//drawMesh->textureID = resourceManager.retrieveTexture("MAGE");
+	//newModel = new GameObject3D;
+	//newNode = new SceneNode;
+	//newModel->setMesh(drawMesh);
+	//newModel->setName("MAGE");
+	//newNode->SetGameObject(newModel);
+	//sceneGraph->AddChildNode(newNode);
+
+	//drawMesh = resourceManager.retrieveMesh("MAGE_STAFF_OBJ");
+	//drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	//newModel = new GameObject3D;
+	//newNode = new SceneNode;
+	//newModel->setName("MAGE_STAFF");
+	//newModel->setMesh(drawMesh);
+	//newNode->SetGameObject(newModel);
+	//sceneGraph->AddChildToChildNode("MAGE", newNode);
+	
 }
 
 void SceneManagerCMPlay::FSMApplication()
 {
 	Vector3 newPosition;
 	newPosition.Set(-40, 0, 0);
-	sceneGraph->GetChildNode("Warrior")->GetGameObject()->setPosition(newPosition);
+	sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
 
-	sceneGraph->GetChildNode("WarriorSword")->GetGameObject()->setPosition(Vector3(0, 0, -3));
+	sceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 
-	sceneGraph->GetChildNode("WarriorShield")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+	sceneGraph->GetChildNode("WARRIOR_SHIELD")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+
+	newPosition.Set(-40, 0, -20);
+	sceneGraph->GetChildNode("HEALER")->GetGameObject()->setPosition(newPosition);
+	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
+
+	sceneGraph->GetChildNode("HEALER_ROD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+
+
+	//newPosition.Set(-40, 0, 40);
+	//sceneGraph->GetChildNode("MAGE")->GetGameObject()->setPosition(newPosition);
+	////sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
+
+	//sceneGraph->GetChildNode("MAGE_STAFF")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 }

@@ -55,6 +55,26 @@
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Shield.obj
 	}
+	{
+		[NAME] HEALER_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Healer.obj
+	}
+	{
+		[NAME] HEALER_ROD_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Rod.obj
+	}
+	{
+		[NAME] MAGE_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Mage.obj
+	}
+	{
+		[NAME] MAGE_STAFF_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Staff.obj
+	}
 }
 
 # Types available
