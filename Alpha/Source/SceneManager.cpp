@@ -90,7 +90,7 @@ void SceneManager::PreRender(bool enableLight)
 void SceneManager::RenderPush(Mtx44 properties)
 {
 	modelStack.PushMatrix();
-	modelStack.LoadMatrix(properties);
+	modelStack.MultMatrix(properties);
 }
 
 void SceneManager::RenderPop()
