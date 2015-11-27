@@ -5,7 +5,7 @@
 	# Menu interface
 	{
 		[NAME] Camera
-		# Types available FP, TP, DEFAULT
+		# Types available FP, TP
 		[Type] FP
 		[CameraPos] 0, 0, 10
 		[CameraTarget] 0, 0, 0
@@ -43,7 +43,7 @@
 		{
 			[NAME] Quit
 			[Type] Text
-			[Text] Quit
+			[Text] Pew
 			[Pos] 400, 350
 			[Rotation] 0
 			[Scale] 270, 55

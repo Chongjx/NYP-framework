@@ -245,6 +245,9 @@ void SceneManagerCMPlay::FSMApplication()
 	Vector3 newPosition;
 	newPosition.Set(-40, 0, 0);
 	sceneGraph->GetChildNode("Warrior")->GetGameObject()->setPosition(newPosition);
-	//sceneGraph->GetGameObject()->setPosition(newPosition);
-	//sceneGraph->GetGameObject()->setRotation(90,0,1,0);
+	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
+
+	sceneGraph->GetChildNode("WarriorSword")->GetGameObject()->setPosition(Vector3(0, 0, -3));
+
+	sceneGraph->GetChildNode("WarriorShield")->GetGameObject()->setPosition(Vector3(0, 0, 5));
 }
