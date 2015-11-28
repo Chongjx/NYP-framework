@@ -42,6 +42,11 @@ public:
 
 	virtual void InitShader() {}
 
+	virtual void UpateMouse()
+	{
+		SceneManager::UpdateMouse();
+	}
+
 	virtual void RenderLight() {}
 	virtual void RenderBG() {}
 	virtual void RenderStaticObject() {}

@@ -32,8 +32,8 @@ void SceneManagerCMMenu::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
 
-	//Uncomment the following line to play sound
-	//resourceManager.retrieveSound("MenuFeedback");
+	UpdateMouse();
+	UpdateSelection();
 }
 
 void SceneManagerCMMenu::Render()
@@ -184,9 +184,36 @@ void SceneManagerCMMenu::RenderSelection()
 #endif
 	}
 
+	// Render mouse
+	/*Mesh* drawMesh = resourceManager.retrieveMesh("CURSOR");
+	drawMesh->textureID = resourceManager.retrieveTexture("SKYPLANE_TOP");
+	Render2DMesh(drawMesh, false, 100.f, mousePos.x, mousePos.y);*/
+
 	glDisable(GL_DEPTH_TEST);
+}
+
+void SceneManagerCMMenu::UpdateMouse()
+{
+	SceneManagerSelection::UpdateMouse();
 }
 
 void SceneManagerCMMenu::UpdateSelection()
 {
+	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
+	{
+		interactiveButtons[i].Update(inputManager->getKey("Select"), mousePos.x, mousePos.y);
+	}
+
+	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
+	{
+		if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+		{
+			interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
+		}
+
+		else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
+		{
+			interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+		}
+	}
 }

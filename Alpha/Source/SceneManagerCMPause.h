@@ -18,6 +18,7 @@ public:
 	void BindShaders();
 	void InitShader();
 
+	void UpdateMouse();
 	void UpdateSelection();
 
 	void RenderLight();

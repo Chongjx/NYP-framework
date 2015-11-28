@@ -1,7 +1,8 @@
 #include "SceneManager.h"
 #include "GL\glew.h"
-
 #include "shader.hpp"
+#include "Application.h"
+
 SceneManager::SceneManager()
 {
 	parameters.clear();
@@ -49,6 +50,19 @@ void SceneManager::BindShaders()
 {
 	glGenVertexArrays(1, &vertexArrayID);
 	glBindVertexArray(vertexArrayID);
+}
+
+void SceneManager::UpdateMouse()
+{
+	// updating mouse pos in the scene via a handler from the engine
+	double x, y;
+	x = Application::getMouse()->getCurrentPosX();
+	y = Application::getMouse()->getCurrentPosY();
+
+	int w = Application::getWindowWidth();
+	int h = Application::getWindowHeight();
+
+	mousePos.Set((float)x * sceneWidth / w, (h - (float)y) * sceneHeight / h);
 }
 
 void SceneManager::RenderLight()

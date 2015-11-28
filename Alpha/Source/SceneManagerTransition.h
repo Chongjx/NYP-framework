@@ -52,6 +52,11 @@ public:
 	virtual void InitShader() {}
 	virtual void InitLight() {}
 
+	virtual void UpateMouse()
+	{
+		SceneManager::UpdateMouse();
+	}
+
 	virtual void RenderLight() {}
 	virtual void RenderTransition() {}
 

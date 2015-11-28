@@ -55,8 +55,9 @@ public:
 	virtual void Render();
 	virtual void Exit();
 
-	virtual void BindShaders();
 	virtual void InitShader();
+	virtual void BindShaders();
+	virtual void UpdateMouse();
 	virtual void RenderLight();
 
 	void PreRender(bool enableLight);
@@ -91,6 +92,7 @@ protected:
 	float fps;
 	float fontSize;
 	float specialFontSize;
+	Vector2 mousePos;
 
 	Branch sceneBranch;
 };

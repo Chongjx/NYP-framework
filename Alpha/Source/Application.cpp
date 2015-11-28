@@ -233,7 +233,7 @@ void Application::Init(string config)
 	}
 
 	// Hide the cursor
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Set these 2 variables to zero
 	m_dElapsedTime = 0.0;

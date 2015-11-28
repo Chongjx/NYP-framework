@@ -162,6 +162,11 @@ void SceneManagerCMPause::RenderMobileObject()
 {
 }
 
+void SceneManagerCMPause::UpdateMouse()
+{
+	SceneManagerSelection::UpateMouse();
+}
+
 void SceneManagerCMPause::UpdateSelection()
 {
 }

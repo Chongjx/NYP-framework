@@ -45,12 +45,21 @@ SpatialPartitionManager::~SpatialPartitionManager()
 // true if worldDivision is num of partition for the world
 bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased)
 {
-	Vector2 worldDimension(maxWorldDimension.x - minWorldDimension.x, maxWorldDimension.y - minWorldDimension.y);
+	Vector2 worldDimension = maxWorldDimension - minWorldDimension;
 
 	// ensure the data are not 0
 	if (!worldDimension.IsZero() && !worldDivision.IsZero())
 	{
+		// divide the world base on the number of 
+		if (numPartitionBased)
+		{
 
+		}
+
+		else
+		{
+
+		}
 	}
 
 	return true;
@@ -59,6 +68,23 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 // 3D spatial partition
 bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased)
 {
+	Vector3 worldDimension = maxWorldDimension - minWorldDimension;
+
+	// ensure the data are not 0
+	if (!worldDimension.IsZero() && !worldDivision.IsZero())
+	{
+		// divide the world base on the number of 
+		if (numPartitionBased)
+		{
+
+		}
+
+		else
+		{
+
+		}
+	}
+
 	return true;
 }
 

@@ -342,3 +342,8 @@ void SceneManagerCMPlay::FSMApplication()
 	sceneGraph->GetChildNode("BOSS_L_ARM")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 	sceneGraph->GetChildNode("BOSS_R_ARM")->GetGameObject()->setPosition(Vector3(0, 0, 5));
 }
+
+void SceneManagerCMPlay::UpdateMouse()
+{
+	SceneManagerGameplay::UpateMouse();
+}

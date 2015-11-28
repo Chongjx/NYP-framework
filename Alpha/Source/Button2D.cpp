@@ -67,7 +67,6 @@ void Button2D::Update(bool pressed, Vector2 mouse)
 void Button2D::Update(bool pressed, double mouseX, double mouseY)
 {
 	// update Button2D status based on mouse position
-
 	if (mouseX < this->position.x + this->scale.x && mouseX > this->position.x)
 	{
 		if (mouseY < this->position.y + this->scale.y && mouseY > this->position.y)

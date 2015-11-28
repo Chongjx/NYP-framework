@@ -28,7 +28,7 @@
 			[Text] Play
 			[Pos] 400, 550
 			[Rotation] 0
-			[Scale] 270, 55
+			[Scale] 270, 75
 			[Mesh] FONT
 		}
 		{
@@ -37,16 +37,16 @@
 			[Text] Instruction
 			[Pos] 100, 450
 			[Rotation] 0
-			[Scale] 800, 55
+			[Scale] 800, 75
 			[Mesh] FONT
 		}
 		{
 			[NAME] Quit
 			[Type] Text
-			[Text] Pew
+			[Text] Quit
 			[Pos] 400, 350
 			[Rotation] 0
-			[Scale] 270, 55
+			[Scale] 270, 75
 			[Mesh] FONT
 		}
 	}

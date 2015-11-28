@@ -25,6 +25,8 @@ public:
 	void InitSceneGraph();
 	void FSMApplication();
 
+	void UpdateMouse();
+
 	void RenderLight();
 	void RenderBG();
 	void RenderStaticObject();
