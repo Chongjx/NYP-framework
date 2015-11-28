@@ -25,6 +25,10 @@ private:
 	double mouseYaw, mousePitch;
 	float sensitivity;
 
+	const static int m_window_deadzone = 100;
+	int m_window_width;
+	int m_window_height;
+
 	void Config(void);
 public:
 	Mouse();

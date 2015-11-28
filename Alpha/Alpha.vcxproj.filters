@@ -76,6 +76,9 @@
     <Filter Include="Config\State">
       <UniqueIdentifier>{4ff9688e-f6cf-4a9f-a0f0-bb3550d19669}</UniqueIdentifier>
     </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{189ef879-c30a-4c79-9dac-a65cb66e1522}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility.cpp">

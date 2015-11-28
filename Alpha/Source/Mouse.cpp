@@ -43,6 +43,16 @@ void Mouse::Config(void)
 				{
 					this->sensitivity = stof(attriValue);
 				}
+
+				else if (attriName == "window_w")
+				{
+					this->m_window_width = stof(attriValue);
+				}
+
+				else if (attriName == "window_h")
+				{
+					this->m_window_height = stof(attriValue);
+				}
 			}
 		}
 	}
@@ -80,6 +90,18 @@ void Mouse::Update()
 
 	mouseYaw = (float)(diffPos.x * 0.0174555555555556f * sensitivity); // 3.142f / 180.0f );
 	mousePitch = (float)(diffPos.y * 0.0174555555555556f * sensitivity); // 3.142f / 180.0f );
+
+	// Do a wraparound if the mouse cursor has gone out of the deadzone
+	if ((currentPosX < m_window_deadzone) || (currentPosX > m_window_width - m_window_deadzone))
+	{
+		currentPosX = m_window_width >> 1;
+		glfwSetCursorPos(m_window, currentPosX, currentPosY);
+	}
+	if ((currentPosY < m_window_deadzone) || (currentPosY > m_window_height - m_window_deadzone))
+	{
+		currentPosY = m_window_height >> 1;
+		glfwSetCursorPos(m_window, currentPosX, currentPosY);
+	}
 
 	lastPos.Set((float)currentPosX, (float)currentPosY);
 
