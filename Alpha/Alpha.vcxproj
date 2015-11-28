@@ -109,6 +109,7 @@
     <ClCompile Include="Source\Mouse.cpp" />
     <ClCompile Include="Source\OBB2D.cpp" />
     <ClCompile Include="Source\OBB3D.cpp" />
+    <ClCompile Include="Source\Partition.cpp" />
     <ClCompile Include="Source\PauseStateCM.cpp" />
     <ClCompile Include="Source\PlayStateCM.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
@@ -120,6 +121,7 @@
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SoundPool.cpp" />
+    <ClCompile Include="Source\SpatialPartitionManager.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
     <ClCompile Include="Source\StaticGameObject.cpp" />
     <ClCompile Include="Source\TileSheet.cpp" />
@@ -155,6 +157,7 @@
     <ClInclude Include="Source\Mouse.h" />
     <ClInclude Include="Source\OBB2D.h" />
     <ClInclude Include="Source\OBB3D.h" />
+    <ClInclude Include="Source\Partition.h" />
     <ClInclude Include="Source\PauseStateCM.h" />
     <ClInclude Include="Source\PlayStateCM.h" />
     <ClInclude Include="Source\ResourceManager.h" />
@@ -171,6 +174,7 @@
     <ClInclude Include="Source\SceneNode.h" />
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SoundPool.h" />
+    <ClInclude Include="Source\SpatialPartitionManager.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
     <ClInclude Include="Source\StaticGameObject.h" />
     <ClInclude Include="Source\TileSheet.h" />

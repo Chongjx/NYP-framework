@@ -55,9 +55,6 @@
     <Filter Include="GameObjects\ParentObject">
       <UniqueIdentifier>{89c825dc-6802-4501-b8b2-81bb590e4b34}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers\Others">
-      <UniqueIdentifier>{429d9c15-8b46-4b76-96e5-3c7e0c68470d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="States\StatesCM">
       <UniqueIdentifier>{fc4ca3ca-de21-4a4c-8871-7fd23e346f67}</UniqueIdentifier>
     </Filter>
@@ -75,6 +72,12 @@
     </Filter>
     <Filter Include="Config\State">
       <UniqueIdentifier>{4ff9688e-f6cf-4a9f-a0f0-bb3550d19669}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers\SpatialPartitionManager">
+      <UniqueIdentifier>{325d1876-2ac8-4911-8f7c-df62de8c5ecd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers\GameStateManager">
+      <UniqueIdentifier>{98f4ccd1-bc6a-4e36-82dc-f30ba2ce55ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,15 +171,6 @@
     <ClCompile Include="Source\LoadHmap.cpp">
       <Filter>Loaders</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GameStateManager.cpp">
-      <Filter>Managers\Others</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\InputManager.cpp">
-      <Filter>Managers\Others</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\ResourceManager.cpp">
-      <Filter>Managers\Others</Filter>
-    </ClCompile>
     <ClCompile Include="Source\MenuStateCM.cpp">
       <Filter>States\StatesCM</Filter>
     </ClCompile>
@@ -200,6 +194,21 @@
     </ClCompile>
     <ClCompile Include="Source\SceneManagerCMPause.cpp">
       <Filter>Managers\SceneManagers\SceneCM</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SpatialPartitionManager.cpp">
+      <Filter>Managers\SpatialPartitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Partition.cpp">
+      <Filter>Managers\SpatialPartitionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameStateManager.cpp">
+      <Filter>Managers\GameStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\InputManager.cpp">
+      <Filter>Managers\GameStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ResourceManager.cpp">
+      <Filter>Managers\GameStateManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -302,15 +311,6 @@
     <ClInclude Include="Source\LoadHmap.h">
       <Filter>Loaders</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GameStateManager.h">
-      <Filter>Managers\Others</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\InputManager.h">
-      <Filter>Managers\Others</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\ResourceManager.h">
-      <Filter>Managers\Others</Filter>
-    </ClInclude>
     <ClInclude Include="Source\MenuStateCM.h">
       <Filter>States\StatesCM</Filter>
     </ClInclude>
@@ -352,6 +352,21 @@
     </ClInclude>
     <ClInclude Include="Source\SceneManagerTransition.h">
       <Filter>Managers\SceneManagers\Template</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SpatialPartitionManager.h">
+      <Filter>Managers\SpatialPartitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Partition.h">
+      <Filter>Managers\SpatialPartitionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GameStateManager.h">
+      <Filter>Managers\GameStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\InputManager.h">
+      <Filter>Managers\GameStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ResourceManager.h">
+      <Filter>Managers\GameStateManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

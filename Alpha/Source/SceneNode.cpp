@@ -68,7 +68,7 @@ void SceneNode::DrawChild(SceneManager *sceneManager)
 
 SceneNode* SceneNode::GetChildNode(string childName)
 {
-	SceneNode *resultNode;
+	static SceneNode *resultNode = NULL;
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
@@ -81,7 +81,7 @@ SceneNode* SceneNode::GetChildNode(string childName)
 		{
 			resultNode = childNodes[i]->GetChildNode(childName);
 
-			if (resultNode != NULL)
+			if (resultNode->gameObject3D != NULL)
 			{
 				return resultNode;
 			}

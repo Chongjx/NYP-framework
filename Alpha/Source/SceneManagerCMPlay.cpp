@@ -268,23 +268,23 @@ void SceneManagerCMPlay::InitSceneGraph()
 	////**********//
 	////Mage		//
 	////**********//
-	//drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
-	//drawMesh->textureID = resourceManager.retrieveTexture("MAGE");
-	//newModel = new GameObject3D;
-	//newNode = new SceneNode;
-	//newModel->setMesh(drawMesh);
-	//newModel->setName("MAGE");
-	//newNode->SetGameObject(newModel);
-	//sceneGraph->AddChildNode(newNode);
+	drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("MAGE");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setMesh(drawMesh);
+	newModel->setName("MAGE");
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildNode(newNode);
 
-	//drawMesh = resourceManager.retrieveMesh("MAGE_STAFF_OBJ");
-	//drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
-	//newModel = new GameObject3D;
-	//newNode = new SceneNode;
-	//newModel->setName("MAGE_STAFF");
-	//newModel->setMesh(drawMesh);
-	//newNode->SetGameObject(newModel);
-	//sceneGraph->AddChildToChildNode("MAGE", newNode);
+	drawMesh = resourceManager.retrieveMesh("MAGE_STAFF_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("MAGE_STAFF");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildToChildNode("MAGE", newNode);
 	
 }
 
@@ -301,14 +301,10 @@ void SceneManagerCMPlay::FSMApplication()
 
 	newPosition.Set(-40, 0, -20);
 	sceneGraph->GetChildNode("HEALER")->GetGameObject()->setPosition(newPosition);
-	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
-
 	sceneGraph->GetChildNode("HEALER_ROD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 
 
-	//newPosition.Set(-40, 0, 40);
-	//sceneGraph->GetChildNode("MAGE")->GetGameObject()->setPosition(newPosition);
-	////sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
-
-	//sceneGraph->GetChildNode("MAGE_STAFF")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+	newPosition.Set(-40, 0, 40);
+	sceneGraph->GetChildNode("MAGE")->GetGameObject()->setPosition(newPosition);
+	sceneGraph->GetChildNode("MAGE_STAFF")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 }

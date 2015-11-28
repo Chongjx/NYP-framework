@@ -272,7 +272,7 @@ void ResourcePool::processMesh(string config)
 
 		else if (meshType == "Skyplane")
 		{
-			mesh = MeshBuilder::GenerateSkyPlane(meshName, meshColor, (unsigned)meshVar[VAR_SLICES], (float)meshVar[VAR_INNER_RADIUS], (unsigned)meshVar[VAR_OUTER_RADIUS], (float)meshTileRow, (float)meshTileCol);
+			mesh = MeshBuilder::GenerateSkyPlane(meshName, meshColor, (unsigned)meshVar[VAR_SLICES], (float)meshVar[VAR_INNER_RADIUS], (float)meshVar[VAR_OUTER_RADIUS], (float)meshTileRow, (float)meshTileCol);
 		}
 
 		else if (meshType == "Terrain")
