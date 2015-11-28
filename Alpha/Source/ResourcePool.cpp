@@ -1,3 +1,4 @@
+#include "Application.h"
 #include "ResourcePool.h"
 #include "LoadTGA.h"
 

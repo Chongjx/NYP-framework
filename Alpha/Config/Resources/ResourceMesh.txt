@@ -75,6 +75,16 @@
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Staff.obj
 	}
+	{
+		[NAME] BOSS_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\Boss.obj
+	}
+	{
+		[NAME] BOSS_ARM_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\AI\\BossArm.obj
+	}
 }
 
 # Types available

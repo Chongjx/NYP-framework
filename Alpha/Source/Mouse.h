@@ -24,6 +24,9 @@ private:
 	Vector2 lastPos, diffPos;
 	double mouseYaw, mousePitch;
 	float sensitivity;
+	bool deadzone;
+
+	Vector2 deadZoneDimension;
 
 	void Config(void);
 public:
@@ -38,6 +41,8 @@ public:
 	void setMouseYaw(double value);
 	void setMousePitch(double value);
 	void setSensitivity(float sensitivity);
+	void enableDeadZone();
+	void disableDeadZone();
 
 	void setMousePos(const double xCoord, const double yCoord);
 	double getCurrentPosX(void);

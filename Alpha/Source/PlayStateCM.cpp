@@ -26,6 +26,8 @@ void PlayStateCM::Init(const int width, const int height, ResourcePool* RP, Inpu
 	this->scene = new SceneManagerCMPlay();
 
 	scene->Init(width, height, RP, controls);
+
+	Application::getMouse()->enableDeadZone();
 }
 
 void PlayStateCM::CleanUp()
@@ -66,6 +68,8 @@ void PlayStateCM::HandleEvents(GameStateManager* gameStateManager)
 		//gameStateManager->PopState(this);
 	}
 	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
+
+	
 }
 
 void PlayStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)

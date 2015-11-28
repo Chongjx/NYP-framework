@@ -25,6 +25,8 @@ void PauseStateCM::Init(const int width, const int height, ResourcePool* RP, Inp
 	this->scene = new SceneManagerCMPause();
 
 	scene->Init(width, height, RP, controls);
+
+	Application::getMouse()->disableDeadZone();
 }
 
 void PauseStateCM::CleanUp()

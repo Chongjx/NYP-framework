@@ -1,4 +1,6 @@
+#include "Application.h"
 #include "Mouse.h"
+
 
 Mouse::Mouse()
 {
@@ -43,6 +45,11 @@ void Mouse::Config(void)
 				{
 					this->sensitivity = stof(attriValue);
 				}
+
+				else if (attriName == "deadzone")
+				{
+					stringToVector(attriValue, deadZoneDimension);
+				}
 			}
 		}
 	}
@@ -51,6 +58,7 @@ void Mouse::Config(void)
 	this->lastPos.SetZero();
 	this->mouseYaw = 0;
 	this->mousePitch = 0;
+	deadzone = false;
 
 	for (int i = LEFT_BUTTON; i < MAX_BUTTON; ++i)
 	{
@@ -81,6 +89,21 @@ void Mouse::Update()
 	mouseYaw = (float)(diffPos.x * 0.0174555555555556f * sensitivity); // 3.142f / 180.0f );
 	mousePitch = (float)(diffPos.y * 0.0174555555555556f * sensitivity); // 3.142f / 180.0f );
 
+	// Do a wraparound if the mouse cursor has gone out of the deadzone
+	if (deadzone)
+	{
+		if ((currentPosX < deadZoneDimension.x) || (currentPosX > Application::getWindowWidth() - deadZoneDimension.x))
+		{
+			currentPosX = Application::getWindowWidth() >> 1;
+			glfwSetCursorPos(m_window, currentPosX, currentPosY);
+		}
+		if ((currentPosY < deadZoneDimension.y) || (currentPosY > Application::getWindowHeight() - deadZoneDimension.y))
+		{
+			currentPosY = Application::getWindowHeight() >> 1;
+			glfwSetCursorPos(m_window, currentPosX, currentPosY);
+		}
+	}
+
 	lastPos.Set((float)currentPosX, (float)currentPosY);
 
 	for (int i = LEFT_BUTTON; i < MAX_BUTTON; ++i)
@@ -105,6 +128,16 @@ void Mouse::setMousePitch(double value)
 void Mouse::setSensitivity(float sensitivity)
 {
 	this->sensitivity = sensitivity;
+}
+
+void Mouse::enableDeadZone()
+{
+	this->deadzone = true;
+}
+
+void Mouse::disableDeadZone()
+{
+	this->deadzone = false;
 }
 
 void Mouse::setMousePos(const double xCoord, const double yCoord)

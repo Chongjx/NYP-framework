@@ -44,7 +44,7 @@ void SceneManagerCMPlay::Update(double dt)
 
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
-	
+
 	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
 	//tpCamera.Update(dt);
 
@@ -265,9 +265,9 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildToChildNode("HEALER", newNode);
 
 
-	////**********//
-	////Mage		//
-	////**********//
+	//**********//
+	//Mage		//
+	//**********//
 	drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
 	drawMesh->textureID = resourceManager.retrieveTexture("MAGE");
 	newModel = new GameObject3D;
@@ -285,7 +285,36 @@ void SceneManagerCMPlay::InitSceneGraph()
 	newModel->setMesh(drawMesh);
 	newNode->SetGameObject(newModel);
 	sceneGraph->AddChildToChildNode("MAGE", newNode);
-	
+
+	//**********//
+	//Boss		//
+	//**********//
+	drawMesh = resourceManager.retrieveMesh("BOSS_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setMesh(drawMesh);
+	newModel->setName("BOSS");
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildNode(newNode);
+
+	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("BOSS_R_ARM");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildToChildNode("BOSS", newNode);
+
+	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
+	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
+	newModel = new GameObject3D;
+	newNode = new SceneNode;
+	newModel->setName("BOSS_L_ARM");
+	newModel->setMesh(drawMesh);
+	newNode->SetGameObject(newModel);
+	sceneGraph->AddChildToChildNode("BOSS", newNode);
 }
 
 void SceneManagerCMPlay::FSMApplication()
@@ -294,10 +323,9 @@ void SceneManagerCMPlay::FSMApplication()
 	newPosition.Set(-40, 0, 0);
 	sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
-
 	sceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
-
 	sceneGraph->GetChildNode("WARRIOR_SHIELD")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+
 
 	newPosition.Set(-40, 0, -20);
 	sceneGraph->GetChildNode("HEALER")->GetGameObject()->setPosition(newPosition);
@@ -307,4 +335,10 @@ void SceneManagerCMPlay::FSMApplication()
 	newPosition.Set(-40, 0, 40);
 	sceneGraph->GetChildNode("MAGE")->GetGameObject()->setPosition(newPosition);
 	sceneGraph->GetChildNode("MAGE_STAFF")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+
+
+	newPosition.Set(-60, 0, 0);
+	sceneGraph->GetChildNode("BOSS")->GetGameObject()->setPosition(newPosition);
+	sceneGraph->GetChildNode("BOSS_L_ARM")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+	sceneGraph->GetChildNode("BOSS_R_ARM")->GetGameObject()->setPosition(Vector3(0, 0, 5));
 }

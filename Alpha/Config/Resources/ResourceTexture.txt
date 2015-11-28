@@ -35,6 +35,10 @@
 		[Directory] Config\\Resources\\Texture\\AI\\Healer.tga
 	}
 	{
+		[NAME] BOSS
+		[Directory] Config\\Resources\\Texture\\AI\\Boss.tga
+	}
+	{
 		[NAME] WEAPONS
 		[Directory] Config\\Resources\\Texture\\AI\\Weapons.tga
 	}
