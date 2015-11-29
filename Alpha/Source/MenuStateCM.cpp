@@ -73,6 +73,8 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 			{
 				gameStateManager->Quit();
 			}
+
+			break;
 		}
 	}
 }
