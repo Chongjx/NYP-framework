@@ -23,13 +23,14 @@ void Button2D::Init(string name, string text, Mesh* mesh, Vector2 pos, Vector2 s
 	this->rotation = rotation;
 	this->textCol = col;
 	this->type = type;
-	this->status = status;
+	this->prevStatus = this->status = status;
 }
 
 void Button2D::Update(bool pressed, Vector2 mouse)
 {
-	// update Button2D status based on mouse position
+	prevStatus = status;
 
+	// update Button2D status based on mouse position
 	if (mouse.x < this->position.x + this->scale.x && mouse.x > this->position.x)
 	{
 		if (mouse.y < this->position.y + this->scale.y && mouse.y > this->position.y)
@@ -60,12 +61,12 @@ void Button2D::Update(bool pressed, Vector2 mouse)
 	{
 		this->status = BUTTON_IDLE;
 	}
-
-	prevStatus = status;
 }
 
 void Button2D::Update(bool pressed, double mouseX, double mouseY)
 {
+	prevStatus = status;
+
 	// update Button2D status based on mouse position
 	if (mouseX < this->position.x + this->scale.x && mouseX > this->position.x)
 	{
@@ -97,8 +98,6 @@ void Button2D::Update(bool pressed, double mouseX, double mouseY)
 	{
 		this->status = BUTTON_IDLE;
 	}
-
-	prevStatus = status;
 }
 
 void Button2D::setName(string name)

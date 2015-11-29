@@ -1,0 +1,41 @@
+[NAME] Pause Config
+	# Pause interface
+	{
+		[NAME] Camera
+		# Types available FP, TP
+		[Type] FP
+		[CameraPos] 0, 0, 10
+		[CameraTarget] 0, 0, 0
+		[CameraUp] 0, 1, 0
+	}
+	{
+		[NAME] Font
+		[Default] 75
+		#[Special] 50
+	}
+	{
+		[NAME] Light
+		[Enable] false
+	}
+	{
+		[NAME] Buttons
+		{
+			[NAME] Resume
+			[Type] Text
+			[Text] Resume
+			[Pos] 800, 600
+			[Rotation] 0
+			[Scale] 420, 75
+			[Mesh] FONT
+		}
+		{
+			[NAME] Menu
+			[Type] Text
+			[Text] Menu
+			[Pos] 800, 450
+			[Rotation] 0
+			[Scale] 270, 75
+			[Mesh] FONT
+		}
+	}
+}

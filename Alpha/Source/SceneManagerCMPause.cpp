@@ -12,30 +12,28 @@ void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *
 {
 	SceneManagerSelection::Init(width, height, RM, controls);
 
-	this->InitShader();
+	Config();
 
-	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	this->InitShader();
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
-
-	lightEnabled = false;
 }
 
 void SceneManagerCMPause::Config()
 {
-
+	SceneManagerSelection::Config("Config\\GameStateConfig\\PauseConfig.txt");
 }
 
 void SceneManagerCMPause::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
 
-	//Uncomment the following line to play sound
-	//resourceManager.retrieveSound("PauseFeedback");
+	UpdateMouse();
+	UpdateSelection();
 }
 
 void SceneManagerCMPause::Render()
@@ -60,6 +58,7 @@ void SceneManagerCMPause::Render()
 	RenderBG();
 	RenderStaticObject();
 	RenderMobileObject();
+	RenderSelection();
 }
 
 void SceneManagerCMPause::Exit()
@@ -153,13 +152,20 @@ void SceneManagerCMPause::RenderBG()
 
 void SceneManagerCMPause::RenderStaticObject()
 {
-	Mesh* drawMesh = resourceManager.retrieveMesh("FONT");
-	drawMesh->textureID = resourceManager.retrieveTexture("AlbaFont");
-	RenderTextOnScreen(drawMesh, "test", resourceManager.retrieveColor("Red"), 75, 400, 550, 0);
 }
 
 void SceneManagerCMPause::RenderMobileObject()
 {
+}
+
+void SceneManagerCMPause::RenderSelection()
+{
+	SceneManagerSelection::RenderSelection();
+
+	// Render mouse
+	Mesh* drawMesh = resourceManager.retrieveMesh("CURSOR");
+	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
+	Render2DMesh(drawMesh, false, 100.f, 50, 50);
 }
 
 void SceneManagerCMPause::UpdateMouse()
@@ -169,4 +175,21 @@ void SceneManagerCMPause::UpdateMouse()
 
 void SceneManagerCMPause::UpdateSelection()
 {
+	SceneManagerSelection::UpdateSelection();
+
+	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
+	{
+		if (interactiveButtons[i].getStatus() != interactiveButtons[i].getPrevStatus())
+		{
+			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+			{
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
+			}
+
+			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
+			{
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+			}
+		}
+	}
 }

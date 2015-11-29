@@ -48,6 +48,8 @@ void PlayStateCM::Pause()
 {
 	this->update = false;
 	this->draw = false;
+
+	Application::getMouse()->disableDeadZone();
 }
 
 void PlayStateCM::Resume()
@@ -55,6 +57,8 @@ void PlayStateCM::Resume()
 	this->scene->BindShaders();
 	this->update = true;
 	this->draw = true;
+
+	Application::getMouse()->enableDeadZone();
 }
 
 void PlayStateCM::HandleEvents(GameStateManager* gameStateManager)
@@ -65,11 +69,7 @@ void PlayStateCM::HandleEvents(GameStateManager* gameStateManager)
 		this->draw = true;
 		this->update = true;
 		gameStateManager->SetOverrideRender(true);
-		//gameStateManager->PopState(this);
 	}
-	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
-
-	
 }
 
 void PlayStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)

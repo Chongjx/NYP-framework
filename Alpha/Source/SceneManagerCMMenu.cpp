@@ -164,32 +164,12 @@ void SceneManagerCMMenu::RenderMobileObject()
 
 void SceneManagerCMMenu::RenderSelection()
 {
-	for (unsigned i = 0; i < interactiveButtons.size(); ++i)
-	{
-		if (interactiveButtons[i].getType() == Button2D::TEXT_BUTTON)
-		{
-			RenderTextOnScreen(interactiveButtons[i].getMesh(), interactiveButtons[i].getText(), interactiveButtons[i].getColor(), fontSize, interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y, interactiveButtons[i].getRotation());
-
-		}
-
-		else
-		{
-			Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y), interactiveButtons[i].getRotation());
-		}
-
-#if _DEBUG
-		{
-			Render2DMesh(resourceManager.retrieveMesh("DEBUG_QUAD"), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPosition().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
-		}
-#endif
-	}
+	SceneManagerSelection::RenderSelection();
 
 	// Render mouse
-	/*Mesh* drawMesh = resourceManager.retrieveMesh("CURSOR");
-	drawMesh->textureID = resourceManager.retrieveTexture("SKYPLANE_TOP");
-	Render2DMesh(drawMesh, false, 100.f, mousePos.x, mousePos.y);*/
-
-	glDisable(GL_DEPTH_TEST);
+	Mesh* drawMesh = resourceManager.retrieveMesh("CURSOR");
+	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
+	Render2DMesh(drawMesh, false, 100.f, 50, 50);
 }
 
 void SceneManagerCMMenu::UpdateMouse()
@@ -199,21 +179,21 @@ void SceneManagerCMMenu::UpdateMouse()
 
 void SceneManagerCMMenu::UpdateSelection()
 {
-	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
-	{
-		interactiveButtons[i].Update(inputManager->getKey("Select"), mousePos.x, mousePos.y);
-	}
+	SceneManagerSelection::UpdateSelection();
 
 	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
 	{
-		if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+		if (interactiveButtons[i].getStatus() != interactiveButtons[i].getPrevStatus())
 		{
-			interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
-		}
+			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+			{
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
+			}
 
-		else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
-		{
-			interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
+			{
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+			}
 		}
 	}
 }

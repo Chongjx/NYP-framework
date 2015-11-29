@@ -52,8 +52,37 @@ public:
 	virtual void RenderStaticObject() {}
 	virtual void RenderMobileObject() {}
 
-	virtual void RenderSelection() {}
-	virtual void UpdateSelection() {}
+	virtual void RenderSelection()
+	{
+		for (unsigned i = 0; i < interactiveButtons.size(); ++i)
+		{
+			if (interactiveButtons[i].getType() == Button2D::TEXT_BUTTON)
+			{
+				RenderTextOnScreen(interactiveButtons[i].getMesh(), interactiveButtons[i].getText(), interactiveButtons[i].getColor(), fontSize, interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y, interactiveButtons[i].getRotation());
+
+			}
+
+			else
+			{
+				Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y), interactiveButtons[i].getRotation());
+			}
+
+#if _DEBUG
+		{
+			Render2DMesh(resourceManager.retrieveMesh("DEBUG_QUAD"), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPosition().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
+		}
+#endif
+		}
+	}
+
+	virtual void UpdateSelection()
+	{
+		std::cout << inputManager->getKey("Select") << std::endl;
+		for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
+		{
+			interactiveButtons[i].Update(inputManager->getKey("Select"), mousePos.x, mousePos.y);
+		}
+	}
 
 	void Config(string directory)
 	{

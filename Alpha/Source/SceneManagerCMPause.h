@@ -20,6 +20,7 @@ public:
 
 	void UpdateMouse();
 	void UpdateSelection();
+	void RenderSelection();
 
 	void RenderLight();
 	void RenderBG();

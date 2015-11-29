@@ -60,16 +60,28 @@ void PauseStateCM::HandleEvents(GameStateManager* gameStateManager)
 {
 	for (unsigned i = 0; i < scene->interactiveButtons.size(); ++i)
 	{
-		/*if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
+		if (scene->interactiveButtons[i].getStatus() == Button2D::BUTTON_RELEASED)
 		{
-		if (scene->interactiveButtons[i].getName() == "Play")
-		{
-		gameStateManager->PushState(PlayStateCM::Instance());
+			if (scene->interactiveButtons[i].getName() == "Resume")
+			{
+				scene->interactiveButtons[i].setStatus(Button2D::BUTTON_IDLE);
+				gameStateManager->PopState(this);
+				
+			}
+
+			else if (scene->interactiveButtons[i].getName() == "Menu")
+			{
+				scene->interactiveButtons[i].setStatus(Button2D::BUTTON_IDLE);
+				gameStateManager->PopToState("Menu");
+			}
+
+			gameStateManager->SetOverrideRender(false);
+
+			break;
 		}
-		}*/
 	}
 
-	if (scene->inputManager->getKey("Select"))
+	/*if (scene->inputManager->getKey("Select"))
 	{
 		gameStateManager->PopToState("Menu");
 		gameStateManager->SetOverrideRender(false);
@@ -79,7 +91,7 @@ void PauseStateCM::HandleEvents(GameStateManager* gameStateManager)
 	{
 		gameStateManager->PopState(this);
 		gameStateManager->SetOverrideRender(false);
-	}
+	}*/
 }
 
 void PauseStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)

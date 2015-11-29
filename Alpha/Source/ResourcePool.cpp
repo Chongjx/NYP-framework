@@ -498,6 +498,8 @@ Mesh* ResourcePool::retrieveMesh(string resourceName)
 		return it->second;
 	}
 
+	std::cout << "Unable to find mesh! Check your naming!" << std::endl;
+
 	return NULL;
 }
 
@@ -528,6 +530,8 @@ unsigned ResourcePool::retrieveTexture(string textureName)
 		return it->second;
 	}
 
+	std::cout << "Unable to find texture! Check your naming!" << std::endl;
+
 	return NULL;
 }
 
@@ -557,6 +561,8 @@ Color ResourcePool::retrieveColor(string colorName)
 	{
 		return it->second;
 	}
+
+	std::cout << "Unable to find color! Check your naming!" << std::endl;
 
 	return Color(1, 1, 1);
 }
@@ -602,6 +608,8 @@ SHADER ResourcePool::retrieveShader(string shaderName)
 		return it->second;
 	}
 
+	std::cout << "Unable to find shader! Check your naming!" << std::endl;
+
 	return SHADER();
 }
 
@@ -631,6 +639,8 @@ HEIGHTMAP ResourcePool::retrieveHeightmap(string heightmapName)
 	{
 		return it->second;
 	}
+
+	std::cout << "Unable to find heightmap! Check your naming!" << std::endl;
 
 	return HEIGHTMAP();
 }

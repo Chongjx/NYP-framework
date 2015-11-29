@@ -75,7 +75,6 @@ void MenuStateCM::HandleEvents(GameStateManager* gameStateManager)
 			}
 		}
 	}
-	/*this->scene->interactiveButtons[i].Update(this->scene->inputManager->getKey("Select"), Application::getMouse()->getCurrentPosX(), Application::getMouse()->getCurrentPosY());*/
 }
 
 void MenuStateCM::HandleEvents(GameStateManager* gameStateManager, const unsigned char key, const bool status)
