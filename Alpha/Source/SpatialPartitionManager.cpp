@@ -57,6 +57,7 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 		// divide the world base on the number of partition given
 		if (numPartitionBased)
 		{
+			numPartition.Set(worldDivision.x, worldDivision.y);
 			partitionDimension.Set(worldDimension.x / worldDivision.x, worldDimension.y / worldDivision.y);
 		}
 
@@ -80,6 +81,7 @@ bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDi
 		// divide the world base on the number of partitons given
 		if (numPartitionBased)
 		{
+			numPartition = worldDivision;
 			partitionDimension.Set(worldDimension.x / worldDivision.x, worldDimension.y / worldDivision.y, worldDimension.z / worldDivision.z);
 		}
 
