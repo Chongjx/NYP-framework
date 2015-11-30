@@ -46,6 +46,7 @@ void SceneManagerCMPlay::Update(double dt)
 {
 	SceneManagerGameplay::Update(dt);
 
+	projectileManager.Update(dt);
 	//Uncomment the following line to play sound
 	//resourceManager.retrieveSound("MenuFeedback");
 
@@ -60,6 +61,12 @@ void SceneManagerCMPlay::Update(double dt)
 	else if (inputManager->getKey("ToggleFill"))
 	{
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
+	if (inputManager->getKey("WA_FIRE"))
+	{
+		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),
+			20.f,resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
 	}
 }
 
@@ -207,6 +214,7 @@ void SceneManagerCMPlay::RenderMobileObject()
 {
 	FSMApplication();
 	sceneGraph->Draw(this);
+	projectileManager.Draw(this);
 }
 
 void SceneManagerCMPlay::InitSceneGraph()

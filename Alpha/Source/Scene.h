@@ -3,6 +3,7 @@
 
 #include "ResourceManager.h"
 #include "InputManager.h"
+#include "ProjectileManager.h"
 
 class Scene
 {

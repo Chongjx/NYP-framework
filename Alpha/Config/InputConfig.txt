@@ -54,5 +54,10 @@
 		[Key] 0x0D
 		# [Key] VK_RETURN
 	}
+	{
+		[NAME] WA_FIRE
+		[Key] 0x01
+		# [Key] VK_LBUTTON
+	}
 }
 # https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
