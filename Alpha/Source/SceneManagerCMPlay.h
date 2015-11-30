@@ -2,7 +2,6 @@
 #define SCENE_MANAGER_CM_PLAY_H
 
 #include "SceneManagerGameplay.h"
-#include "SceneNode.h"
 
 class SceneManagerCMPlay : public SceneManagerGameplay
 {

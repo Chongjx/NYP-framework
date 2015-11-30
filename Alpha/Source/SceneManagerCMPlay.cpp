@@ -31,6 +31,10 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	InitSceneGraph();
 
 	lightEnabled = true;
+
+	SpatialPartitionManager SPM;
+
+	SPM.Init(Vector3(-2000, -2000, -2000), Vector3(2000, 2000, 2000), Vector3(10, 10, 10), false);
 }
 
 void SceneManagerCMPlay::Config()
@@ -182,7 +186,6 @@ void SceneManagerCMPlay::RenderBG()
 void SceneManagerCMPlay::RenderStaticObject()
 {
 	Mesh* drawMesh = resourceManager.retrieveMesh("SKYPLANE");
-	drawMesh->textureID = resourceManager.retrieveTexture("SKYPLANE_TOP");
 
 	modelStack.PushMatrix();
 	modelStack.Translate(0, 2000, 0);
@@ -190,7 +193,6 @@ void SceneManagerCMPlay::RenderStaticObject()
 	modelStack.PopMatrix();
 
 	drawMesh = resourceManager.retrieveMesh("FLOOR");
-	drawMesh->textureID = resourceManager.retrieveTexture("GRASS");
 
 	modelStack.PushMatrix();
 	modelStack.Rotate(-90, 1, 0, 0);
@@ -218,14 +220,12 @@ void SceneManagerCMPlay::InitSceneGraph()
 	SceneNode* newNode = new SceneNode;
 	Mesh* drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
 
-	drawMesh->textureID = resourceManager.retrieveTexture("WARRIOR");
 	newModel->setMesh(drawMesh);
 	newModel->setName("WARRIOR");
 	newNode->SetGameObject(newModel);
 	sceneGraph->AddChildNode(newNode);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("WARRIOR_SWORD");
@@ -234,7 +234,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildToChildNode("WARRIOR", newNode);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SHIELD_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("WARRIOR_SHIELD");
@@ -247,7 +246,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	//Healer	//
 	//**********//
 	drawMesh = resourceManager.retrieveMesh("HEALER_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("HEALER");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setMesh(drawMesh);
@@ -256,7 +254,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildNode(newNode);
 
 	drawMesh = resourceManager.retrieveMesh("HEALER_ROD_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("HEALER_ROD");
@@ -269,7 +266,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	//Mage		//
 	//**********//
 	drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("MAGE");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setMesh(drawMesh);
@@ -278,7 +274,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildNode(newNode);
 
 	drawMesh = resourceManager.retrieveMesh("MAGE_STAFF_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("WEAPONS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("MAGE_STAFF");
@@ -290,7 +285,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	//Boss		//
 	//**********//
 	drawMesh = resourceManager.retrieveMesh("BOSS_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setMesh(drawMesh);
@@ -299,7 +293,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildNode(newNode);
 
 	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("BOSS_R_ARM");
@@ -308,7 +301,6 @@ void SceneManagerCMPlay::InitSceneGraph()
 	sceneGraph->AddChildToChildNode("BOSS", newNode);
 
 	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
-	drawMesh->textureID = resourceManager.retrieveTexture("BOSS");
 	newModel = new GameObject3D;
 	newNode = new SceneNode;
 	newModel->setName("BOSS_L_ARM");
@@ -332,7 +324,7 @@ void SceneManagerCMPlay::FSMApplication()
 	sceneGraph->GetChildNode("HEALER_ROD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 
 
-	newPosition.Set(-40, 0, 40);
+	newPosition.Set(-40, 0, 20);
 	sceneGraph->GetChildNode("MAGE")->GetGameObject()->setPosition(newPosition);
 	sceneGraph->GetChildNode("MAGE_STAFF")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 

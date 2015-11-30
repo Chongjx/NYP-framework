@@ -3,12 +3,12 @@
 {
 	[NAME] TextureConfig
 	{
-		[NAME] AlbaFont
-		[Directory] Config\\Resources\\Texture\\albaFont.tga
+		[NAME] FONT
+		[Directory] Config\\Resources\\Texture\\Font.tga
 	}
 	{
 		[NAME] CURSOR
-		[Directory] Config\\Resources\\Texture\\cursorDefault.tga
+		[Directory] Config\\Resources\\Texture\\Cursor.tga
 	}
 	{
 		[NAME] SKYPLANE_TOP
@@ -44,6 +44,6 @@
 	}
 	{
 		[NAME] FIREBALL_SPRITE
-		[Directory] Config\\Resources\\Texture\\fireballSprite.tga
+		[Directory] Config\\Resources\\Texture\\FireballSprite.tga
 	}
 }

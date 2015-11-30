@@ -26,6 +26,9 @@ public:
 	void RenderBG();
 	void RenderStaticObject();
 	void RenderMobileObject();
+
+private:
+	SpriteAnimation* fireball;
 };
 
 #endif

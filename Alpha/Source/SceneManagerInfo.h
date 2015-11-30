@@ -216,7 +216,7 @@ public:
 							mesh = resourceManager.retrieveMesh(attriValue);
 
 							if (type == Button2D::TEXT_BUTTON)
-								mesh->textureID = resourceManager.retrieveTexture("AlbaFont");
+								mesh->textureID = resourceManager.retrieveTexture("FONT");
 
 							//else
 							//	mesh->textureID = resourceManager.retrieveTexture("Button");

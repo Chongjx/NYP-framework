@@ -155,6 +155,8 @@ void ResourcePool::processMesh(string config)
 		string directory = "";
 		string meshType = "";
 
+		unsigned textureID = 0;
+
 		for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
 		{
 			Attribute tempAttri = *attri;
@@ -178,6 +180,11 @@ void ResourcePool::processMesh(string config)
 			else if (attriName == "Type")
 			{
 				meshType = attriValue;
+			}
+
+			else if (attriName == "Texture")
+			{ 
+				textureID = this->retrieveTexture(attriValue);
 			}
 
 			else if (attriName == "Directory")
@@ -376,6 +383,11 @@ void ResourcePool::processMesh(string config)
 		// push back mesh
 		if (mesh != NULL)
 		{
+			if (textureID != 0)
+			{
+				mesh->textureID = textureID;
+			}
+
 			if (addMesh(branch->branchName, mesh))
 			{
 				std::cout << "Successfully added new mesh!" << std::endl;

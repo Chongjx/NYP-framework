@@ -3,8 +3,6 @@
 
 #include "SceneManager.h"
 
-#include "Fog.h"
-
 class SceneManagerGameplay : public SceneManager
 {
 public:

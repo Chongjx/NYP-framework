@@ -23,7 +23,8 @@ void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *
 	projectionStack.LoadMatrix(perspective);
 
 	mouseMesh = resourceManager.retrieveMesh("CURSOR");
-	mouseMesh->textureID = resourceManager.retrieveTexture("CURSOR");
+
+	fireball = (SpriteAnimation*)resourceManager.retrieveMesh("FIREBALL_SPRITE");
 }
 
 void SceneManagerCMPause::Config()
@@ -34,6 +35,11 @@ void SceneManagerCMPause::Config()
 void SceneManagerCMPause::Update(double dt)
 {
 	SceneManagerSelection::Update(dt);
+
+	if (inputManager->getKey("Select"))
+	{
+		fireball->Update(dt);
+	}
 
 	UpdateMouse();
 	UpdateSelection();
@@ -166,7 +172,12 @@ void SceneManagerCMPause::RenderSelection()
 	SceneManagerSelection::RenderSelection();
 
 	// Render mouse
-	Render2DMesh(mouseMesh, false, Vector2(50, 50), Vector2(mousePos.x, mousePos.y));
+	Render2DMesh(mouseMesh, false, Vector2(50, 50), Vector2(mousePos.x, mousePos.y), 90.f);
+
+	if (inputManager->getKey("Select"))
+	{
+		Render2DMesh(fireball, false, Vector2(100, 100), Vector2(mousePos.x + 50, mousePos.y));
+	}
 }
 
 void SceneManagerCMPause::UpdateMouse()
@@ -182,9 +193,9 @@ void SceneManagerCMPause::UpdateSelection()
 	{
 		if (interactiveButtons[i].getStatus() != interactiveButtons[i].getPrevStatus())
 		{
-			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_PRESSED)
 			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("DarkGrey"));
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
 			}
 
 			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)

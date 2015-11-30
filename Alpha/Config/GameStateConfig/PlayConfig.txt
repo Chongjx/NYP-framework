@@ -1,0 +1,23 @@
+# Interface Config #
+# Init all scene variables here (etc. camera, buttons) #
+{
+	[NAME] MenuConfig
+	# Menu interface
+	{
+		[NAME] Camera
+		# Types available FP, TP
+		[Type] FP
+		[CameraPos] 0, 0, 10
+		[CameraTarget] 0, 0, 0
+		[CameraUp] 0, 1, 0
+	}
+	{
+		[NAME] Font
+		[Default] 75
+		#[Special] 50
+	}
+	{
+		[NAME] Light
+		[Enable] true
+	}
+}

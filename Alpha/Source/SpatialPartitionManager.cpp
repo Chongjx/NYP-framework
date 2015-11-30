@@ -54,15 +54,15 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 	// ensure the data are not 0
 	if (!worldDimension.IsZero() && !worldDivision.IsZero())
 	{
-		// divide the world base on the number of 
+		// divide the world base on the number of partition given
 		if (numPartitionBased)
 		{
-
+			partitionDimension.Set(worldDimension.x / worldDivision.x, worldDimension.y / worldDivision.y);
 		}
 
 		else
 		{
-
+			partitionDimension.Set(worldDivision.x, worldDivision.y);
 		}
 	}
 
@@ -77,15 +77,15 @@ bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDi
 	// ensure the data are not 0
 	if (!worldDimension.IsZero() && !worldDivision.IsZero())
 	{
-		// divide the world base on the number of 
+		// divide the world base on the number of partitons given
 		if (numPartitionBased)
 		{
-
+			partitionDimension.Set(worldDimension.x / worldDivision.x, worldDimension.y / worldDivision.y, worldDimension.z / worldDivision.z);
 		}
 
 		else
 		{
-
+			partitionDimension = worldDivision;
 		}
 	}
 

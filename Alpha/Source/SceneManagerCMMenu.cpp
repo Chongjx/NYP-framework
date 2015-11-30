@@ -23,10 +23,8 @@ void SceneManagerCMMenu::Init(const int width, const int height, ResourcePool *R
 	projectionStack.LoadMatrix(perspective);
 
 	mouseMesh = resourceManager.retrieveMesh("CURSOR");
-	mouseMesh->textureID = resourceManager.retrieveTexture("CURSOR");
 
 	fireball = (SpriteAnimation*)resourceManager.retrieveMesh("FIREBALL_SPRITE");
-	fireball->textureID = resourceManager.retrieveTexture("FIREBALL_SPRITE");
 }
 
 void SceneManagerCMMenu::Config()
@@ -195,14 +193,19 @@ void SceneManagerCMMenu::UpdateSelection()
 	{
 		if (interactiveButtons[i].getStatus() != interactiveButtons[i].getPrevStatus())
 		{
-			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_PRESSED)
 			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("DarkGrey"));
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
 			}
 
 			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
 			{
 				interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+			}
+
+			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
+			{
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Orange"));
 			}
 		}
 	}

@@ -19,10 +19,10 @@ public:
 	~SpatialPartitionManager();
 
 	// 2D spatial partition
-	bool Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased);
+	bool Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased = true);
 
 	// 3D spatial partition
-	bool Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased);
+	bool Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased = true);
 
 	int getNumPartitionWidth(void);
 	int getNumPartitionHeight(void);

@@ -1,5 +1,5 @@
 #include "SceneNode.h"
-
+#include "SceneManager.h"
 
 SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL)
 {
@@ -68,7 +68,7 @@ void SceneNode::DrawChild(SceneManager *sceneManager)
 
 SceneNode* SceneNode::GetChildNode(string childName)
 {
-	SceneNode *resultNode;
+	static SceneNode *resultNode = NULL;
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
@@ -81,12 +81,14 @@ SceneNode* SceneNode::GetChildNode(string childName)
 		{
 			resultNode = childNodes[i]->GetChildNode(childName);
 
-			if (resultNode->gameObject3D != NULL)
+			if (resultNode != NULL)
 			{
 				return resultNode;
 			}
 		}
 	}
+
+	return NULL;
 }
 
 GameObject3D* SceneNode::GetGameObject()

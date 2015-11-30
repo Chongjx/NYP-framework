@@ -7,14 +7,17 @@
 		[Type] Text
 		[TextRow] 16
 		[TextCol] 16
+		[Texture] FONT
 	}
 	{
 		[NAME] CURSOR
 		[Type] Quad
+		[Texture] CURSOR
 	}
 	{
 		[NAME] MENU_BG
 		[Type] Quad
+		[Texture] MENU_BG
 	}
 	{
 		[NAME] DEBUG_QUAD
@@ -30,66 +33,79 @@
 		[OuterRadius] 4000
 		[TileRow] 1
 		[TileCol] 1
+		[Texture] SKYPLANE_TOP
 	}
 	{
 		[NAME] FLOOR
 		[Type] Quad
+		[Texture] GRASS
 	}
 	{
 		#[NAME] TERRAIN
 		#[Type] Terrain
 		#[Directory] Config\\Resources\\Texture\\heightmap.raw
+		#[Texture] Grass
 	}
 	{
 		[NAME] WARRIOR_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Warrior.obj
+		[Texture] WARRIOR
 	}
 	{
 		[NAME] WARRIOR_SWORD_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Sword.obj
+		[Texture] WEAPONS
 	}
 	{
 		[NAME] WARRIOR_SHIELD_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Shield.obj
+		[Texture] WEAPONS
 	}
 	{
 		[NAME] HEALER_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Healer.obj
+		[Texture] HEALER
 	}
 	{
 		[NAME] HEALER_ROD_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Rod.obj
+		[Texture] WEAPONS
 	}
 	{
 		[NAME] MAGE_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Mage.obj
+		[Texture] MAGE
 	}
 	{
 		[NAME] MAGE_STAFF_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Staff.obj
+		[Texture] WEAPONS
 	}
 	{
 		[NAME] BOSS_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Boss.obj
+		[Texture] BOSS
 	}
 	{
 		[NAME] BOSS_ARM_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\BossArm.obj
+		[Texture] BOSS
 	}
 	{
 		[NAME] FIREBALL_SPRITE
 		[Type] SpriteAnimation
 		[SpriteRow] 1
 		[SpriteCol] 6
+		[Texture] FIREBALL_SPRITE
 		
 		# Init all animations in the sprite 
 		{

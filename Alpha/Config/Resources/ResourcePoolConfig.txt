@@ -5,12 +5,12 @@
 {
 	[NAME] ResourceDirectories
 	{
-		[NAME] MeshContainer
-		[Directory] Config\\Resources\\ResourceMesh.txt
-	}
-	{
 		[NAME] TextureContainer
 		[Directory] Config\\Resources\\ResourceTexture.txt
+	}
+	{
+		[NAME] MeshContainer
+		[Directory] Config\\Resources\\ResourceMesh.txt
 	}
 	{
 		[NAME] ColorContainer

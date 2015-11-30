@@ -10,9 +10,11 @@
 #include "MeshBuilder.h"
 #include "MatrixStack.h"
 #include "Light.h"
-
+#include "Fog.h"
 #include "Button2D.h"
 #include "Button3D.h"
+#include "SceneNode.h"
+#include "SpatialPartitionManager.h"
 
 class SceneManager : public Scene
 {

@@ -2,7 +2,8 @@
 #define SCENE_NODE_H
 
 #include "GameObject3D.h"
-#include "SceneManager.h"
+
+class SceneManager;
 
 class SceneNode
 {
