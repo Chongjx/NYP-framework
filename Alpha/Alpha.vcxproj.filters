@@ -216,11 +216,11 @@
     <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Managers\GameStateManager</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Projectile.cpp">
-      <Filter>Managers\ProjectileManager</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ProjectileManager.cpp">
       <Filter>Managers\ProjectileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>GameObjects\ChildObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -380,11 +380,11 @@
     <ClInclude Include="Source\ResourceManager.h">
       <Filter>Managers\GameStateManager</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Projectile.h">
-      <Filter>Managers\ProjectileManager</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ProjectileManager.h">
       <Filter>Managers\ProjectileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>GameObjects\ChildObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

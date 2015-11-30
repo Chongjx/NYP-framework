@@ -65,7 +65,8 @@ void SceneManagerCMPlay::Update(double dt)
 
 	if (inputManager->getKey("WA_FIRE"))
 	{
-		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),
+		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), 
+			Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),
 			20.f,resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
 	}
 }
