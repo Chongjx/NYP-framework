@@ -82,6 +82,9 @@
     <Filter Include="AI">
       <UniqueIdentifier>{189ef879-c30a-4c79-9dac-a65cb66e1522}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Managers\ProjectileManager">
+      <UniqueIdentifier>{e9da1ca3-bba1-4393-8ba6-2a92c6756c27}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Utility.cpp">
@@ -212,6 +215,12 @@
     </ClCompile>
     <ClCompile Include="Source\ResourceManager.cpp">
       <Filter>Managers\GameStateManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ProjectileManager.cpp">
+      <Filter>Managers\ProjectileManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Projectile.cpp">
+      <Filter>GameObjects\ChildObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -370,6 +379,12 @@
     </ClInclude>
     <ClInclude Include="Source\ResourceManager.h">
       <Filter>Managers\GameStateManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ProjectileManager.h">
+      <Filter>Managers\ProjectileManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Projectile.h">
+      <Filter>GameObjects\ChildObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

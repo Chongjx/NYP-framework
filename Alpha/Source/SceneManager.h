@@ -89,6 +89,7 @@ protected:
 	vector<Light> lights;
 
 	ResourceManager resourceManager;
+	ProjectileManager projectileManager;
 
 	bool lightEnabled;
 	float fps;

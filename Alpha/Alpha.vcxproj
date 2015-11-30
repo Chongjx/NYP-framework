@@ -112,6 +112,8 @@
     <ClCompile Include="Source\Partition.cpp" />
     <ClCompile Include="Source\PauseStateCM.cpp" />
     <ClCompile Include="Source\PlayStateCM.cpp" />
+    <ClCompile Include="Source\Projectile.cpp" />
+    <ClCompile Include="Source\ProjectileManager.cpp" />
     <ClCompile Include="Source\ResourceManager.cpp" />
     <ClCompile Include="Source\ResourcePool.cpp" />
     <ClCompile Include="Source\SceneManager.cpp" />
@@ -160,6 +162,8 @@
     <ClInclude Include="Source\Partition.h" />
     <ClInclude Include="Source\PauseStateCM.h" />
     <ClInclude Include="Source\PlayStateCM.h" />
+    <ClInclude Include="Source\Projectile.h" />
+    <ClInclude Include="Source\ProjectileManager.h" />
     <ClInclude Include="Source\ResourceManager.h" />
     <ClInclude Include="Source\ResourcePool.h" />
     <ClInclude Include="Source\Scene.h" />
