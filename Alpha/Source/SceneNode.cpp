@@ -95,3 +95,13 @@ GameObject3D* SceneNode::GetGameObject()
 {
 	return this->gameObject3D;
 }
+
+void SceneNode::CleanUp()
+{
+	for (unsigned i = 0; i < childNodes.size(); ++i)
+	{
+		childNodes[i]->CleanUp();
+	}
+
+	delete this;
+}

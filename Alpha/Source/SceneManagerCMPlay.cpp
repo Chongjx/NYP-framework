@@ -91,7 +91,7 @@ void SceneManagerCMPlay::Exit()
 {
 	if (sceneGraph)
 	{
-		delete sceneGraph;
+		sceneGraph->CleanUp();
 		sceneGraph = NULL;
 	}
 

@@ -20,6 +20,8 @@ public:
 	void Draw(SceneManager *sceneManager);
 	void DrawChild(SceneManager *sceneManager);
 
+	void CleanUp();
+
 	SceneNode* GetChildNode(string childName);
 	
 	GameObject3D* GetGameObject();
