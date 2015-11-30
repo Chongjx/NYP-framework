@@ -42,4 +42,8 @@
 		[NAME] WEAPONS
 		[Directory] Config\\Resources\\Texture\\AI\\Weapons.tga
 	}
+	{
+		[NAME] FIREBALL_SPRITE
+		[Directory] Config\\Resources\\Texture\\fireballSprite.tga
+	}
 }

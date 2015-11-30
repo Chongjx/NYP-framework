@@ -26,7 +26,7 @@
 			[NAME] Play
 			[Type] Text
 			[Text] Play
-			[Pos] 400, 550
+			[Pos] 800, 550
 			[Rotation] 0
 			[Scale] 270, 75
 			[Mesh] FONT
@@ -35,7 +35,7 @@
 			[NAME] Instruction
 			[Type] Text
 			[Text] Instruction
-			[Pos] 100, 450
+			[Pos] 525, 450
 			[Rotation] 0
 			[Scale] 800, 75
 			[Mesh] FONT
@@ -44,7 +44,7 @@
 			[NAME] Quit
 			[Type] Text
 			[Text] Quit
-			[Pos] 400, 350
+			[Pos] 800, 350
 			[Rotation] 0
 			[Scale] 270, 75
 			[Mesh] FONT

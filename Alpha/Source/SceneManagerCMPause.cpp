@@ -21,6 +21,9 @@ void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
+
+	mouseMesh = resourceManager.retrieveMesh("CURSOR");
+	mouseMesh->textureID = resourceManager.retrieveTexture("CURSOR");
 }
 
 void SceneManagerCMPause::Config()
@@ -163,9 +166,7 @@ void SceneManagerCMPause::RenderSelection()
 	SceneManagerSelection::RenderSelection();
 
 	// Render mouse
-	Mesh* drawMesh = resourceManager.retrieveMesh("CURSOR");
-	drawMesh->textureID = resourceManager.retrieveTexture("MENU_BG");
-	Render2DMesh(drawMesh, false, 100.f, 50, 50);
+	Render2DMesh(mouseMesh, false, Vector2(50, 50), Vector2(mousePos.x, mousePos.y));
 }
 
 void SceneManagerCMPause::UpdateMouse()
@@ -183,7 +184,7 @@ void SceneManagerCMPause::UpdateSelection()
 		{
 			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)
 			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("DarkGrey"));
 			}
 
 			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)

@@ -7,6 +7,7 @@ class SceneManagerSelection : public SceneManager
 {
 public:
 	vector<Button2D> interactiveButtons;
+	Mesh* mouseMesh;
 
 	SceneManagerSelection() {}
 	virtual ~SceneManagerSelection() {}
@@ -77,7 +78,6 @@ public:
 
 	virtual void UpdateSelection()
 	{
-		std::cout << inputManager->getKey("Select") << std::endl;
 		for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
 		{
 			interactiveButtons[i].Update(inputManager->getKey("Select"), mousePos.x, mousePos.y);

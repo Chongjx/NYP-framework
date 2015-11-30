@@ -68,7 +68,7 @@ void SceneNode::DrawChild(SceneManager *sceneManager)
 
 SceneNode* SceneNode::GetChildNode(string childName)
 {
-	static SceneNode *resultNode = NULL;
+	SceneNode *resultNode;
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{

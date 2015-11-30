@@ -85,6 +85,23 @@
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\BossArm.obj
 	}
+	{
+		[NAME] FIREBALL_SPRITE
+		[Type] SpriteAnimation
+		[SpriteRow] 1
+		[SpriteCol] 6
+		
+		# Init all animations in the sprite 
+		{
+			[NAME] FIRE
+			[ID] 0
+			[StartFrame] 0
+			[EndFrame] 5
+			[Repeat] true
+			[Pause] false
+			[AnimationTime] 1.0
+		}
+	}
 }
 
 # Types available

@@ -97,6 +97,7 @@ void Mouse::Update()
 			currentPosX = Application::getWindowWidth() >> 1;
 			glfwSetCursorPos(m_window, currentPosX, currentPosY);
 		}
+
 		if ((currentPosY < deadZoneDimension.y) || (currentPosY > Application::getWindowHeight() - deadZoneDimension.y))
 		{
 			currentPosY = Application::getWindowHeight() >> 1;

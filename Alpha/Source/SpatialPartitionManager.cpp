@@ -18,9 +18,11 @@ SpatialPartitionManager::~SpatialPartitionManager()
 		{
 			for (int j = 0; j < numPartition.y; ++j)
 			{
+
 			}
 		}
 		break;
+
 	case SpatialPartitionManager::PARTITION_3D:
 		for (int i = 0; i < numPartition.x; ++i)
 		{
@@ -32,8 +34,10 @@ SpatialPartitionManager::~SpatialPartitionManager()
 			}
 		}
 		break;
+
 	case SpatialPartitionManager::PARTITION_DEFAULT:
 		break;
+
 	default:
 		break;
 	}

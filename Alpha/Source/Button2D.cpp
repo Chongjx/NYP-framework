@@ -35,7 +35,7 @@ void Button2D::Update(bool pressed, Vector2 mouse)
 	{
 		if (mouse.y < this->position.y + this->scale.y && mouse.y > this->position.y)
 		{
-			if (prevStatus == BUTTON_PRESSED)
+			if (prevStatus == BUTTON_PRESSED && !pressed)
 			{
 				this->status = BUTTON_RELEASED;
 			}
@@ -72,7 +72,7 @@ void Button2D::Update(bool pressed, double mouseX, double mouseY)
 	{
 		if (mouseY < this->position.y + this->scale.y && mouseY > this->position.y)
 		{
-			if (prevStatus == BUTTON_PRESSED)
+			if (prevStatus == BUTTON_PRESSED && !pressed)
 			{
 				this->status = BUTTON_RELEASED;
 			}
