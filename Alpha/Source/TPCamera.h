@@ -19,6 +19,7 @@ public:
 	TPCamera();
 	~TPCamera();
 	virtual void Init(const Vector3& pos, const Vector3& target, const Vector3& up);
+	void Init(const Vector3& pos, const Vector3& target, const Vector3& up, const bool lockPitch, const bool lockYaw);
 	virtual void Update(double dt);
 	// For third person camera
 	virtual void UpdatePosition(Vector3 position, Vector3 newDirection);
@@ -62,6 +63,9 @@ public:
 	float calcVDist(void);
 	float GetCamAngle(void);
 
+	void TogglePitchLock(void);
+	void ToggleYawLock(void);
+
 private:
 	bool myKeys[255];
 
@@ -83,6 +87,9 @@ private:
 
 	float pitchChange;
 	float angleChange;
+
+	bool LockPitch;
+	bool LockYaw;
 };
 
 #endif

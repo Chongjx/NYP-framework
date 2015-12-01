@@ -20,7 +20,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	this->InitShader();
 
-	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
+	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0), false, false);
 	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
@@ -85,6 +85,15 @@ void SceneManagerCMPlay::Update(double dt)
 		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), 
 			Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),
 			20.f,resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
+	}
+
+	if (inputManager->getKey("Up"))
+	{
+		tpCamera.TogglePitchLock();
+	}
+	if (inputManager->getKey("Down"))
+	{
+		tpCamera.ToggleYawLock();
 	}
 }
 
