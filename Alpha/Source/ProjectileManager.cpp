@@ -101,7 +101,6 @@ void ProjectileManager::Draw(SceneManager *sceneManager)
 		//Only render active projectiles
 		if (projectile->getRender())
 		{
-			std::cout << projectile->getPosition() << std::endl;
 			sceneManager->RenderPush(projectile->getProperties().modelProperties);
 			sceneManager->Render3DMesh(projectile->getMesh(),false);
 			sceneManager->RenderPop();

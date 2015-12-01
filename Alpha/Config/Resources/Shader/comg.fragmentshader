@@ -102,7 +102,7 @@ void main(){
 
 			vec3 L = normalize( lightDirection_cameraspace );
 			float cosTheta = clamp( dot( N, L ), 0, 1 );
-			
+
 			vec3 R = reflect(-L, N);
 			float cosAlpha = clamp( dot( E, R ), 0, 1 );
 			

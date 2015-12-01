@@ -1,8 +1,12 @@
 #ifndef SPATIAL_PARTITION_MANAGER
 #define SPATIAL_PARTITION_MANAGER
 
+#include <vector>
+
 #include "Partition.h"
 #include "Vector3.h"
+
+using std::vector;
 
 class SpatialPartitionManager
 {
@@ -40,7 +44,7 @@ public:
 
 private:
 	PARTITION_TYPE type;
-	Partition* partitions;
+	vector<Partition*> partitions;
 	Vector3 worldDimension;
 	Vector3 partitionDimension;
 	Vector3 numPartition;

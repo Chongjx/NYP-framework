@@ -9,6 +9,7 @@ SceneManagerCMPlay::~SceneManagerCMPlay()
 {
 	if (sceneGraph)
 	{
+		sceneGraph->CleanUp();
 		delete sceneGraph;
 		sceneGraph = NULL;
 	}
@@ -21,7 +22,6 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	this->InitShader();
 
 	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	fpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
@@ -34,7 +34,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	SpatialPartitionManager SPM;
 
-	SPM.Init(Vector3(-2000, -2000, -2000), Vector3(2000, 2000, 2000), Vector3(10, 10, 10), false);
+	SPM.Init(Vector3(-2000, -2000, 0), Vector3(2000, 2000, 2000), Vector3(10, 10, 10));
 }
 
 void SceneManagerCMPlay::Config()
@@ -156,7 +156,7 @@ void SceneManagerCMPlay::InitShader()
 	glUseProgram(programID);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0, 0, 10);
+	lights[0].position.Set(0, 10, 0);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
