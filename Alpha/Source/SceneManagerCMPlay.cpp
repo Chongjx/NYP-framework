@@ -57,7 +57,7 @@ void SceneManagerCMPlay::Update(double dt)
 		static int distance = 2;
 		//distance++;
 		//resourceManager.retrieveSoundas2D("MenuFeedback");
-		resourceManager.retrieveSoundas3D("MenuFeedback", tpCamera.getPosition() + distance);
+		resourceManager.retrieveSoundas3D("MenuFeedback", tpCamera.getPosition() + (float)distance);
 	}
 	if (inputManager->getKey("VOLUME_UP"))
 	{
@@ -85,15 +85,15 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("Fire"))
 	{
 		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), 
-			Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),
+			(tpCamera.getTarget() - sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition()).Normalized(),
 			20.f,resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
 	}
 
-	if (inputManager->getKey("Up"))
+	if (inputManager->getKey("LockPitch"))
 	{
 		tpCamera.TogglePitchLock();
 	}
-	if (inputManager->getKey("Down"))
+	if (inputManager->getKey("LockYaw"))
 	{
 		tpCamera.ToggleYawLock();
 	}

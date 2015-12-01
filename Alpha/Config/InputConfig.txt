@@ -76,5 +76,13 @@
 		[Key] 0x39
 		# [Key] NUM 9
 	}
+	{
+		[NAME] LockPitch
+		[Key] 0x26
+	}
+	{
+		[NAME] LockYaw
+		[Key] 0x28
+	}
 }
 # https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx

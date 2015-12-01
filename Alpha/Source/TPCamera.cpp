@@ -231,6 +231,7 @@ void TPCamera::TogglePitchLock(void)
 	{
 		this->LockPitch = false;
 	}
+
 	else
 		this->LockPitch = true;
 }
