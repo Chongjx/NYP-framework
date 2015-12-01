@@ -38,7 +38,29 @@ SHADER ResourceManager::retrieveShader(string name)
 	return resourcePool->retrieveShader(name);
 }
 
-void ResourceManager::retrieveSound(string name)
+void ResourceManager::DecreaseSoundEngineVolume()
 {
-	resourcePool->soundPool->retrieveSound(name);
+	resourcePool->soundPool->DecreaseEngineVolume();
+}
+void ResourceManager::IncreaseSoundEngineVolume()
+{
+	resourcePool->soundPool->IncreaseEngineVolume();
+}
+
+void ResourceManager::setSoundEngineVolume(float value)
+{
+	resourcePool->soundPool->setEngineVolume(value);
+}
+void ResourceManager::setListenerPosition(Vector3 position, Vector3 target)
+{
+	resourcePool->soundPool->setListenerPos(position, target);
+}
+
+void ResourceManager::retrieveSoundas2D(string name, bool loop)
+{
+	resourcePool->soundPool->retrieveSound2D(name, loop);
+}
+void ResourceManager::retrieveSoundas3D(string name,Vector3 position, bool loop)
+{
+	resourcePool->soundPool->retrieveSound3D(name, position, loop);
 }

@@ -15,10 +15,12 @@
 	{
 		[NAME] ToggleWireFrame
 		[Key] 0x31
+		# [Key] NUM 1
 	}
 	{
 		[NAME] ToggleFill
 		[Key] 0x32
+		# [Key] NUM 2
 	}
 	{
 		[NAME] Pause
@@ -55,9 +57,24 @@
 		# [Key] VK_RETURN
 	}
 	{
-		[NAME] WA_FIRE
+		[NAME] Fire
 		[Key] 0x01
 		# [Key] VK_LBUTTON
+	}
+	{
+		[NAME] TEST_SOUND
+		[Key] 0x37
+		# [Key] NUM 7
+	}
+	{
+		[NAME] VOLUME_UP
+		[Key] 0x38
+		# [Key] NUM 8
+	}
+	{
+		[NAME] VOLUME_DOWN
+		[Key] 0x39
+		# [Key] NUM 9
 	}
 }
 # https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx

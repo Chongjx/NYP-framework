@@ -22,6 +22,8 @@ public:
 	void Update(const double dt);	//Update 
 	void Draw(SceneManager *sceneManager);	//Render
 
+	void CleanUp();	//Cleans up data
+
 private:
 	int m_iActiveProjectileCount;	//Current active projectiles
 

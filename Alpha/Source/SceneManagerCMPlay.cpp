@@ -47,8 +47,25 @@ void SceneManagerCMPlay::Update(double dt)
 	SceneManagerGameplay::Update(dt);
 
 	projectileManager.Update(dt);
-	//Uncomment the following line to play sound
-	//resourceManager.retrieveSound("MenuFeedback");
+
+	/*Sound testing related keys*/
+	if (inputManager->getKey("TEST_SOUND"))
+	{
+		resourceManager.setListenerPosition(tpCamera.getPosition(), tpCamera.getTarget());
+		static int distance = 2;
+		//distance++;
+		//resourceManager.retrieveSoundas2D("MenuFeedback");
+		resourceManager.retrieveSoundas3D("MenuFeedback", tpCamera.getPosition() + distance);
+	}
+	if (inputManager->getKey("VOLUME_UP"))
+	{
+		resourceManager.IncreaseSoundEngineVolume();
+	}
+	if (inputManager->getKey("VOLUME_DOWN"))
+	{
+		resourceManager.DecreaseSoundEngineVolume();
+	}
+
 
 	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
 	//tpCamera.Update(dt);
@@ -63,7 +80,7 @@ void SceneManagerCMPlay::Update(double dt)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 
-	if (inputManager->getKey("WA_FIRE"))
+	if (inputManager->getKey("Fire"))
 	{
 		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), 
 			Vector3(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition() + 5.f).Normalized(),

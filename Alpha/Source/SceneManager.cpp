@@ -291,6 +291,8 @@ void SceneManager::Render2DMesh(Mesh *mesh, const bool enableLight, const Vector
 
 void SceneManager::Exit()
 {
+	projectileManager.CleanUp();
+
 	glDeleteProgram(programID);
 	glDeleteVertexArrays(1, &vertexArrayID);
 }
