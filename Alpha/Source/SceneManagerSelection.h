@@ -60,7 +60,6 @@ public:
 			if (interactiveButtons[i].getType() == Button2D::TEXT_BUTTON)
 			{
 				RenderTextOnScreen(interactiveButtons[i].getMesh(), interactiveButtons[i].getText(), interactiveButtons[i].getColor(), fontSize, interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y, interactiveButtons[i].getRotation());
-
 			}
 
 			else

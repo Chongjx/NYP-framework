@@ -36,7 +36,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	SpatialPartitionManager SPM;
 
-	SPM.Init(Vector3(-2000, -2000, 0), Vector3(2000, 2000, 2000), Vector3(10, 10, 10));
+	SPM.Init(Vector3(-2000, 0, -2000), Vector3(2000, 2000, 2000), Vector3(20, 10, 20));
 }
 
 void SceneManagerCMPlay::Config()
@@ -85,8 +85,8 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("Fire"))
 	{
 		projectileManager.FetchProjectile(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), 
-			(tpCamera.getTarget() - sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition()).Normalized(),
-			20.f,resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
+			(tpCamera.getTarget() - tpCamera.getPosition()).Normalized(),
+			20.f, resourceManager.retrieveMesh("MAGE_OBJ"));
 	}
 
 	if (inputManager->getKey("LockPitch"))
@@ -184,7 +184,7 @@ void SceneManagerCMPlay::InitShader()
 	glUseProgram(programID);
 
 	lights[0].type = Light::LIGHT_DIRECTIONAL;
-	lights[0].position.Set(0, 10, 0);
+	lights[0].position.Set(0, 10, 10);
 	lights[0].color.Set(1, 1, 1);
 	lights[0].power = 1;
 	lights[0].kC = 1.f;
@@ -349,7 +349,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 void SceneManagerCMPlay::FSMApplication()
 {
 	Vector3 newPosition;
-	newPosition.Set(-40, 0, 0);
+	newPosition.Set(0, 0, 0);
 	sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
 	sceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
