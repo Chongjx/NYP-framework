@@ -22,18 +22,12 @@ ProjectileManager::ProjectileManager(void) :
  ********************************************************************************/
 ProjectileManager::~ProjectileManager(void)
 {
-	//Cleaning up vector
-	while (m_ProjectileList.size() > 0)
-	{
-		CProjectile* temp = m_ProjectileList.back();
-		delete temp;
-		m_ProjectileList.pop_back();
-	}
+	CleanUp();
 }
 
 /********************************************************************************
- Add Projectile
- ********************************************************************************/
+Use a non-active projectile
+********************************************************************************/
 void ProjectileManager::FetchProjectile(Vector3 position, Vector3 direction, float speed, Mesh* mesh)
 {
 	for (std::vector<CProjectile*>::iterator it = m_ProjectileList.begin(); it != m_ProjectileList.end(); ++it)
@@ -92,6 +86,9 @@ void ProjectileManager::Update(const double dt)
 	}
 }
 
+/********************************************************************************
+Render projectile
+********************************************************************************/
 void ProjectileManager::Draw(SceneManager *sceneManager)
 {
 	for (std::vector<CProjectile*>::iterator it = m_ProjectileList.begin(); it != m_ProjectileList.end(); ++it)
@@ -105,5 +102,19 @@ void ProjectileManager::Draw(SceneManager *sceneManager)
 			sceneManager->Render3DMesh(projectile->getMesh(),false);
 			sceneManager->RenderPop();
 		}
+	}
+}
+
+/********************************************************************************
+Clean up
+********************************************************************************/
+void ProjectileManager::CleanUp()
+{
+	//Cleaning up vector
+	while (m_ProjectileList.size() > 0)
+	{
+		CProjectile* temp = m_ProjectileList.back();
+		delete temp;
+		m_ProjectileList.pop_back();
 	}
 }

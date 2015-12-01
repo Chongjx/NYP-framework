@@ -63,6 +63,39 @@ void TPCamera::Init(const Vector3& pos, const Vector3& target, const Vector3& up
 	CAMERA_ACCEL = 10.0f;
 }
 
+void TPCamera::Init(const Vector3& pos, const Vector3& target, const Vector3& up, bool lockPitch, bool lockYaw)
+{
+	this->position = defaultPosition = pos;
+	this->target = defaultTarget = target;
+	Vector3 view = (target - position).Normalized();
+	Vector3 right = view.Cross(up);
+	right.y = 0;
+	right.Normalize();
+	this->up = defaultUp = right.Cross(view).Normalized();
+
+	// Initialise the camera movement flags
+	for (int i = 0; i<255; i++){
+		myKeys[i] = false;
+	}
+
+	// Initialise the camera type
+	sCameraType = LAND_CAM;
+
+	// For Jump use
+	m_bJumping = false;
+	JumpVel = 0.0f;
+	JUMPMAXSPEED = 10.0f;
+	JUMPACCEL = 10.0f;
+	GRAVITY = -30.0f;
+
+	// Maximum movement speed
+	CAMERA_ACCEL = 10.0f;
+
+	//Control pitch and yaw
+	LockPitch = lockPitch;
+	LockYaw = lockYaw;
+}
+
 /********************************************************************************
 Update the camera
 ********************************************************************************/
@@ -153,15 +186,20 @@ void TPCamera::UpdatePosition(Vector3 newPos, Vector3 newDir)
 
 	//Rotate and adjust pitch with RMB
 	//if (myKeys[VK_RBUTTON])
+
+	if (!LockPitch)
 	{
-		//calcPitch();
+		calcPitch();
+	}
+	if (!LockYaw)
+	{
 		calcRotation();
 	}
 	//else
-	{
+	//{
 		//pitchChange = 0.f;
 		//angleChange = 0.f;
-	}
+	//}
 
 	float theta = m_fTPVCameraAngle;
 	float offSet_X = calcHDist() * sin(Math::DegreeToRadian(theta));
@@ -185,6 +223,25 @@ void TPCamera::UpdatePosition(Vector3 newPos, Vector3 newDir)
 		position.y = newPos.y + calcVDist();
 		position.z = newPos.z - offSet_Z;
 	}
+}
+
+void TPCamera::TogglePitchLock(void)
+{
+	if (LockPitch == true)
+	{
+		this->LockPitch = false;
+	}
+	else
+		this->LockPitch = true;
+}
+void TPCamera::ToggleYawLock(void)
+{
+	if (LockYaw == true)
+	{
+		this->LockYaw = false;
+	}
+	else
+		this->LockYaw = true;
 }
 
 void TPCamera::calcZoom(void)

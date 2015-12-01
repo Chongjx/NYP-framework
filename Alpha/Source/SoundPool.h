@@ -5,6 +5,7 @@
 #include <string>
 #include "irrKlang.h"
 #include "TextTree.h"
+#include "Vector3.h"
 
 using namespace irrklang;
 
@@ -20,12 +21,19 @@ struct SOUND
 class SoundPool
 {
 public:
-	void Init();
-	void processSound(string config);
+	void Init();	//Initialize sound engine
+	void processSound(string config);	//Process sound from txt files
 
-	void retrieveSound(string soundName);
+	void IncreaseEngineVolume();	//Increase current volume by 10
+	void DecreaseEngineVolume();	//Decrease current volume by 10
 
-	void cleanUp();
+	void setEngineVolume(float value);	//Set engine volume
+	void setListenerPos(Vector3 position, Vector3 target);	//Let engine know where listener position is at
+
+	void retrieveSound2D(string soundName,const bool loop = false);	//Plays retrieved sound in 2D
+	void retrieveSound3D(string soundName,Vector3 position,const bool loop = false);	//Plays retrieved sound in 3D
+
+	void cleanUp();	//Clean up
 
 	SoundPool();
 	~SoundPool();
