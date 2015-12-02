@@ -118,7 +118,7 @@ Render text onto the screen with reference position in the middle of the image
 ********************************************************************************/
 void SceneManager::RenderText(Mesh* mesh, std::string text, Color color)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh)
 		return;
 
 	glDisable(GL_DEPTH_TEST);
@@ -149,7 +149,7 @@ Render text onto the screen
 ********************************************************************************/
 void SceneManager::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, float rotation)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh)
 		return;
 
 	glDisable(GL_DEPTH_TEST);
@@ -197,7 +197,7 @@ Render a mesh in 3D
 ********************************************************************************/
 void SceneManager::Render3DMesh(Mesh* mesh, bool enableLight)
 {
-	if (!mesh || mesh->textureID <= 0)
+	if (!mesh)
 		return;
 
 	Mtx44 MVP, modelView, modelView_inverse_transpose;

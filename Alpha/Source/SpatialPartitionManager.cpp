@@ -6,19 +6,30 @@ worldDimension(1, 1, 1),
 partitionDimension(1, 1, 1),
 numPartition(1, 1, 1)
 {
+	// Ensure the partitions clear before start
 	partitions.clear();
 }
 
 SpatialPartitionManager::~SpatialPartitionManager()
 {
+	int id = 0;
+
+	// delete all partitions based on its type
 	switch (type)
 	{
 	case SpatialPartitionManager::PARTITION_2D:
-		for (int i = 0; i < numPartition.x; ++i)
+		for (int j = 0; j < numPartition.y; ++j)
 		{
-			for (int j = 0; j < numPartition.y; ++j)
+			for (int i = 0; i < numPartition.x; ++i)
 			{
+				id = i + j * (int)numPartition.x;
 
+				if (partitions[id])
+				{
+					partitions[id]->CleanUp();
+					delete partitions[id];
+					partitions[id] = NULL;
+				}
 			}
 		}
 		break;
@@ -30,25 +41,31 @@ SpatialPartitionManager::~SpatialPartitionManager()
 			{
 				for (int i = 0; i < numPartition.x; ++i)
 				{
-					//partitions()
-				}
+					id = i + j * (int)numPartition.x + k * (int)numPartition.x * (int)numPartition.y;
+
+					if (partitions[id])
+					{
+						partitions[id]->CleanUp();
+						delete partitions[id];
+						partitions[id] = NULL;
+					}
+ 				}
 			}
 		}
-		break;
-
-	case SpatialPartitionManager::PARTITION_DEFAULT:
 		break;
 
 	default:
 		break;
 	}
+
+	partitions.clear();
 }
 
 // bool numPartitionBased
 // true if worldDivision is num of partition for the world
-bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased)
+bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased, Mesh* mesh)
 {
-	Vector2 worldDimension = maxWorldDimension - minWorldDimension;
+	worldDimension.Set(maxWorldDimension.x - minWorldDimension.x, maxWorldDimension.y - minWorldDimension.y);
 
 	// ensure the data are not 0
 	if (worldDimension.IsZero() || worldDivision.IsZero())
@@ -72,14 +89,22 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 		}
 	}
 
+	type = PARTITION_2D;
+
+	int id = 0;
 	for (int j = 0; j < numPartition.y; ++j)
 	{
 		for (int i = 0; i < numPartition.x; ++i)
 		{
-			int id = i + j * numPartition.x;
+			id = i + j * (int)numPartition.x;
 
 			Partition* partition = new Partition();
-			partition->Init(partitionDimension, id++);
+			partition->Init(partitionDimension, id);
+
+			if (mesh)
+			{
+				partition->setMesh(mesh);
+			}
 			partitions.push_back(partition);
 		}
 	}
@@ -88,9 +113,9 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 }
 
 // 3D spatial partition
-bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased)
+bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased, Mesh* mesh)
 {
-	Vector3 worldDimension = maxWorldDimension - minWorldDimension;
+	worldDimension = maxWorldDimension - minWorldDimension;
 
 	// ensure the data are not 0
 	if (worldDimension.IsZero() || worldDivision.IsZero())
@@ -114,16 +139,24 @@ bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDi
 		}
 	}
 
+	type = PARTITION_3D;
+
+	int id = 0;
 	for (int k = 0; k < numPartition.z; ++k)
 	{
 		for (int j = 0; j < numPartition.y; ++j)
 		{
 			for (int i = 0; i < numPartition.x; ++i)
 			{
-				int id = i + j * numPartition.x + k * numPartition.x * numPartition.y;
+				id = i + j * (int)numPartition.x + k * (int)numPartition.x * (int)numPartition.y;
 
 				Partition* partition = new Partition();
-				partition->Init(partitionDimension, id++);
+				partition->Init(partitionDimension, id);
+
+				if (mesh)
+				{
+					partition->setMesh(mesh);
+				}
 				partitions.push_back(partition);
 			}
 		}
@@ -147,53 +180,37 @@ int SpatialPartitionManager::getNumPartitionDepth(void)
 	return (int)this->numPartition.z;
 }
 
-Partition SpatialPartitionManager::getPartition(Vector3 index)
+Partition* SpatialPartitionManager::getPartition(Vector3 index, bool positionBased)
 {
 	switch (type)
 	{
 	case SpatialPartitionManager::PARTITION_2D:
+		if (positionBased)
+		{
+
+		}
+
+		else
+		{
+
+		}
 		break;
 	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	case SpatialPartitionManager::PARTITION_DEFAULT:
+		if (positionBased)
+		{
+
+		}
+
+		else
+		{
+
+		}
 		break;
 	default:
 		break;
 	}
 
-	return Partition();
-}
-
-void SpatialPartitionManager::setPartitionMesh(Vector3 index, Mesh* partitionMesh)
-{
-	switch (type)
-	{
-	case SpatialPartitionManager::PARTITION_2D:
-		break;
-	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	case SpatialPartitionManager::PARTITION_DEFAULT:
-		break;
-	default:
-		break;
-	}
-}
-
-Mesh* SpatialPartitionManager::getPartitionMesh(Vector3 index)
-{
-	switch (type)
-	{
-	case SpatialPartitionManager::PARTITION_2D:
-		break;
-	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	case SpatialPartitionManager::PARTITION_DEFAULT:
-		break;
-	default:
-		break;
-	}
-
-	return NULL;
+	return partitions[0];
 }
 
 bool SpatialPartitionManager::addNode(SceneNode* node)
@@ -203,8 +220,6 @@ bool SpatialPartitionManager::addNode(SceneNode* node)
 	case SpatialPartitionManager::PARTITION_2D:
 		break;
 	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	case SpatialPartitionManager::PARTITION_DEFAULT:
 		break;
 	default:
 		break;
@@ -220,8 +235,6 @@ bool SpatialPartitionManager::removeNode(SceneNode* node)
 	case SpatialPartitionManager::PARTITION_2D:
 		break;
 	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	case SpatialPartitionManager::PARTITION_DEFAULT:
 		break;
 	default:
 		break;

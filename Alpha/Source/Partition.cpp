@@ -5,11 +5,15 @@ dimension(),
 id(-1),
 partitionMesh(NULL)
 {
-	nodes.clear();
+	// clean up the node before start
+	this->CleanUp();
 }
 
 Partition::~Partition()
 {
+	// release all the handle of the nodes in the partition only
+	// let sceneManager delete all the nodes
+	nodes.clear();
 }
 
 void Partition::Init(Vector3 dimension, int id)
@@ -40,6 +44,11 @@ vector<SceneNode*> Partition::getNodes(void)
 	return this->nodes;
 }
 
+Mesh* Partition::getMesh(void)
+{
+	return this->partitionMesh;
+}
+
 void Partition::deleteObjects(void)
 {
 }
@@ -58,5 +67,7 @@ void Partition::Update(void)
 
 void Partition::CleanUp(void)
 {
+	// release all the handle of the nodes in the partition only
+	// let sceneManager delete all the nodes
 	this->nodes.clear();
 }

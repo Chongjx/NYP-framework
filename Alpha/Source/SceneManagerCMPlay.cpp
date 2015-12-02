@@ -36,7 +36,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	SpatialPartitionManager SPM;
 
-	SPM.Init(Vector3(-2000, 0, -2000), Vector3(2000, 2000, 2000), Vector3(20, 10, 20));
+	//SPM.Init(Vector3(-2000, 0, -2000), Vector3(2000, 2000, 2000), Vector3(20, 10, 20), true, resourceManager.retrieveMesh("DEBUG_CUBE"));
 }
 
 void SceneManagerCMPlay::Config()
@@ -59,6 +59,7 @@ void SceneManagerCMPlay::Update(double dt)
 		//resourceManager.retrieveSoundas2D("MenuFeedback");
 		resourceManager.retrieveSoundas3D("MenuFeedback", tpCamera.getPosition() + (float)distance);
 	}
+
 	if (inputManager->getKey("VOLUME_UP"))
 	{
 		resourceManager.IncreaseSoundEngineVolume();
@@ -68,8 +69,7 @@ void SceneManagerCMPlay::Update(double dt)
 		resourceManager.DecreaseSoundEngineVolume();
 	}
 
-
-	tpCamera.UpdatePosition(Vector3(0, 0, 0), Vector3(0, 0, 0));
+	tpCamera.UpdatePosition(sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), Vector3(0,0,0));
 	//tpCamera.Update(dt);
 
 	if (inputManager->getKey("ToggleWireFrame"))
@@ -96,6 +96,38 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("LockYaw"))
 	{
 		tpCamera.ToggleYawLock();
+	}
+
+	if (inputManager->getKey("Up"))
+	{
+		sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x + 10.f * dt,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z));
+	}
+
+	if (inputManager->getKey("Down"))
+	{
+		sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x - 10.f * dt,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z));
+	}
+
+	if (inputManager->getKey("Left"))
+	{
+		sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z - 10.f * dt));
+	}
+
+	if (inputManager->getKey("Right"))
+	{
+		sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
+			sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z + 10.f * dt));
 	}
 }
 
@@ -349,8 +381,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 void SceneManagerCMPlay::FSMApplication()
 {
 	Vector3 newPosition;
-	newPosition.Set(0, 0, 0);
-	sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(newPosition);
+	//sceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(newPosition);
 	//sceneGraph->GetChildNode("Warrior")->GetGameObject()->setRotation(90, 0, 1, 0);
 	sceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
 	sceneGraph->GetChildNode("WARRIOR_SHIELD")->GetGameObject()->setPosition(Vector3(0, 0, 5));

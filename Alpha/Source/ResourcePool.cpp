@@ -273,6 +273,11 @@ void ResourcePool::processMesh(string config)
 			mesh = MeshBuilder::GenerateDebugCircle(meshName, meshColor, (unsigned)meshVar[VAR_SLICES], meshVar[VAR_RADIUS]);
 		}
 
+		else if (meshType == "DebugCube")
+		{
+			mesh = MeshBuilder::GenerateDebugCube(meshName, meshColor, meshVar[VAR_LENGTH]);
+		}
+
 		else if (meshType == "Sphere")
 		{
 			mesh = MeshBuilder::GenerateSphere(meshName, meshColor, (unsigned)meshVar[VAR_STACKS], (unsigned)meshVar[VAR_SLICES], meshVar[VAR_RADIUS]);

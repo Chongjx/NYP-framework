@@ -22,7 +22,11 @@
 	{
 		[NAME] DEBUG_QUAD
 		[Type] DebugQuad
-	}	
+	}
+	{
+		[NAME] DEBUG_CUBE
+		[Type] DebugCube
+	}
 	{
 		# InnerRadius = PlanetRadius, OuterRadius = AtmosphereRadius
 		# TileRow = hTile, TileCol = vTile	
@@ -118,6 +122,12 @@
 			[AnimationTime] 1.0
 		}
 	}
+	{
+		[NAME] Circle
+		[Type] Circle
+		[Slices] 36
+		[Radius] 10
+	}
 }
 
 # Types available
@@ -126,6 +136,7 @@
 # Circle
 # DebugQuad
 # DebugCircle
+# DebugCube
 # Skyplane
 # Sphere
 # Obj

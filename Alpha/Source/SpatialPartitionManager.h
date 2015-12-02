@@ -23,19 +23,16 @@ public:
 	~SpatialPartitionManager();
 
 	// 2D spatial partition
-	bool Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased = true);
+	bool Init(Vector2 minWorldDimension, Vector2 maxWorldDimension, Vector2 worldDivision, bool numPartitionBased = true, Mesh* mesh = NULL);
 
 	// 3D spatial partition
-	bool Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased = true);
+	bool Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased = true, Mesh* mesh = NULL);
 
 	int getNumPartitionWidth(void);
 	int getNumPartitionHeight(void);
 	int getNumPartitionDepth(void);
 
-	Partition getPartition(Vector3 index);
-
-	void setPartitionMesh(Vector3 index, Mesh* partitionMesh);
-	Mesh* getPartitionMesh(Vector3 index);
+	Partition* getPartition(Vector3 index, bool trueIndex = true);
 
 	bool addNode(SceneNode* node);
 	bool removeNode(SceneNode* node);

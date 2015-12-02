@@ -19,6 +19,8 @@ public:
 	void addNode(SceneNode* node);
 	vector<SceneNode*> getNodes(void);
 
+	Mesh* getMesh(void);
+
 	void deleteObjects(void);
 
 	void Render(void);
