@@ -29,6 +29,15 @@ void Partition::Init(Vector3 dimension, int id, Mesh* mesh)
 	this->partitionMesh = mesh;
 }
 
+void Partition::Init(Vector3 dimension, Vector3 minPosition, Vector3 maxPosition, int id, Mesh* mesh)
+{
+	this->dimension = dimension;
+	this->minPosition = minPosition;
+	this->maxPosition = maxPosition;
+	this->id = id;
+	this->partitionMesh = mesh;
+}
+
 void Partition::setMesh(Mesh* mesh)
 {
 	this->partitionMesh = mesh;

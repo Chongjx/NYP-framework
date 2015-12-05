@@ -14,12 +14,16 @@ public:
 
 	void Init(Vector3 dimension, int id);
 	void Init(Vector3 dimension, int id, Mesh* mesh);
+	void Init(Vector3 dimension, Vector3 minPosition, Vector3 maxPosition, int id, Mesh* mesh);
 
 	void setMesh(Mesh* mesh);
 	void addNode(SceneNode* node);
 	vector<SceneNode*> getNodes(void);
 
 	Mesh* getMesh(void);
+	Vector3 getDimension(void);
+	Vector3 getMinPosition(void);
+	Vector3 getMaxPosition(void);
 
 	void deleteObjects(void);
 
@@ -32,6 +36,8 @@ public:
 
 private:
 	Vector3 dimension;
+	Vector3 minPosition;
+	Vector3 maxPosition;
 	int id;
 
 	Mesh* partitionMesh;

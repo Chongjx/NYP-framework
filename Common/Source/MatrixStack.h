@@ -35,6 +35,7 @@ public:
 	void Scale(float scaleX, float scaleY, float scaleZ);
 	void Translate(float translateX, float translateY, float translateZ);
 	void Scale(Mtx44 scaleFactor);
+	void Scale(Vector3 scaleFactor);
 	void Translate(Mtx44 translateFactor);
 	void Frustum(double left, double right, double	bottom, double top, double near, double far);
 	void LookAt(double eyeX, double eyeY, double eyeZ,

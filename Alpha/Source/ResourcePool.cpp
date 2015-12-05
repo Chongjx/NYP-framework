@@ -248,7 +248,17 @@ void ResourcePool::processMesh(string config)
 		// process data, generate mesh using meshbuilder
 		Mesh* mesh = NULL;
 
-		if (meshType == "Quad")
+		if (meshType == "Axis")
+		{
+			mesh = MeshBuilder::GenerateAxes(meshName, meshVar[VAR_LENGTH], meshVar[VAR_HEIGHT], meshVar[VAR_WIDTH]);
+		}
+
+		else if (meshType == "Ray")
+		{
+			mesh = MeshBuilder::GenerateRay(meshName, meshVar[VAR_LENGTH]);
+		}
+
+		else if (meshType == "Quad")
 		{
 			mesh = MeshBuilder::GenerateQuad(meshName, meshColor, meshVar[VAR_LENGTH], meshVar[VAR_WIDTH]);
 		}

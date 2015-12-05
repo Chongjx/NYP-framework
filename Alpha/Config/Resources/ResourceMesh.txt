@@ -43,6 +43,8 @@
 		[NAME] FLOOR
 		[Type] Quad
 		[Texture] GRASS
+		[Length] 4000
+		[Width] 4000
 	}
 	{
 		#[NAME] TERRAIN
@@ -131,6 +133,8 @@
 }
 
 # Types available
+# Axis
+# Ray
 # Quad
 # Cube
 # Circle

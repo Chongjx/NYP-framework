@@ -23,6 +23,16 @@
 		# [Key] NUM 2
 	}
 	{
+		[NAME] EnableDebugInfo
+		[Key] 0x33
+		# [Key] NUM 3
+	}
+	{
+		[NAME] DisableDebugInfo
+		[Key] 0x34
+		# [Key] NUM 4
+	}
+	{
 		[NAME] Pause
 		[Key] 0x50
 	}
@@ -79,10 +89,12 @@
 	{
 		[NAME] LockPitch
 		[Key] 0x26
+		# [Key] Arrow Key up
 	}
 	{
 		[NAME] LockYaw
 		[Key] 0x28
+		# [Key] Arrow Key down
 	}
 }
 # https://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx

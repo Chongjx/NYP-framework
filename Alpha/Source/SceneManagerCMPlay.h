@@ -8,6 +8,13 @@ class SceneManagerCMPlay : public SceneManagerGameplay
 private:
 	vector<GameObject3D*> objectList;
 	SceneNode* sceneGraph;
+	SceneNode* staticSceneGraph;
+	SceneNode* dynamicSceneGraph;
+	SpatialPartitionManager* spatialPartitionManager;
+	// MiniMap* miniMap;
+
+	Vector3 worldStart;
+	Vector3 worldEnd;
 public:
 	SceneManagerCMPlay();
 	~SceneManagerCMPlay();

@@ -5,7 +5,6 @@ SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL)
 {
 }
 
-
 SceneNode::~SceneNode()
 {
 }
@@ -56,7 +55,7 @@ void SceneNode::Draw(SceneManager *sceneManager)
 void SceneNode::DrawChild(SceneManager *sceneManager)
 {
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
+	sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
@@ -101,6 +100,12 @@ void SceneNode::CleanUp()
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
 		childNodes[i]->CleanUp();
+	}
+
+	if (this->gameObject3D)
+	{
+		delete gameObject3D;
+		gameObject3D = NULL;
 	}
 
 	delete this;

@@ -188,6 +188,21 @@ void MS::Scale(Mtx44 scaleFactor) {
 /******************************************************************************/
 /*!
 \brief
+Multiply the top matrix with a scale matrix based on the following parameters
+
+\param	scaleFactor
+Factor to scale along x, y, z axes
+*/
+/******************************************************************************/
+void MS::Scale(Vector3 scaleFactor) {
+	Mtx44 mat;
+	mat.SetToScale(scaleFactor.x, scaleFactor.y, scaleFactor.z);
+	ms.top() = ms.top() * mat;
+}
+
+/******************************************************************************/
+/*!
+\brief
 Multiply the top matrix with a translation matrix based on the following 
 parameters
 

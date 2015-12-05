@@ -9,6 +9,7 @@ SceneManager::SceneManager()
 	lights.clear();
 	lightEnabled = true;
 	fontSize = specialFontSize = 1.f;
+	debugInfo = false;
 }
 
 SceneManager::~SceneManager()
@@ -74,6 +75,16 @@ void SceneManager::Update(double dt)
 	fps = (float)(1.f / dt);
 
 	this->inputManager->Update();
+
+	if (inputManager->getKey("EnableDebugInfo"))
+	{
+		this->debugInfo = true;
+	}
+
+	else if (inputManager->getKey("DisableDebugInfo"))
+	{
+		this->debugInfo = false;
+	}
 }
 
 void SceneManager::Render()
@@ -119,7 +130,10 @@ Render text onto the screen with reference position in the middle of the image
 void SceneManager::RenderText(Mesh* mesh, std::string text, Color color)
 {
 	if (!mesh)
+	{
+		std::cout << "Unable to render text!" << std::endl;
 		return;
+	}
 
 	glDisable(GL_DEPTH_TEST);
 	glUniform1i(parameters[U_TEXT_ENABLED], 1);
@@ -150,7 +164,10 @@ Render text onto the screen
 void SceneManager::RenderTextOnScreen(Mesh* mesh, std::string text, Color color, float size, float x, float y, float rotation)
 {
 	if (!mesh)
+	{
+		std::cout << "Unable to render text on screen!" << std::endl;
 		return;
+	}
 
 	glDisable(GL_DEPTH_TEST);
 	Mtx44 ortho;
@@ -198,7 +215,10 @@ Render a mesh in 3D
 void SceneManager::Render3DMesh(Mesh* mesh, bool enableLight)
 {
 	if (!mesh)
+	{
+		std::cout << "Unable to render 3D mesh!" << std::endl;
 		return;
+	}
 
 	Mtx44 MVP, modelView, modelView_inverse_transpose;
 
@@ -246,7 +266,10 @@ Render a mesh in 2D
 void SceneManager::Render2DMesh(Mesh *mesh, const bool enableLight, const Vector2 scale, const Vector2 pos, const float rotation)
 {
 	if (!mesh)
+	{
+		std::cout << "Unable to render 2D mesh!" << std::endl;
 		return;
+	}
 
 	Mtx44 ortho;
 	ortho.SetToOrtho(0, double(sceneWidth), 0, double(sceneHeight), -100, 100);

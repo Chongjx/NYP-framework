@@ -95,6 +95,7 @@ protected:
 	float fps;
 	float fontSize;
 	float specialFontSize;
+	bool debugInfo;
 	Vector2 mousePos;
 
 	Branch sceneBranch;

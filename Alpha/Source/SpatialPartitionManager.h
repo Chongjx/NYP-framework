@@ -28,16 +28,17 @@ public:
 	// 3D spatial partition
 	bool Init(Vector3 minWorldDimension, Vector3 maxWorldDimension, Vector3 worldDivision, bool numPartitionBased = true, Mesh* mesh = NULL);
 
-	int getNumPartitionWidth(void);
-	int getNumPartitionHeight(void);
-	int getNumPartitionDepth(void);
+	Vector3 getNumPartition(void);
+	Vector3 getParitionDimension(void);
 
-	Partition* getPartition(Vector3 index, bool trueIndex = true);
+	Partition* getPartition(Vector3 index, bool positionBased = true);
 
 	bool addNode(SceneNode* node);
 	bool removeNode(SceneNode* node);
 
 	void Update(void);
+
+	void CleanUp(void);
 
 private:
 	PARTITION_TYPE type;
@@ -45,6 +46,9 @@ private:
 	Vector3 worldDimension;
 	Vector3 partitionDimension;
 	Vector3 numPartition;
+
+	Vector3 minWorldDimension;
+	Vector3 maxWorldDimension;
 };
 
 #endif
