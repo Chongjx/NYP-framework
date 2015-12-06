@@ -15,6 +15,8 @@ private:
 
 	Vector3 worldStart;
 	Vector3 worldEnd;
+
+	Mesh* textMesh;
 public:
 	SceneManagerCMPlay();
 	~SceneManagerCMPlay();
@@ -28,6 +30,7 @@ public:
 	void BindShaders();
 	void InitShader();
 
+	void InitPartition();
 	void InitSceneGraph();
 	void FSMApplication();
 
@@ -37,6 +40,7 @@ public:
 	void RenderBG();
 	void RenderStaticObject();
 	void RenderMobileObject();
+	void RenderGUI();
 };
 
 #endif

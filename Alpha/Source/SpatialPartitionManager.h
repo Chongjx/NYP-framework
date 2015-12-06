@@ -33,16 +33,19 @@ public:
 
 	Partition* getPartition(Vector3 index, bool positionBased = true);
 
-	bool addNode(SceneNode* node);
+	bool addNode(SceneNode* node, PARTITION_TYPE type = PARTITION_DEFAULT);
 	bool removeNode(SceneNode* node);
 
 	void Update(void);
 
 	void CleanUp(void);
 
-private:
-	PARTITION_TYPE type;
 	vector<Partition*> partitions;
+	PARTITION_TYPE type;
+
+	int generatePartitionIndex(Vector3 index);
+	int generatePartitionIndex(int x, int y, int z = 0);
+private:
 	Vector3 worldDimension;
 	Vector3 partitionDimension;
 	Vector3 numPartition;

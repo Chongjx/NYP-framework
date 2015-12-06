@@ -34,6 +34,8 @@ public:
 
 	void CleanUp(void);
 
+	vector<SceneNode*> nodes;
+
 private:
 	Vector3 dimension;
 	Vector3 minPosition;
@@ -41,8 +43,6 @@ private:
 	int id;
 
 	Mesh* partitionMesh;
-	vector<SceneNode*> nodes;
-
 };
 
 #endif

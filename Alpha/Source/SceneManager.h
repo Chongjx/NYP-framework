@@ -1,6 +1,8 @@
 #ifndef SCENE_MANAGER_H
 #define SCENE_MANAGER_H
 
+#include <sstream>
+
 #include "Scene.h"
 #include "GL\glew.h"
 #include "shader.hpp"

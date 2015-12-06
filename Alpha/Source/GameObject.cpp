@@ -5,7 +5,7 @@ mesh(NULL),
 name(""),
 position(0, 0, 0),
 render(false),
-reflectLight(false),
+reflectLight(true),
 update(false)
 {
 }

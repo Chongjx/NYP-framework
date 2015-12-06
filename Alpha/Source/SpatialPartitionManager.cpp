@@ -14,6 +14,7 @@ numPartition(1, 1, 1)
 
 SpatialPartitionManager::~SpatialPartitionManager()
 {
+	this->CleanUp();
 }
 
 // bool numPartitionBased
@@ -34,14 +35,12 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 		if (numPartitionBased)
 		{
 			numPartition.Set(worldDivision.x, worldDivision.y);
-
 			partitionDimension.Set(worldDimension.x / worldDivision.x, worldDimension.y / worldDivision.y);
 		}
 
 		else
 		{
 			partitionDimension.Set(worldDivision.x, worldDivision.y);
-
 			numPartition.Set(worldDimension.x / partitionDimension.x, worldDimension.y / partitionDimension.y);
 		}
 	}
@@ -59,10 +58,12 @@ bool SpatialPartitionManager::Init(Vector2 minWorldDimension, Vector2 maxWorldDi
 
 			Partition* partition = new Partition();
 			partition->Init(partitionDimension,
-				Vector3(minWorldDimension.x + i * partitionDimension.x, minWorldDimension.y + j * partitionDimension.y),
-				Vector3(minWorldDimension.x + (i + 1) * partitionDimension.x, minWorldDimension.y + (j + 1) * partitionDimension.y),
-				id,
-				mesh);
+				Vector3(minWorldDimension.x + i * partitionDimension.x, 
+						minWorldDimension.y + j * partitionDimension.y),
+				Vector3(minWorldDimension.x + (i + 1) * partitionDimension.x, 
+						minWorldDimension.y + (j + 1) * partitionDimension.y), 
+						id, 
+						mesh);
 
 			partitions.push_back(partition);
 		}
@@ -113,10 +114,15 @@ bool SpatialPartitionManager::Init(Vector3 minWorldDimension, Vector3 maxWorldDi
 
 				Partition* partition = new Partition();
 				partition->Init(partitionDimension, 
-					Vector3(minWorldDimension.x + i * partitionDimension.x, minWorldDimension.y + j * partitionDimension.y, minWorldDimension.z + k * partitionDimension.z),
-					Vector3(minWorldDimension.x + (i + 1) * partitionDimension.x, minWorldDimension.y + (j + 1) * partitionDimension.y, minWorldDimension.z + (k + 1) * partitionDimension.z),
-					id, 
-					mesh);
+					Vector3(minWorldDimension.x + i * partitionDimension.x,
+							minWorldDimension.y + j * partitionDimension.y,
+							minWorldDimension.z + k * partitionDimension.z),
+
+					Vector3(minWorldDimension.x + (i + 1) * partitionDimension.x, 
+							minWorldDimension.y + (j + 1) * partitionDimension.y, 
+							minWorldDimension.z + (k + 1) * partitionDimension.z),
+							id, 
+							mesh);
 
 				partitions.push_back(partition);
 			}
@@ -168,7 +174,7 @@ Partition* SpatialPartitionManager::getPartition(Vector3 index, bool positionBas
 			yPart = (int)index.y;
 		}
 
-		partitionIndex = xPart + yPart * (int)numPartition.x;
+		partitionIndex = generatePartitionIndex(xPart, yPart);
 
 		break;
 	case SpatialPartitionManager::PARTITION_3D:
@@ -188,7 +194,7 @@ Partition* SpatialPartitionManager::getPartition(Vector3 index, bool positionBas
 			zPart = (int)index.z;
 		}
 
-		partitionIndex = xPart + yPart * (int)numPartition.x + zPart * (int)numPartition.x * (int)numPartition.y;
+		partitionIndex = generatePartitionIndex(xPart, yPart, zPart);
 
 		break;
 	default:
@@ -198,16 +204,140 @@ Partition* SpatialPartitionManager::getPartition(Vector3 index, bool positionBas
 	return partitions[partitionIndex];
 }
 
-bool SpatialPartitionManager::addNode(SceneNode* node)
+bool SpatialPartitionManager::addNode(SceneNode* node, SpatialPartitionManager::PARTITION_TYPE type)
 {
-	switch (type)
+	Vector3 nodeBox;
+	Vector3 boxMidpoint;
+
+	// only add the node if it has a body (gameObject)
+	if (node->GetGameObject() != NULL)
 	{
-	case SpatialPartitionManager::PARTITION_2D:
-		break;
-	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	default:
-		break;
+		switch (type)
+		{
+		case SpatialPartitionManager::PARTITION_2D:
+
+			break;
+		case SpatialPartitionManager::PARTITION_3D:
+		{
+			nodeBox.Set(node->GetGameObject()->getHitbox().getLength() / 2,
+				node->GetGameObject()->getHitbox().getHeight() / 2,
+				node->GetGameObject()->getHitbox().getDepth() / 2);
+
+			SceneNode* tempNode = node;
+			boxMidpoint = node->GetGameObject()->getPosition();
+
+			while (tempNode->parentNode != NULL && tempNode->parentNode->GetGameObject() != NULL)
+			{
+				boxMidpoint += tempNode->GetParentNode()->GetGameObject()->getPosition();
+				tempNode = tempNode->GetParentNode();
+			}
+
+			// calculate the index which the obj is in the world
+			Vector3 topLeftBack, topLeftFront;
+			Vector3 topRightBack, topRightFront;
+			Vector3 bottomLeftBack, bottomLeftFront;
+			Vector3 bottomRightBack, bottomRightFront;
+
+			int partitionIndex = 0;
+
+			topLeftBack.Set((boxMidpoint.x - nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+							(boxMidpoint.y + nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+							(boxMidpoint.z - nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			topLeftFront.Set((boxMidpoint.x - nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+							 (boxMidpoint.y + nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+							 (boxMidpoint.z + nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			topRightBack.Set((boxMidpoint.x + nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+							 (boxMidpoint.y + nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+							 (boxMidpoint.z - nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			topRightFront.Set((boxMidpoint.x + nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+							  (boxMidpoint.y + nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+							  (boxMidpoint.z + nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			bottomLeftBack.Set((boxMidpoint.x - nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+								(boxMidpoint.y - nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+								(boxMidpoint.z - nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			bottomLeftFront.Set((boxMidpoint.x - nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+								(boxMidpoint.y - nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+								(boxMidpoint.z + nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			bottomRightBack.Set((boxMidpoint.x + nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+								(boxMidpoint.y - nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+								(boxMidpoint.z - nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			bottomRightFront.Set((boxMidpoint.x + nodeBox.x - minWorldDimension.x) / partitionDimension.x,
+							 	 (boxMidpoint.y - nodeBox.y - minWorldDimension.y) / partitionDimension.y,
+								 (boxMidpoint.z + nodeBox.z - minWorldDimension.z) / partitionDimension.z);
+
+			// check top left back
+			partitionIndex = generatePartitionIndex(topLeftBack);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check top left front
+			partitionIndex = generatePartitionIndex(topLeftFront);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check top right back
+			partitionIndex = generatePartitionIndex(topRightBack);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check top right front
+			partitionIndex = generatePartitionIndex(topRightFront);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check bottom left back
+			partitionIndex = generatePartitionIndex(bottomLeftBack);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check bottom left front
+			partitionIndex = generatePartitionIndex(bottomLeftFront);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check bottom right back
+			partitionIndex = generatePartitionIndex(bottomRightBack);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+
+			// check bottom right front
+			partitionIndex = generatePartitionIndex(bottomRightFront);
+			if (partitionIndex > 0 && partitionIndex < partitions.size())
+			{
+				partitions[partitionIndex]->addNode(node);
+			}
+		}
+			break;
+		default:
+			break;
+		}
+	}
+
+	// do a reursive
+	for (int i = 0; i < node->childNodes.size(); ++i)
+	{
+		this->addNode(node->childNodes[i], type);
 	}
 
 	return true;
@@ -230,6 +360,47 @@ bool SpatialPartitionManager::removeNode(SceneNode* node)
 
 void SpatialPartitionManager::Update(void)
 {
+	int id = 0;
+
+	// clear all the nodes in all the partitions
+	switch (type)
+	{
+	case SpatialPartitionManager::PARTITION_2D:
+		for (int j = 0; j < numPartition.y; ++j)
+		{
+			for (int i = 0; i < numPartition.x; ++i)
+			{
+				id = i + j * (int)numPartition.x;
+
+				if (partitions[id])
+				{
+					partitions[id]->CleanUp();
+				}
+			}
+		}
+		break;
+
+	case SpatialPartitionManager::PARTITION_3D:
+		for (int k = 0; k < numPartition.z; ++k)
+		{
+			for (int j = 0; j < numPartition.y; ++j)
+			{
+				for (int i = 0; i < numPartition.x; ++i)
+				{
+					id = i + j * (int)numPartition.x + k * (int)numPartition.x * (int)numPartition.y;
+
+					if (partitions[id])
+					{
+						partitions[id]->CleanUp();
+					}
+				}
+			}
+		}
+		break;
+
+	default:
+		break;
+	}
 }
 
 void SpatialPartitionManager::CleanUp(void)
@@ -281,4 +452,14 @@ void SpatialPartitionManager::CleanUp(void)
 	}
 
 	partitions.clear();
+}
+
+int SpatialPartitionManager::generatePartitionIndex(Vector3 index)
+{
+	return (int)index.x + (int)index.y * (int)numPartition.x + (int)index.z * (int)numPartition.x * (int)numPartition.y;
+}
+
+int SpatialPartitionManager::generatePartitionIndex(int x, int y, int z)
+{
+	return x + y * (int)numPartition.x + z * (int)numPartition.x * (int)numPartition.y;
 }

@@ -705,7 +705,7 @@ Mesh* MeshBuilder::GenerateDebugCube(const std::string &meshName, Color color, f
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_buffer_data.size() * sizeof(GLuint), &index_buffer_data[0], GL_STATIC_DRAW);
 
 	mesh->indexSize = 36;
-	mesh->mode = Mesh::DRAW_TRIANGLES;
+	mesh->mode = Mesh::DRAW_TRIANGLE_STRIP;
 
 	return mesh;
 }

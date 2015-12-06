@@ -20,16 +20,21 @@ public:
 	void Draw(SceneManager *sceneManager);
 	void DrawChild(SceneManager *sceneManager);
 
+	SceneNode* GetParentNode(void);
+
 	void CleanUp();
+
+	bool HasChild(void);
 
 	SceneNode* GetChildNode(string childName);
 	
 	GameObject3D* GetGameObject();
 
+	vector<SceneNode*> childNodes;
+	SceneNode *parentNode;
 protected:
 	GameObject3D* gameObject3D;
-	SceneNode *parentNode;
-	vector<SceneNode*> childNodes;
+	
 };
 
 #endif

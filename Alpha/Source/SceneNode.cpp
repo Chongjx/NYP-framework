@@ -19,6 +19,11 @@ void SceneNode::SetParentNode(SceneNode* _parentNode)
 	this->parentNode = _parentNode;
 }
 
+SceneNode* SceneNode::GetParentNode(void)
+{
+	return this->parentNode;
+}
+
 void SceneNode::AddChildNode(SceneNode *childNode)
 {
 	childNode->SetParentNode(this);
@@ -109,4 +114,9 @@ void SceneNode::CleanUp()
 	}
 
 	delete this;
+}
+
+bool SceneNode::HasChild(void)
+{
+	return this->childNodes.size();
 }

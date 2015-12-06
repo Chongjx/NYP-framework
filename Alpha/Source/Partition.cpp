@@ -45,7 +45,21 @@ void Partition::setMesh(Mesh* mesh)
 
 void Partition::addNode(SceneNode* node)
 {
-	//if (this->nodes)
+	bool exist = false;
+	// ensure the vector does not contain this node
+	for (unsigned i = 0; i < nodes.size(); ++i)
+	{
+		if (nodes[i] == node)
+		{
+			exist = true;
+			break;
+		}
+	}
+
+	if (!exist)
+	{
+		nodes.push_back(node);
+	}
 }
 
 vector<SceneNode*> Partition::getNodes(void)
@@ -60,6 +74,7 @@ Mesh* Partition::getMesh(void)
 
 void Partition::deleteObjects(void)
 {
+	nodes.clear();
 }
 
 void Partition::Render(void)
