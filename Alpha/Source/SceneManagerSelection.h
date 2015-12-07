@@ -95,6 +95,8 @@ public:
 				std::cout << "Setting up camera!" << std::endl;
 				Vector3 tempPos, tempTarget, tempUp;
 				string cameraType;
+				bool lockPitch = true;
+				bool lockYaw = true;
 
 				for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
 				{
@@ -121,6 +123,17 @@ public:
 					{
 						stringToVector(attriValue, tempUp);
 					}
+
+					else if (attriName == "LockPitch")
+					{
+						stringToBool(attriValue, lockPitch);
+					}
+
+					else if (attriName == "LockYaw")
+					{
+						stringToBool(attriValue, lockYaw);
+					}
+
 				}
 
 				if (cameraType == "FP")
@@ -130,7 +143,7 @@ public:
 
 				else if (cameraType == "TP")
 				{
-					tpCamera.Init(tempPos, tempTarget, tempUp);
+					tpCamera.Init(tempPos, tempTarget, tempUp, lockPitch, lockYaw);
 				}
 
 				// default camera chosen for this scene. Shld vary depending on scene type

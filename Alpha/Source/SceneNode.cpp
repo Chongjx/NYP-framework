@@ -118,5 +118,8 @@ void SceneNode::CleanUp()
 
 bool SceneNode::HasChild(void)
 {
-	return this->childNodes.size();
+	if (this->childNodes.size() > 0)
+		return true;
+
+	return false;
 }

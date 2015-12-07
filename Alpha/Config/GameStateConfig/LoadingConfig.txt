@@ -1,17 +1,15 @@
 # Interface Config #
 # Init all scene variables here (etc. camera, buttons) #
 {
-	[NAME] MenuConfig
-	# Menu interface
+	[NAME] LoadingConfig
+	# Loading interface
 	{
 		[NAME] Camera
 		# Types available FP, TP
-		[Type] TP
+		[Type] FP
 		[CameraPos] 0, 0, 10
 		[CameraTarget] 0, 0, 0
 		[CameraUp] 0, 1, 0
-		[LockPitch] false
-		[LockYaw] false
 	}
 	{
 		[NAME] Font
@@ -20,14 +18,13 @@
 	}
 	{
 		[NAME] Light
-		[Enable] true
+		[Enable] false
 	}
 	{
-		[NAME] SpatialPartition
-		[Type] 3D
-		[WorldStart] -2000, 0, -2000
-		[WorldEnd] 2000, 2000, 2000
-		[Partitions] 40, 1, 40
-		[PartitionBased] true
+		[NAME] Transition
+		[Run] true
+		[Repeat] false
+		# Repeat count shld only be declare if the transition has to be repeated
+		[RepeatCount] 5
 	}
 }

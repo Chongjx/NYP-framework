@@ -14,7 +14,7 @@ protected:
 	bool shldExit;
 public:
 
-	SceneManagerTransition() {}
+	SceneManagerTransition() : run(true), repeat(false), repeatCount(0), runCount(0), complete(0), shldExit(0) {}
 	virtual ~SceneManagerTransition() {}
 
 	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
@@ -72,6 +72,8 @@ public:
 				std::cout << "Setting up camera!" << std::endl;
 				Vector3 tempPos, tempTarget, tempUp;
 				string cameraType;
+				bool lockPitch = true;
+				bool lockYaw = true;
 
 				for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
 				{
@@ -98,6 +100,17 @@ public:
 					{
 						stringToVector(attriValue, tempUp);
 					}
+
+					else if (attriName == "LockPitch")
+					{
+						stringToBool(attriValue, lockPitch);
+					}
+
+					else if (attriName == "LockYaw")
+					{
+						stringToBool(attriValue, lockYaw);
+					}
+
 				}
 
 				if (cameraType == "FP")
@@ -107,7 +120,7 @@ public:
 
 				else if (cameraType == "TP")
 				{
-					tpCamera.Init(tempPos, tempTarget, tempUp);
+					tpCamera.Init(tempPos, tempTarget, tempUp, lockPitch, lockYaw);
 				}
 
 				// default camera chosen for this scene. Shld vary depending on scene type
@@ -150,6 +163,32 @@ public:
 					if (attriName == "Enable")
 					{
 						stringToBool(attriValue, lightEnabled);
+					}
+				}
+			}
+
+			else if (branch->branchName == "Transition")
+			{
+				std::cout << "Setting up transition properties" << std::endl;
+				for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+				{
+					Attribute tempAttri = *attri;
+					string attriName = tempAttri.name;
+					string attriValue = tempAttri.value;
+
+					if (attriName == "Run")
+					{
+						stringToBool(attriValue, run);
+					}
+
+					else if (attriName == "Repeat")
+					{
+						stringToBool(attriValue, repeat);
+					}
+
+					else if (attriName == "RepeatCount")
+					{
+						repeatCount = stoi(attriValue);
 					}
 				}
 			}

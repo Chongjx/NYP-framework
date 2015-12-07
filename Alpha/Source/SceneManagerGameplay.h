@@ -5,9 +5,23 @@
 
 class SceneManagerGameplay : public SceneManager
 {
+protected:
+	SpatialPartitionManager* spatialPartitionManager;
+	Vector3 world3DStart;
+	Vector3 world3DEnd;
+	Vector2 world2DStart;
+	Vector2 world2DEnd;
 public:
-	SceneManagerGameplay() {}
-	virtual ~SceneManagerGameplay() {}
+	SceneManagerGameplay() : spatialPartitionManager(NULL) {}
+	virtual ~SceneManagerGameplay() 
+	{
+		if (spatialPartitionManager)
+		{
+			spatialPartitionManager->CleanUp();
+			spatialPartitionManager = NULL;
+			delete spatialPartitionManager;
+		}
+	}
 
 	virtual void Init(const int width, const int height, ResourcePool* RP, InputManager* controls)
 	{
@@ -58,6 +72,8 @@ public:
 				std::cout << "Setting up camera!" << std::endl;
 				Vector3 tempPos, tempTarget, tempUp;
 				string cameraType;
+				bool lockPitch = true;
+				bool lockYaw = true;
 
 				for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
 				{
@@ -84,6 +100,17 @@ public:
 					{
 						stringToVector(attriValue, tempUp);
 					}
+
+					else if (attriName == "LockPitch")
+					{
+						stringToBool(attriValue, lockPitch);
+					}
+
+					else if (attriName == "LockYaw")
+					{
+						stringToBool(attriValue, lockYaw);
+					}
+
 				}
 
 				if (cameraType == "FP")
@@ -93,7 +120,7 @@ public:
 
 				else if (cameraType == "TP")
 				{
-					tpCamera.Init(tempPos, tempTarget, tempUp);
+					tpCamera.Init(tempPos, tempTarget, tempUp, lockPitch, lockYaw);
 				}
 
 				// default camera chosen for this scene. Shld vary depending on scene type
@@ -137,6 +164,89 @@ public:
 					{
 						stringToBool(attriValue, lightEnabled);
 					}
+				}
+			}
+
+			else if (branch->branchName == "SpatialPartition")
+			{
+				// create a spatial partition manager if it is not defined
+				if (spatialPartitionManager == NULL)
+				{
+					spatialPartitionManager = new SpatialPartitionManager();
+				}
+
+				int type = 0;
+				Vector3 partitionDimension;
+				Vector2 partitionDimension2D;
+				bool numPartitionBased = true;
+
+				std::cout << "Setting up spatial partitioning" << std::endl;
+				for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+				{
+					Attribute tempAttri = *attri;
+					string attriName = tempAttri.name;
+					string attriValue = tempAttri.value;
+
+					if (attriName == "Type")
+					{
+						type = stoi(attriValue);
+					}
+
+					else if (attriName == "WorldStart")
+					{
+						if (type == 3)
+						{
+							stringToVector(attriValue, world3DStart);
+						}
+
+						else
+						{
+							stringToVector(attriValue, world2DStart);
+						}
+					}
+
+					else if (attriName == "WorldEnd")
+					{
+						if (type == 3)
+						{
+							stringToVector(attriValue, world3DEnd);
+						}
+
+						else
+						{
+							stringToVector(attriValue, world2DEnd);
+						}
+					}
+
+					else if (attriName == "Partitions")
+					{
+						if (type == 3)
+						{
+							stringToVector(attriValue, partitionDimension);
+						}
+
+						else
+						{
+							stringToVector(attriValue, partitionDimension2D);
+						}
+					}
+
+					else if (attriName == "PartitionBased")
+					{
+						stringToBool(attriValue, numPartitionBased);
+					}
+				}
+
+				// 3D spatial partition
+				if (type == 3)
+				{
+					spatialPartitionManager->Init(world3DStart, world3DEnd, partitionDimension, numPartitionBased, resourceManager.retrieveMesh("DEBUG_CUBE"));
+				}
+
+				// assume its 2D
+				else
+				{
+					spatialPartitionManager->Init(world2DStart, world2DEnd, partitionDimension2D, numPartitionBased, resourceManager.retrieveMesh("DEBUG_QUAD"));
 				}
 			}
 		}

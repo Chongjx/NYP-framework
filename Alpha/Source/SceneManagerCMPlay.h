@@ -10,11 +10,7 @@ private:
 	SceneNode* sceneGraph;
 	SceneNode* staticSceneGraph;
 	SceneNode* dynamicSceneGraph;
-	SpatialPartitionManager* spatialPartitionManager;
 	// MiniMap* miniMap;
-
-	Vector3 worldStart;
-	Vector3 worldEnd;
 
 	Mesh* textMesh;
 public:
@@ -30,7 +26,6 @@ public:
 	void BindShaders();
 	void InitShader();
 
-	void InitPartition();
 	void InitSceneGraph();
 	void FSMApplication();
 

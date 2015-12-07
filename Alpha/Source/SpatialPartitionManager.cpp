@@ -238,7 +238,7 @@ bool SpatialPartitionManager::addNode(SceneNode* node, SpatialPartitionManager::
 			Vector3 bottomLeftBack, bottomLeftFront;
 			Vector3 bottomRightBack, bottomRightFront;
 
-			int partitionIndex = 0;
+			unsigned partitionIndex = 0;
 
 			topLeftBack.Set((boxMidpoint.x - nodeBox.x - minWorldDimension.x) / partitionDimension.x,
 							(boxMidpoint.y + nodeBox.y - minWorldDimension.y) / partitionDimension.y,

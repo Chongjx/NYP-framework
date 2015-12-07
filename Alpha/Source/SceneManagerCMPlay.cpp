@@ -3,8 +3,7 @@
 SceneManagerCMPlay::SceneManagerCMPlay() :
 sceneGraph(NULL),
 staticSceneGraph(NULL),
-dynamicSceneGraph(NULL),
-spatialPartitionManager(NULL)/*,
+dynamicSceneGraph(NULL)/*,
 miniMap(NULL)*/
 {
 }
@@ -18,21 +17,16 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 {
 	SceneManagerGameplay::Init(width, height, RM, controls);
 
-	this->InitShader();
+	Config();
 
-	//tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0));
-	tpCamera.Init(Vector3(0, 0, -10), Vector3(0, 0, 0), Vector3(0, 1, 0), false, false);
+	this->InitShader();
+	this->InitSceneGraph();
 
 	// Projection matrix : 45° Field of View, 4:3 ratio, display range : 0.1 unit <-> 1000 units
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
-
-	InitPartition();
-	InitSceneGraph();
-
-	lightEnabled = true;
 
 	textMesh = resourceManager.retrieveMesh("FONT");
 
@@ -44,7 +38,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 void SceneManagerCMPlay::Config()
 {
-
+	SceneManagerGameplay::Config("Config\\GameStateConfig\\PlayConfig.txt");
 }
 
 void SceneManagerCMPlay::Update(double dt)
@@ -171,13 +165,6 @@ void SceneManagerCMPlay::Exit()
 		sceneGraph = NULL;
 	}
 
-	if (spatialPartitionManager)
-	{
-		spatialPartitionManager->CleanUp();
-		//delete spatialPartitionManager;
-		spatialPartitionManager = NULL;
-	}
-
 	/*if (miniMap)
 	{
 		delete miniMap;
@@ -302,12 +289,11 @@ void SceneManagerCMPlay::RenderStaticObject()
 				{
 					if (spatialPartitionManager->getPartition(Vector3((float)i, (float)j, (float)k), false)->nodes.size() >= 1)
 					{
-						std::cout << spatialPartitionManager->generatePartitionIndex(i, j, k) << std::endl;
 						modelStack.PushMatrix();
 						modelStack.Translate(
-							worldStart.x + (i + 0.5f) * spatialPartitionManager->getParitionDimension().x,
-							worldStart.y + (j + 0.5f) * spatialPartitionManager->getParitionDimension().y,
-							worldStart.z + (k + 0.5f) * spatialPartitionManager->getParitionDimension().z);
+							world3DStart.x + (i + 0.5f) * spatialPartitionManager->getParitionDimension().x,
+							world3DStart.y + (j + 0.5f) * spatialPartitionManager->getParitionDimension().y,
+							world3DStart.z + (k + 0.5f) * spatialPartitionManager->getParitionDimension().z);
 						modelStack.Scale(spatialPartitionManager->getParitionDimension());
 						Render3DMesh(spatialPartitionManager->getPartition(Vector3((float)i, (float)j, (float)k), false)->getMesh(), false);
 						modelStack.PopMatrix();
@@ -333,16 +319,6 @@ void SceneManagerCMPlay::RenderGUI()
 	ss.precision(5);
 	ss << "FPS: " << fps;
 	RenderTextOnScreen(textMesh, ss.str(), textCol, 30, 0, sceneHeight- 30);
-}
-
-void SceneManagerCMPlay::InitPartition()
-{
-	// Init spatial Partition before 
-	spatialPartitionManager = new SpatialPartitionManager();
-	worldStart.Set(-2000, 0, -2000);
-	worldEnd.Set(2000, 2000, 2000);
-
-	spatialPartitionManager->Init(worldStart, worldEnd, Vector3(20, 1, 20), true, resourceManager.retrieveMesh("DEBUG_CUBE"));
 }
 
 void SceneManagerCMPlay::InitSceneGraph()
