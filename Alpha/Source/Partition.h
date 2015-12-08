@@ -18,6 +18,7 @@ public:
 
 	void setMesh(Mesh* mesh);
 	void addNode(SceneNode* node);
+	void removeNode(SceneNode* node);
 	vector<SceneNode*> getNodes(void);
 
 	Mesh* getMesh(void);

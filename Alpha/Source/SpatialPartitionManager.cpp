@@ -335,7 +335,7 @@ bool SpatialPartitionManager::addNode(SceneNode* node, SpatialPartitionManager::
 	}
 
 	// do a reursive
-	for (int i = 0; i < node->childNodes.size(); ++i)
+	for (unsigned i = 0; i < node->childNodes.size(); ++i)
 	{
 		this->addNode(node->childNodes[i], type);
 	}
@@ -345,14 +345,43 @@ bool SpatialPartitionManager::addNode(SceneNode* node, SpatialPartitionManager::
 
 bool SpatialPartitionManager::removeNode(SceneNode* node)
 {
-	switch (type)
+	// do a reursive for child first
+	for (unsigned i = 0; i < node->childNodes.size(); ++i)
 	{
-	case SpatialPartitionManager::PARTITION_2D:
-		break;
-	case SpatialPartitionManager::PARTITION_3D:
-		break;
-	default:
-		break;
+		this->removeNode(node->childNodes[i]);
+	}
+
+	// only add the node if it has a body (gameObject)
+	if (node->GetGameObject() != NULL)
+	{
+		switch (type)
+		{
+		case SpatialPartitionManager::PARTITION_2D:
+
+			break;
+		case SpatialPartitionManager::PARTITION_3D:
+		{
+			int partitionIndex = 0;
+			for (int k = 0; k < numPartition.z; ++k)
+			{
+				for (int j = 0; j < numPartition.y; ++j)
+				{
+					for (int i = 0; i < numPartition.x; ++i)
+					{
+						partitionIndex = generatePartitionIndex(i, j, k);
+
+						if (partitionIndex > 0 && partitionIndex < partitions.size() && partitions[partitionIndex]->nodes.size() > 0)
+						{
+							partitions[partitionIndex]->removeNode(node);
+						}
+					}
+				}
+			}
+		}
+			break;
+		default:
+			break;
+		}
 	}
 
 	return true;
@@ -374,7 +403,7 @@ void SpatialPartitionManager::Update(void)
 
 				if (partitions[id])
 				{
-					partitions[id]->CleanUp();
+					partitions[id]->Update();
 				}
 			}
 		}
@@ -391,7 +420,7 @@ void SpatialPartitionManager::Update(void)
 
 					if (partitions[id])
 					{
-						partitions[id]->CleanUp();
+						partitions[id]->Update();
 					}
 				}
 			}

@@ -62,6 +62,20 @@ void Partition::addNode(SceneNode* node)
 	}
 }
 
+void Partition::removeNode(SceneNode* node)
+{
+	for (vector<SceneNode*>::iterator it = nodes.begin(); it != nodes.end(); ++it)
+	{
+		SceneNode* temp = *(it);
+
+		if (temp == node)
+		{
+			it = nodes.erase(it);
+			break;
+		}
+	}
+}
+
 vector<SceneNode*> Partition::getNodes(void)
 {
 	return this->nodes;
@@ -87,11 +101,25 @@ void Partition::RenderObjects(const int resolution)
 
 void Partition::Update(void)
 {
+	// release all the handle of the nodes in the partition only
+	// let sceneManager delete all the nodes
+	for (vector<SceneNode*>::iterator it = nodes.begin(); it != nodes.end();)
+	{
+		SceneNode* temp = *(it);
+
+		if (temp->nodeType == SceneNode::DYNAMIC_NODE)
+		{
+			it = nodes.erase(it);
+		}
+
+		else
+		{
+			++it;
+		}
+	}
 }
 
 void Partition::CleanUp(void)
 {
-	// release all the handle of the nodes in the partition only
-	// let sceneManager delete all the nodes
-	this->nodes.clear();
+	nodes.clear();
 }

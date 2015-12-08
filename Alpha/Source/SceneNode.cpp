@@ -1,7 +1,7 @@
 #include "SceneNode.h"
 #include "SceneManager.h"
 
-SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL)
+SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL), nodeType(STATIC_NODE)
 {
 }
 

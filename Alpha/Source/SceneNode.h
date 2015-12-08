@@ -8,6 +8,13 @@ class SceneManager;
 class SceneNode
 {
 public:
+	enum NODE_TYPE
+	{
+		STATIC_NODE,
+		DYNAMIC_NODE,
+		MAX_NODE
+	};
+
 	SceneNode();
 	~SceneNode();
 	
@@ -32,6 +39,7 @@ public:
 
 	vector<SceneNode*> childNodes;
 	SceneNode *parentNode;
+	NODE_TYPE nodeType;
 protected:
 	GameObject3D* gameObject3D;
 	
