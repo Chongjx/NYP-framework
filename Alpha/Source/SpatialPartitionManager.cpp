@@ -361,7 +361,7 @@ bool SpatialPartitionManager::removeNode(SceneNode* node)
 			break;
 		case SpatialPartitionManager::PARTITION_3D:
 		{
-			int partitionIndex = 0;
+			unsigned partitionIndex = 0;
 			for (int k = 0; k < numPartition.z; ++k)
 			{
 				for (int j = 0; j < numPartition.y; ++j)
@@ -479,8 +479,6 @@ void SpatialPartitionManager::CleanUp(void)
 	default:
 		break;
 	}
-
-	partitions.clear();
 }
 
 int SpatialPartitionManager::generatePartitionIndex(Vector3 index)

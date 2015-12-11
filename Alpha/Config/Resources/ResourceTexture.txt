@@ -46,4 +46,8 @@
 		[NAME] FIREBALL_SPRITE
 		[Directory] Config\\Resources\\Texture\\FireballSprite.tga
 	}
+	{
+		[NAME] ALPHA
+		[Directory] Config\\Resources\\Texture\\alpha.tga
+	}
 }

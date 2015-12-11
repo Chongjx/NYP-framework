@@ -1,7 +1,7 @@
 # Interface Config #
 # Init all scene variables here (etc. camera, buttons) #
 {
-	[NAME] MenuConfig
+	[NAME] PlayConfig
 	# Menu interface
 	{
 		[NAME] Camera
@@ -21,13 +21,5 @@
 	{
 		[NAME] Light
 		[Enable] true
-	}
-	{
-		[NAME] SpatialPartition
-		[Type] 3D
-		[WorldStart] -2000, 0, -2000
-		[WorldEnd] 2000, 2000, 2000
-		[Partitions] 40, 1, 40
-		[PartitionBased] true
 	}
 }

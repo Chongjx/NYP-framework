@@ -1,0 +1,24 @@
+# Play Config #
+# Init all scene variables here (etc. camera, buttons) #
+{
+	[NAME] CustomPlayConfig
+	# Specialize config file for this particular game
+	{
+		[NAME] SpatialPartition
+		[Type] 3D
+		[WorldStart] -2000, 0, -2000
+		[WorldEnd] 2000, 2000, 2000
+		[Partitions] 40, 1, 40
+		[PartitionBased] true
+	}
+	{
+		[NAME] SceneNode
+		[Container] 1000
+		[AddRate] 100
+	}
+	#{
+		#[NAME] MiniMap
+		#[WorldToMapScale] xxx
+		#[Texture] MAP
+	#}
+}

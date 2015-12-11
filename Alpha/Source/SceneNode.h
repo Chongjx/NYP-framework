@@ -29,6 +29,9 @@ public:
 
 	SceneNode* GetParentNode(void);
 
+	void setActive(bool active);
+	bool getActive(void);
+
 	void CleanUp();
 
 	bool HasChild(void);
@@ -42,7 +45,7 @@ public:
 	NODE_TYPE nodeType;
 protected:
 	GameObject3D* gameObject3D;
-	
+	bool active;
 };
 
 #endif

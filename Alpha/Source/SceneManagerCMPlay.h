@@ -6,7 +6,8 @@
 class SceneManagerCMPlay : public SceneManagerGameplay
 {
 private:
-	vector<GameObject3D*> objectList;
+	vector<SceneNode*> nodeList;
+	SpatialPartitionManager* spatialPartitionManager;
 	SceneNode* sceneGraph;
 	SceneNode* staticSceneGraph;
 	SceneNode* dynamicSceneGraph;
@@ -19,6 +20,7 @@ public:
 
 	void Init(const int width, const int height, ResourcePool* RP, InputManager* controls);
 	void Config();
+	void Config(string directory);
 	void Update(double dt);
 	void Render();
 	void Exit();
@@ -36,6 +38,8 @@ public:
 	void RenderStaticObject();
 	void RenderMobileObject();
 	void RenderGUI();
+
+	SceneNode* getNode(void);
 };
 
 #endif

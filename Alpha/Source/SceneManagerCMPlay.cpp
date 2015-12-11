@@ -1,11 +1,13 @@
 #include "SceneManagerCMPlay.h"
 
 SceneManagerCMPlay::SceneManagerCMPlay() :
+spatialPartitionManager(NULL),
 sceneGraph(NULL),
 staticSceneGraph(NULL),
 dynamicSceneGraph(NULL)/*,
 miniMap(NULL)*/
 {
+	nodeList.clear();
 }
 
 SceneManagerCMPlay::~SceneManagerCMPlay()
@@ -18,6 +20,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	SceneManagerGameplay::Init(width, height, RM, controls);
 
 	Config();
+	Config("Config\\GameStateConfig\\CustomPlayConfig.txt");
 
 	this->InitShader();
 	this->InitSceneGraph();
@@ -39,6 +42,125 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 void SceneManagerCMPlay::Config()
 {
 	SceneManagerGameplay::Config("Config\\GameStateConfig\\PlayConfig.txt");
+}
+
+void SceneManagerCMPlay::Config(string directory)
+{
+	sceneBranch = TextTree::FileToRead(directory);
+
+	for (vector<Branch>::iterator branch = sceneBranch.childBranches.begin(); branch != sceneBranch.childBranches.end(); ++branch)
+	{
+		if (branch->branchName == "SpatialPartition")
+		{
+			// create a spatial partition manager if it is not defined
+			if (spatialPartitionManager == NULL)
+			{
+				spatialPartitionManager = new SpatialPartitionManager();
+			}
+
+			int type = 0;
+			Vector3 partitionDimension;
+			Vector2 partitionDimension2D;
+			bool numPartitionBased = true;
+
+			std::cout << "Setting up spatial partitioning" << std::endl;
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+
+				if (attriName == "Type")
+				{
+					type = stoi(attriValue);
+				}
+
+				else if (attriName == "WorldStart")
+				{
+					if (type == 3)
+					{
+						stringToVector(attriValue, world3DStart);
+					}
+
+					else
+					{
+						stringToVector(attriValue, world2DStart);
+					}
+				}
+
+				else if (attriName == "WorldEnd")
+				{
+					if (type == 3)
+					{
+						stringToVector(attriValue, world3DEnd);
+					}
+
+					else
+					{
+						stringToVector(attriValue, world2DEnd);
+					}
+				}
+
+				else if (attriName == "Partitions")
+				{
+					if (type == 3)
+					{
+						stringToVector(attriValue, partitionDimension);
+					}
+
+					else
+					{
+						stringToVector(attriValue, partitionDimension2D);
+					}
+				}
+
+				else if (attriName == "PartitionBased")
+				{
+					stringToBool(attriValue, numPartitionBased);
+				}
+			}
+
+			// 3D spatial partition
+			if (type == 3)
+			{
+				spatialPartitionManager->Init(world3DStart, world3DEnd, partitionDimension, numPartitionBased, resourceManager.retrieveMesh("DEBUG_CUBE"));
+			}
+
+			// assume its 2D
+			else
+			{
+				spatialPartitionManager->Init(world2DStart, world2DEnd, partitionDimension2D, numPartitionBased, resourceManager.retrieveMesh("DEBUG_QUAD"));
+			}
+		}
+
+		else if (branch->branchName == "SceneNode")
+		{
+			std::cout << "Creating scenenode container!" << std::endl;
+
+			for (vector<Attribute>::iterator attri = branch->attributes.begin(); attri != branch->attributes.end(); ++attri)
+			{
+				Attribute tempAttri = *attri;
+				string attriName = tempAttri.name;
+				string attriValue = tempAttri.value;
+
+				if (attriName == "Container")
+				{
+					GameObject3D* object;
+					SceneNode* node;
+					int containerSize = stoi(tempAttri.value);
+					for (int i = 0; i < containerSize; ++i)
+					{
+						object = new GameObject3D;
+						node = new SceneNode;
+
+						node->SetGameObject(object);
+
+						nodeList.push_back(node);
+					}
+				}
+			}
+		}
+	}
 }
 
 void SceneManagerCMPlay::Update(double dt)
@@ -87,7 +209,7 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("Fire"))
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition();
-		projectileManager.FetchProjectile(characterPos, (tpCamera.getTarget() - characterPos).Normalized(), 20.f, resourceManager.retrieveMesh("MAGE_OBJ"));
+		projectileManager.FetchProjectile(characterPos, (tpCamera.getTarget() - characterPos).Normalized(), 20.f, resourceManager.retrieveMesh("WARRIOR_OBJ"));
 	}
 
 	if (inputManager->getKey("LockPitch"))
@@ -160,11 +282,24 @@ void SceneManagerCMPlay::Render()
 
 void SceneManagerCMPlay::Exit()
 {
-	if (sceneGraph)
+	for (unsigned i = 0; i < nodeList.size(); ++i)
 	{
-		sceneGraph->CleanUp();
-		sceneGraph = NULL;
+		if (nodeList[i] != NULL)
+		{
+			nodeList[i]->CleanUp();
+			delete nodeList[i];
+			nodeList[i] = NULL;
+		}
 	}
+
+	if (spatialPartitionManager)
+	{
+		spatialPartitionManager->CleanUp();
+		delete spatialPartitionManager;
+		spatialPartitionManager = NULL;
+	}
+
+	nodeList.clear();
 
 	/*if (miniMap)
 	{
@@ -335,19 +470,21 @@ void SceneManagerCMPlay::RenderGUI()
 void SceneManagerCMPlay::InitSceneGraph()
 {
 	// root node
-	this->sceneGraph = new SceneNode();
+	this->sceneGraph = getNode();
+	this->sceneGraph->SetGameObject(NULL);
 
 	// first child node of the scenegraph consists of static nodes / nodes that do not need constantly update
-	this->staticSceneGraph = new SceneNode();
+	this->staticSceneGraph = getNode();
+	this->staticSceneGraph->SetGameObject(NULL);
 	// second child node of the scenegraph consists of dynamic / moving nodes / nodes that need to be updated with spatial partition for collision detection
-	this->dynamicSceneGraph = new SceneNode();
+	this->dynamicSceneGraph = getNode();
+	this->dynamicSceneGraph->SetGameObject(NULL);
 
 	// add the 2 child to parent node first
 	sceneGraph->AddChildNode(staticSceneGraph);
 	sceneGraph->AddChildNode(dynamicSceneGraph);
 
-	GameObject3D* newModel = new GameObject3D;
-	SceneNode* newNode = new SceneNode;
+	SceneNode* node;
 	Mesh* drawMesh;
 
 	// Add all mobile node into dynamicSceneGraph
@@ -355,94 +492,74 @@ void SceneManagerCMPlay::InitSceneGraph()
 	//Warrior	//
 	//**********//
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setMesh(drawMesh);
-	newModel->setName("WARRIOR");
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildNode(newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("WARRIOR");
+	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("WARRIOR_SWORD");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("WARRIOR", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("WARRIOR_SWORD");
+	dynamicSceneGraph->AddChildToChildNode("WARRIOR", node);
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SHIELD_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("WARRIOR_SHIELD");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("WARRIOR", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("WARRIOR_SHIELD");
+	dynamicSceneGraph->AddChildToChildNode("WARRIOR", node);
 
 	//**********//
 	//Healer	//
 	//**********//
 	drawMesh = resourceManager.retrieveMesh("HEALER_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setMesh(drawMesh);
-	newModel->setName("HEALER");
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildNode(newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("HEALER");
+	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("HEALER_ROD_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("HEALER_ROD");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("HEALER", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("HEALER_ROD");
+	dynamicSceneGraph->AddChildToChildNode("HEALER", node);
 
 
 	////**********//
 	////Mage		//
 	////**********//
 	drawMesh = resourceManager.retrieveMesh("MAGE_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setMesh(drawMesh);
-	newModel->setName("MAGE");
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildNode(newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("MAGE");
+	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("MAGE_STAFF_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("MAGE_STAFF");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("MAGE", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("MAGE_STAFF");
+	dynamicSceneGraph->AddChildToChildNode("MAGE", node);
 
 	////**********//
 	////Boss		//
 	////**********//
 	drawMesh = resourceManager.retrieveMesh("BOSS_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setMesh(drawMesh);
-	newModel->setName("BOSS");
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildNode(newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("BOSS");
+	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("BOSS_R_ARM");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("BOSS", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("BOSS_R_ARM");
+	dynamicSceneGraph->AddChildToChildNode("BOSS", node);
 
 	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
-	newModel = new GameObject3D;
-	newNode = new SceneNode;
-	newModel->setName("BOSS_L_ARM");
-	newModel->setMesh(drawMesh);
-	newNode->SetGameObject(newModel);
-	dynamicSceneGraph->AddChildToChildNode("BOSS", newNode);
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("BOSS_L_ARM");
+	dynamicSceneGraph->AddChildToChildNode("BOSS", node);
 
 	// Rmb to init static nodes position first
 
@@ -475,4 +592,32 @@ void SceneManagerCMPlay::FSMApplication()
 void SceneManagerCMPlay::UpdateMouse()
 {
 	SceneManagerGameplay::UpateMouse();
+}
+
+SceneNode* SceneManagerCMPlay::getNode()
+{
+	for (unsigned i = 0; i < nodeList.size(); ++i)
+	{
+		if (!nodeList[i]->getActive())
+		{
+			nodeList[i]->setActive(true);
+			return nodeList[i];
+		}
+	}
+
+	GameObject3D* object;
+	SceneNode* node;
+	for (int i = 0; i < 50; ++i)
+	{
+		object = new GameObject3D;
+		node = new SceneNode;
+
+		node->SetGameObject(object);
+
+		nodeList.push_back(node);
+	}
+
+	SceneNode *lastnode = nodeList.back();
+	lastnode->setActive(true);
+	return lastnode;
 }

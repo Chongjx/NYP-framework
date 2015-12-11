@@ -1,4 +1,5 @@
-[NAME] Pause Config
+{
+	[NAME] Pause Config
 	# Pause interface
 	{
 		[NAME] Camera

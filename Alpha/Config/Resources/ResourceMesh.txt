@@ -56,7 +56,7 @@
 		[NAME] WARRIOR_OBJ
 		[Type] Obj
 		[Directory] Config\\Resources\\Obj\\AI\\Warrior.obj
-		[Texture] WARRIOR
+		[Texture] ALPHA
 	}
 	{
 		[NAME] WARRIOR_SWORD_OBJ

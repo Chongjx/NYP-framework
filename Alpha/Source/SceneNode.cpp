@@ -1,7 +1,7 @@
 #include "SceneNode.h"
 #include "SceneManager.h"
 
-SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL), nodeType(STATIC_NODE)
+SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL), nodeType(STATIC_NODE), active(false)
 {
 }
 
@@ -22,6 +22,16 @@ void SceneNode::SetParentNode(SceneNode* _parentNode)
 SceneNode* SceneNode::GetParentNode(void)
 {
 	return this->parentNode;
+}
+
+void SceneNode::setActive(bool active)
+{
+	this->active = active;
+}
+
+bool SceneNode::getActive(void)
+{
+	return active;
 }
 
 void SceneNode::AddChildNode(SceneNode *childNode)
@@ -107,13 +117,11 @@ void SceneNode::CleanUp()
 		childNodes[i]->CleanUp();
 	}
 
-	if (this->gameObject3D)
+	if (this->gameObject3D != NULL)
 	{
 		delete gameObject3D;
 		gameObject3D = NULL;
 	}
-
-	delete this;
 }
 
 bool SceneNode::HasChild(void)
