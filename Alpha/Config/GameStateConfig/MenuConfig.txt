@@ -28,7 +28,7 @@
 			[Text] Play
 			[Pos] 800, 550
 			[Rotation] 0
-			[Scale] 270, 75
+			[Scale] 150, 75
 			[Mesh] FONT
 			[Color] 0, 0, 0
 		}
@@ -36,9 +36,9 @@
 			[NAME] Instruction
 			[Type] Text
 			[Text] Instruction
-			[Pos] 525, 450
+			[Pos] 725, 450
 			[Rotation] 0
-			[Scale] 800, 75
+			[Scale] 375, 75
 			[Mesh] FONT
 			[Color] 0, 0, 0
 		}
@@ -48,7 +48,7 @@
 			[Text] Quit
 			[Pos] 800, 350
 			[Rotation] 0
-			[Scale] 270, 75
+			[Scale] 150, 75
 			[Mesh] FONT
 			[Color] 0, 0, 0
 		}
