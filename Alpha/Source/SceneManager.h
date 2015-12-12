@@ -18,6 +18,9 @@
 #include "SceneNode.h"
 #include "SpatialPartitionManager.h"
 
+using std::ifstream;
+using std::stoi;
+
 class SceneManager : public Scene
 {
 public:
@@ -99,6 +102,9 @@ protected:
 	float specialFontSize;
 	bool debugInfo;
 	Vector2 mousePos;
+
+	int textWidth[256];
+	int TextCount;
 
 	Branch sceneBranch;
 };
