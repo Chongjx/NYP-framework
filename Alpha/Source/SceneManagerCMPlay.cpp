@@ -33,6 +33,12 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	textMesh = resourceManager.retrieveMesh("FONT");
 
+	testProjectile.setCollidable(true);
+	testProjectile.setMesh(resourceManager.retrieveMesh("WARRIOR_OBJ"));
+	testProjectile.setName("testprojectile");
+	testProjectile.setReflectLight(true);
+	testProjectile.setHitbox(Vector3(0, 0, 0), 10, 10, 10, "testprojectile");
+
 	/*
 	miniMap = new MiniMap();
 	miniMap->Init();
@@ -209,7 +215,8 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("Fire"))
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition();
-		projectileManager.FetchProjectile(characterPos, (tpCamera.getTarget() - characterPos).Normalized(), 20.f, resourceManager.retrieveMesh("WARRIOR_OBJ"));
+		testProjectile.setPosition(characterPos);
+		projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - characterPos).Normalized(), 20.f);
 	}
 
 	if (inputManager->getKey("LockPitch"))

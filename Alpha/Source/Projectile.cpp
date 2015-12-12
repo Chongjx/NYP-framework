@@ -20,14 +20,19 @@ CProjectile::~CProjectile(void)
 /********************************************************************************
 Initialize new variables for projectile
 ********************************************************************************/
-void CProjectile::Init(Vector3 newPosition, Vector3 newDirection, bool active, float speed, Mesh* mesh)
+void CProjectile::Init(GameObject3D object, Vector3 newDirection, bool active, float speed)
 {
-	this->setPosition(newPosition);
+	this->setPosition(object.getPosition());
+	this->setCollidable(object.getCollidable());
+	this->setMesh(object.getMesh());
+	this->setName(object.getName());
+	this->setHitbox(object.getHitbox());
+	this->setReflectLight(object.getReflectLight());
+
 	this->m_v2Direction = newDirection;
+	this->m_fSpeed = speed;
 	this->setUpdate(active);
 	this->setRender(active);
-	this->m_fSpeed = speed;
-	this->setMesh(mesh);
 }
 
 /********************************************************************************
@@ -35,8 +40,9 @@ void CProjectile::Init(Vector3 newPosition, Vector3 newDirection, bool active, f
  ********************************************************************************/
 void CProjectile::Update(const double dt)
 {
-	//Updating position
+	//Updating position & hitbox
 	this->setPosition(this->position += m_v2Direction * (float)dt * m_fSpeed);
+	this->updateHitbox();
 }
 
 /********************************************************************************

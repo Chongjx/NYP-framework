@@ -28,7 +28,7 @@ ProjectileManager::~ProjectileManager(void)
 /********************************************************************************
 Use a non-active projectile
 ********************************************************************************/
-void ProjectileManager::FetchProjectile(Vector3 position, Vector3 direction, float speed, Mesh* mesh)
+void ProjectileManager::FetchProjectile(GameObject3D object, Vector3 direction, float speed)
 {
 	for (std::vector<CProjectile*>::iterator it = m_ProjectileList.begin(); it != m_ProjectileList.end(); ++it)
 	{
@@ -36,18 +36,18 @@ void ProjectileManager::FetchProjectile(Vector3 position, Vector3 direction, flo
 		//Get first non active projectile to use
 		if (!newProjectile->getUpdate())
 		{
-			newProjectile->Init(position, direction, true, speed, mesh);
+			newProjectile->Init(object, direction, true, speed);
 			break;
 		}
 	}
-	//If all existing projectiles are active, create more projectiles
+	//If all existing projectiles are being used, create more projectiles
 	for (unsigned i = 0; i < 10; ++i)
 	{
 		m_ProjectileList.push_back(new CProjectile());
 	}
 	//Use newly created projectile
 	CProjectile* newProjectile = m_ProjectileList.back();
-	newProjectile->Init(position, direction, true, speed,mesh);
+	newProjectile->Init(object, direction, true, speed);
 }
 
 /********************************************************************************
@@ -99,7 +99,7 @@ void ProjectileManager::Draw(SceneManager *sceneManager)
 		if (projectile->getRender())
 		{
 			sceneManager->RenderPush(projectile->getProperties().modelProperties);
-			sceneManager->Render3DMesh(projectile->getMesh(),false);
+			sceneManager->Render3DMesh(projectile->getMesh(), projectile->getReflectLight());
 			sceneManager->RenderPop();
 		}
 	}
