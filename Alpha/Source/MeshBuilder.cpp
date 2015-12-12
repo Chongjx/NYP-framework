@@ -595,13 +595,17 @@ Mesh* MeshBuilder::GenerateDebugQuad(const std::string &meshName, Color color, f
 	v.texCoord.Set(0, 1.0f);
 	vertex_buffer_data.push_back(v);
 	
-	index_buffer_data.push_back(3);
 	index_buffer_data.push_back(0);
+	index_buffer_data.push_back(3);
+	index_buffer_data.push_back(3);
+	index_buffer_data.push_back(2);
 	index_buffer_data.push_back(2);
 	index_buffer_data.push_back(1);
+	index_buffer_data.push_back(1);
+	index_buffer_data.push_back(0);
 	index_buffer_data.push_back(2);
 	index_buffer_data.push_back(0);
-	
+
 	Mesh *mesh = new Mesh(meshName);
 	
 	glBindBuffer(GL_ARRAY_BUFFER, mesh->vertexBuffer);
