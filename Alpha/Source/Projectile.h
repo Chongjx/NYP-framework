@@ -12,7 +12,7 @@ public:
 
 	void Update(const double dt);	//Update status
 
-	void Init(Vector3 newPosition, Vector3 newDirection, bool active, float speed, Mesh* mesh);	//Initialize
+	void Init(GameObject3D object, Vector3 newDirection, bool active, float speed);	//Initialize
 
 	Vector3 GetDirection(void);	//Get direction of projectile
 

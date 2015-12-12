@@ -13,6 +13,8 @@ private:
 	SceneNode* dynamicSceneGraph;
 	// MiniMap* miniMap;
 
+	GameObject3D testProjectile;
+
 	Mesh* textMesh;
 public:
 	SceneManagerCMPlay();

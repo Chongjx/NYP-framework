@@ -10,6 +10,7 @@ public:
 	GameObject3D();
 	~GameObject3D();
 
+	void setHitbox(Vector3 midPoint, float length, float height, float depth, const string name);
 	void setHitbox(OBB3D hitbox);
 	OBB3D getHitbox(void);
 	

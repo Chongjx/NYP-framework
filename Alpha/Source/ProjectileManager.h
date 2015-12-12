@@ -14,7 +14,7 @@ public:
 	ProjectileManager(void);
 	~ProjectileManager(void);
 
-	void FetchProjectile(Vector3 position, Vector3 direction,float speed, Mesh* mesh);	//Add new projectile
+	void FetchProjectile(GameObject3D object, Vector3 direction, float speed);	//Add new projectile
 	void RemoveProjectile(CProjectile* projectile);	//Remove projectile
 
 	int GetNumberOfActiveProjectiles(void);	//Get active projectile count
