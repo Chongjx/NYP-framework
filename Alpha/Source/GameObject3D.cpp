@@ -12,24 +12,10 @@ void GameObject3D::setHitbox(OBB3D hitbox)
 {
 	this->obbHitbox = hitbox;
 }
+
 void GameObject3D::setHitbox(Vector3 midPoint, float length, float height, float depth, const string name)
 {
-	this->obbHitbox.setMidPoint(midPoint);
-
-	float halflength = length*0.5f;
-	float halfheight = height*0.5f;
-	float halfdepth = depth* 0.5f;
-
-	this->obbHitbox.create3Dhitbox
-		(Vector3(halflength, -halfheight, halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(halflength, halfheight, halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(-halflength, halfheight, halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(-halflength, -halfheight, halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(halflength, -halfheight, -halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(halflength, halfheight, -halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(-halflength, halfheight, -halfdepth) + this->obbHitbox.getMidPoint(),
-		Vector3(-halflength, -halfheight, -halfdepth) + this->obbHitbox.getMidPoint(), name
-		);
+	this->obbHitbox.create3Dhitbox(midPoint, length, height, depth, name);
 }
 
 OBB3D GameObject3D::getHitbox(void)
