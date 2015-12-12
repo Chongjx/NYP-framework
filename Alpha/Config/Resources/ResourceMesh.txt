@@ -15,6 +15,11 @@
 		[Texture] CURSOR
 	}
 	{
+		[NAME] SPLASH
+		[Type] Quad
+		[Texture] SPLASH
+	}
+	{
 		[NAME] MENU_BG
 		[Type] Quad
 		[Texture] MENU_BG

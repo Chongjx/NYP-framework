@@ -120,10 +120,12 @@
     <ClCompile Include="Source\SceneManagerCMMenu.cpp" />
     <ClCompile Include="Source\SceneManagerCMPlay.cpp" />
     <ClCompile Include="Source\SceneManagerCMPause.cpp" />
+    <ClCompile Include="Source\SceneManagerCMSplash.cpp" />
     <ClCompile Include="Source\SceneNode.cpp" />
     <ClCompile Include="Source\shader.cpp" />
     <ClCompile Include="Source\SoundPool.cpp" />
     <ClCompile Include="Source\SpatialPartitionManager.cpp" />
+    <ClCompile Include="Source\SplashStateCM.cpp" />
     <ClCompile Include="Source\SpriteAnimation.cpp" />
     <ClCompile Include="Source\StaticGameObject.cpp" />
     <ClCompile Include="Source\TileSheet.cpp" />
@@ -170,6 +172,7 @@
     <ClInclude Include="Source\SceneManager.h" />
     <ClInclude Include="Source\SceneManagerCMMenu.h" />
     <ClInclude Include="Source\SceneManagerCMPlay.h" />
+    <ClInclude Include="Source\SceneManagerCMSplash.h" />
     <ClInclude Include="Source\SceneManagerGameplay.h" />
     <ClInclude Include="Source\SceneManagerInfo.h" />
     <ClInclude Include="Source\SceneManagerCMPause.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="Source\shader.hpp" />
     <ClInclude Include="Source\SoundPool.h" />
     <ClInclude Include="Source\SpatialPartitionManager.h" />
+    <ClInclude Include="Source\SplashStateCM.h" />
     <ClInclude Include="Source\SpriteAnimation.h" />
     <ClInclude Include="Source\StaticGameObject.h" />
     <ClInclude Include="Source\TileSheet.h" />

@@ -30,6 +30,7 @@
 			[Rotation] 0
 			[Scale] 270, 75
 			[Mesh] FONT
+			[Color] 0, 0, 0
 		}
 		{
 			[NAME] Instruction
@@ -39,6 +40,7 @@
 			[Rotation] 0
 			[Scale] 800, 75
 			[Mesh] FONT
+			[Color] 0, 0, 0
 		}
 		{
 			[NAME] Quit
@@ -48,6 +50,7 @@
 			[Rotation] 0
 			[Scale] 270, 75
 			[Mesh] FONT
+			[Color] 0, 0, 0
 		}
 	}
 }

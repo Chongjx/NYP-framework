@@ -1,16 +1,16 @@
-#include "SceneManagerCMPause.h"
+#include "SceneManagerCMSplash.h"
 
-SceneManagerCMPause::SceneManagerCMPause()
+SceneManagerCMSplash::SceneManagerCMSplash()
 {
 }
 
-SceneManagerCMPause::~SceneManagerCMPause()
+SceneManagerCMSplash::~SceneManagerCMSplash()
 {
 }
 
-void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
+void SceneManagerCMSplash::Init(const int width, const int height, ResourcePool *RM, InputManager* controls)
 {
-	SceneManagerSelection::Init(width, height, RM, controls);
+	SceneManagerTransition::Init(width, height, RM, controls);
 
 	Config();
 
@@ -22,32 +22,29 @@ void SceneManagerCMPause::Init(const int width, const int height, ResourcePool *
 	//perspective.SetToOrtho(-80, 80, -60, 60, -1000, 1000);
 	projectionStack.LoadMatrix(perspective);
 
-	mouseMesh = resourceManager.retrieveMesh("CURSOR");
-
-	fireball = (SpriteAnimation*)resourceManager.retrieveMesh("FIREBALL_SPRITE");
+	splashTexture = resourceManager.retrieveMesh("SPLASH");
+	textureScale.Set(sceneWidth * 0.5f, sceneHeight * 0.5f);
+	pauseTimer = 2.f;
+	startTransition = false;
+	splashTimer = 5.f;
 }
 
-void SceneManagerCMPause::Config()
+void SceneManagerCMSplash::Config()
 {
-	SceneManagerSelection::Config("Config\\GameStateConfig\\PauseConfig.txt");
+	SceneManagerTransition::Config("Config\\GameStateConfig\\SplashConfig.txt");
 }
 
-void SceneManagerCMPause::Update(double dt)
+void SceneManagerCMSplash::Update(double dt)
 {
-	SceneManagerSelection::Update(dt);
-
-	if (inputManager->getKey("Select"))
-	{
-		fireball->Update(dt);
-	}
+	SceneManagerTransition::Update(dt);
 
 	UpdateMouse();
-	UpdateSelection();
+	UpdateTransition(dt);
 }
 
-void SceneManagerCMPause::Render()
+void SceneManagerCMSplash::Render()
 {
-	//SceneManagerSelection::Render();
+	SceneManagerTransition::Render();
 
 	Mtx44 perspective;
 	perspective.SetToPerspective(45.0f, 4.0f / 3.0f, 0.1f, 10000.0f);
@@ -64,24 +61,21 @@ void SceneManagerCMPause::Render()
 	modelStack.LoadIdentity();
 
 	RenderLight();
-	RenderBG();
-	RenderStaticObject();
-	RenderMobileObject();
-	RenderSelection();
+	RenderTransition();
 }
 
-void SceneManagerCMPause::Exit()
+void SceneManagerCMSplash::Exit()
 {
-	SceneManagerSelection::Exit();
+	SceneManagerTransition::Exit();
 }
 
-void SceneManagerCMPause::BindShaders()
+void SceneManagerCMSplash::BindShaders()
 {
-	SceneManagerSelection::BindShaders();
+	SceneManagerTransition::BindShaders();
 }
 
 // Other specific init, update and render classes
-void SceneManagerCMPause::InitShader()
+void SceneManagerCMSplash::InitShader()
 {
 	SHADER thisShader = resourceManager.retrieveShader("Comg");
 	programID = LoadShaders(thisShader.vertexShaderDirectory.c_str(), thisShader.fragmentShaderDirectory.c_str());
@@ -149,59 +143,49 @@ void SceneManagerCMPause::InitShader()
 	glUniform1f(parameters[U_LIGHT0_EXPONENT], lights[0].exponent);
 }
 
-void SceneManagerCMPause::RenderLight()
+void SceneManagerCMSplash::RenderLight()
 {
 
 }
 
-void SceneManagerCMPause::RenderBG()
+void SceneManagerCMSplash::RenderTransition()
 {
-
+	Render2DMesh(splashTexture, false, Vector2(sceneHeight * 0.1f, sceneHeight * 0.1f) * splashTimer, Vector2(sceneWidth * 0.5f, sceneHeight * 0.5f));
 }
 
-void SceneManagerCMPause::RenderStaticObject()
+void SceneManagerCMSplash::UpdateMouse()
 {
+	SceneManagerTransition::UpateMouse();
 }
 
-void SceneManagerCMPause::RenderMobileObject()
+void SceneManagerCMSplash::UpdateTransition(double dt)
 {
-}
+	SceneManagerTransition::UpdateTransition(dt);
 
-void SceneManagerCMPause::RenderSelection()
-{
-	SceneManagerSelection::RenderSelection();
-
-	// Render mouse
-	Render2DMesh(mouseMesh, false, Vector2(50, 50), Vector2(mousePos.x, mousePos.y), 90.f);
-
-	if (inputManager->getKey("Select"))
+	// update
+	if (!complete)
 	{
-		Render2DMesh(fireball, false, Vector2(100, 100), Vector2(mousePos.x + 50, mousePos.y));
-	}
-}
-
-void SceneManagerCMPause::UpdateMouse()
-{
-	SceneManagerSelection::UpateMouse();
-}
-
-void SceneManagerCMPause::UpdateSelection()
-{
-	SceneManagerSelection::UpdateSelection();
-
-	for (unsigned i = 0; i < (unsigned)interactiveButtons.size(); ++i)
-	{
-		if (interactiveButtons[i].getStatus() != interactiveButtons[i].getPrevStatus())
+		if (pauseTimer > 0)
 		{
-			if (interactiveButtons[i].getStatus() == Button2D::BUTTON_PRESSED)
-			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("Red"));
-			}
-
-			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
-			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("Black"));
-			}
+			pauseTimer -= dt;
 		}
+
+		else
+		{
+			startTransition = true;
+		}
+
+		if (startTransition)
+		{
+			splashTimer -= dt;
+
+			if (splashTimer <= 0)
+				complete = true;
+		}
+	}
+
+	else
+	{
+		++runCount;
 	}
 }

@@ -25,8 +25,8 @@ public:
 	void Render();
 	void Exit();
 
-	void BindShaders();
 	void InitShader();
+	void BindShaders();
 
 	void InitSceneGraph();
 	void FSMApplication();

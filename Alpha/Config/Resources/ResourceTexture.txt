@@ -47,6 +47,10 @@
 		[Directory] Config\\Resources\\Texture\\FireballSprite.tga
 	}
 	{
+		[NAME] SPLASH
+		[Directory] Config\\Resources\\Texture\\Splash.tga
+	}
+	{
 		[NAME] ALPHA
 		[Directory] Config\\Resources\\Texture\\alpha.tga
 	}

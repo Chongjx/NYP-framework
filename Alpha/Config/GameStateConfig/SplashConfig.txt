@@ -1,0 +1,30 @@
+# Interface Config #
+# Init all scene variables here (etc. camera, buttons) #
+{
+	[NAME] SplashConfig
+	# Loading interface
+	{
+		[NAME] Camera
+		# Types available FP, TP
+		[Type] FP
+		[CameraPos] 0, 0, 10
+		[CameraTarget] 0, 0, 0
+		[CameraUp] 0, 1, 0
+	}
+	{
+		[NAME] Font
+		[Default] 75
+		#[Special] 50
+	}
+	{
+		[NAME] Light
+		[Enable] false
+	}
+	{
+		[NAME] Transition
+		[Run] true
+		[Repeat] false
+		# Repeat count shld only be declare if the transition has to be repeated
+		#[RepeatCount] 5
+	}
+}

@@ -200,7 +200,7 @@ void SceneManagerCMMenu::UpdateSelection()
 
 			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_IDLE)
 			{
-				interactiveButtons[i].setColor(resourceManager.retrieveColor("White"));
+				interactiveButtons[i].setColor(resourceManager.retrieveColor("Black"));
 			}
 
 			else if (interactiveButtons[i].getStatus() == Button2D::BUTTON_HOVER)

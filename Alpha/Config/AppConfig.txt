@@ -4,7 +4,7 @@
 	[NAME] AppConfig
 	{
 		[NAME] SetUp
-		[WindowTitle] Cardboard_Monster
+		[WindowTitle] DULL
 		# Screen resolution 1024 800 1920 1080
 		[WindowWidth] 1920
 		[WindowHeight] 1080

@@ -14,7 +14,7 @@
 #include "Keyboard.h"
 #include "GameStateManager.h"
 
-#include "MenuStateCM.h"
+#include "SplashStateCM.h"
 
 #define FIRST 0
 

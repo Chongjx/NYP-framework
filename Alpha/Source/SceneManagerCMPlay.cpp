@@ -459,7 +459,7 @@ void SceneManagerCMPlay::RenderMobileObject()
 
 void SceneManagerCMPlay::RenderGUI()
 {
-	static Color textCol = resourceManager.retrieveColor("White");
+	static Color textCol = resourceManager.retrieveColor("Black");
 
 	std::ostringstream ss;
 	ss.precision(5);

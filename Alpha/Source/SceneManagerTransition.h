@@ -57,8 +57,22 @@ public:
 		SceneManager::UpdateMouse();
 	}
 
+	virtual void UpdateTransition(double dt)
+	{
+		// check if everything is finish, if yes set exit of this scene to true
+		if ((!repeat && runCount == 1) || (repeat && repeatCount == runCount))
+		{
+			shldExit = true;
+		}
+	}
+
 	virtual void RenderLight() {}
 	virtual void RenderTransition() {}
+
+	bool getExit()
+	{
+		return this->shldExit;
+	}
 
 	void Config(string directory)
 	{

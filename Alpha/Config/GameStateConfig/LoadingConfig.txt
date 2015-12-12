@@ -25,6 +25,6 @@
 		[Run] true
 		[Repeat] false
 		# Repeat count shld only be declare if the transition has to be repeated
-		[RepeatCount] 5
+		#[RepeatCount] 5
 	}
 }
