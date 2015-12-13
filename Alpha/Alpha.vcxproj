@@ -131,6 +131,7 @@
     <ClCompile Include="Source\TileSheet.cpp" />
     <ClCompile Include="Source\TPCamera.cpp" />
     <ClCompile Include="Source\Utility.cpp" />
+    <ClCompile Include="Source\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\AABB2D.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="Source\TPCamera.h" />
     <ClInclude Include="Source\Utility.h" />
     <ClInclude Include="Source\Vertex.h" />
+    <ClInclude Include="Source\Weapon.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="Config\AppConfig.txt" />

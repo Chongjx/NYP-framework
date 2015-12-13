@@ -228,6 +228,9 @@
     <ClCompile Include="Source\SplashStateCM.cpp">
       <Filter>States\StatesCM</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Weapon.cpp">
+      <Filter>GameObjects\ChildObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utility.h">
@@ -397,6 +400,9 @@
     </ClInclude>
     <ClInclude Include="Source\SplashStateCM.h">
       <Filter>States\StatesCM</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Weapon.h">
+      <Filter>GameObjects\ChildObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
