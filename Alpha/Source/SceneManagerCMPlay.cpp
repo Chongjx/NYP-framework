@@ -202,16 +202,6 @@ void SceneManagerCMPlay::Update(double dt)
 	tpCamera.UpdatePosition(dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), Vector3(0, 0, 0));
 	//tpCamera.Update(dt);
 
-	if (inputManager->getKey("ToggleWireFrame"))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-
-	else if (inputManager->getKey("ToggleFill"))
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-	}
-
 	if (inputManager->getKey("Fire"))
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition();

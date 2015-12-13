@@ -21,9 +21,12 @@ void Button2D::Init(string name, string text, Mesh* mesh, Vector2 pos, Vector2 s
 	this->position = Vector3(pos.x, pos.y, 0);
 	this->scale = scale;
 	this->rotation = rotation;
+	this->targetRotation = this->rotation;
 	this->textCol = col;
 	this->type = type;
 	this->prevStatus = this->status = status;
+
+	this->rotate = false;
 }
 
 void Button2D::Update(bool pressed, Vector2 mouse)
@@ -118,6 +121,22 @@ void Button2D::setScale(Vector2 scale)
 void Button2D::setRotation(float rotation)
 {
 	this->rotation = rotation;
+
+	if (Math::FAbs(targetRotation - this->rotation) < 10)
+	{
+		this->rotation = this->targetRotation;
+		rotate = false;
+	}
+}
+
+void Button2D::setTargetRotation(float rotation)
+{
+	this->targetRotation = rotation;
+
+	if (this->rotation != targetRotation)
+	{
+		rotate = true;
+	}
 }
 
 void Button2D::setColor(Color col)
@@ -155,6 +174,11 @@ float Button2D::getRotation(void) const
 	return this->rotation;
 }
 
+float Button2D::getTargetRotation(void) const
+{
+	return this->targetRotation;
+}
+
 Color Button2D::getColor(void) const
 {
 	return this->textCol;
@@ -173,4 +197,9 @@ Button2D::BUTTON_STATUS Button2D::getPrevStatus(void) const
 Button2D::BUTTON_STATUS Button2D::getStatus(void) const
 {
 	return this->status;
+}
+
+bool Button2D::getRotate(void) const
+{
+	return this->rotate;
 }

@@ -93,6 +93,16 @@ void SceneManager::Update(double dt)
 
 	this->inputManager->Update();
 
+	if (inputManager->getKey("ToggleWireFrame"))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+
+	else if (inputManager->getKey("ToggleFill"))
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
+
 	if (inputManager->getKey("EnableDebugInfo"))
 	{
 		this->debugInfo = true;

@@ -35,6 +35,7 @@ public:
 	void setText(string text);
 	void setScale(Vector2 scale);
 	void setRotation(float rotation);
+	void setTargetRotation(float rotation);
 	void setColor(Color col);
 	void setType(BUTTON_TYPE type);
 	void setStatus(BUTTON_STATUS status);
@@ -43,19 +44,24 @@ public:
 	string getText(void) const;
 	Vector2 getScale(void) const;
 	float getRotation(void) const;
+	float getTargetRotation(void) const;
 	Color getColor(void) const;
 	BUTTON_TYPE getType(void) const;
 	BUTTON_STATUS getPrevStatus(void) const;
 	BUTTON_STATUS getStatus(void) const;
+	bool getRotate(void) const;
 private:
 	string name;
 	string text;
 	Vector2 scale;
 	float rotation;
+	float targetRotation;
 	Color textCol;
 	BUTTON_TYPE type;
 	BUTTON_STATUS prevStatus;
 	BUTTON_STATUS status;
+
+	bool rotate;
 };
 
 #endif
