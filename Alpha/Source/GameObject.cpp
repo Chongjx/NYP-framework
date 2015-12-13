@@ -31,6 +31,13 @@ void GameObject::setPosition(Vector3 position)
 	this->TRS.translation.SetToTranslation(position);
 }
 
+void GameObject::addPosition(Vector3 addPosition)
+{
+	this->position += addPosition;
+
+	this->TRS.translation.SetToTranslation(position);
+}
+
 void GameObject::setRotation(float Angle, float x, float y, float z)
 {
 	this->rotation = Angle;

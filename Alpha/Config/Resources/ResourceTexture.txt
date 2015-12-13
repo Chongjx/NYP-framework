@@ -54,4 +54,8 @@
 		[NAME] ALPHA
 		[Directory] Config\\Resources\\Texture\\alpha.tga
 	}
+	{
+		[NAME] TREE
+		[Directory] Config\\Resources\\Texture\\Static\OBJ_Tree_Tex.tga
+	}
 }

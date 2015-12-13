@@ -231,6 +231,12 @@
     <ClCompile Include="Source\Weapon.cpp">
       <Filter>GameObjects\ChildObject</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>GameObjects\ChildObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\PlayerSingleton.cpp">
+      <Filter>GameObjects\ChildObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Utility.h">
@@ -402,6 +408,12 @@
       <Filter>States\StatesCM</Filter>
     </ClInclude>
     <ClInclude Include="Source\Weapon.h">
+      <Filter>GameObjects\ChildObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>GameObjects\ChildObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\PlayerSingleton.h">
       <Filter>GameObjects\ChildObject</Filter>
     </ClInclude>
   </ItemGroup>

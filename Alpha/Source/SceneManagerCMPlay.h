@@ -2,6 +2,7 @@
 #define SCENE_MANAGER_CM_PLAY_H
 
 #include "SceneManagerGameplay.h"
+#include "Player.h"
 
 class SceneManagerCMPlay : public SceneManagerGameplay
 {
@@ -42,6 +43,7 @@ public:
 	void RenderGUI();
 
 	SceneNode* getNode(void);
+	CPlayer* player;
 };
 
 #endif

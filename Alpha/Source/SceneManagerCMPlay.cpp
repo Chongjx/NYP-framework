@@ -21,7 +21,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 
 	Config();
 	Config("Config\\GameStateConfig\\CustomPlayConfig.txt");
-
+	player->GetInstance();
 	this->InitShader();
 	this->InitSceneGraph();
 
@@ -199,14 +199,13 @@ void SceneManagerCMPlay::Update(double dt)
 		resourceManager.DecreaseSoundEngineVolume();
 	}
 
-	tpCamera.UpdatePosition(dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition(), Vector3(0, 0, 0));
 	//tpCamera.Update(dt);
 
 	if (inputManager->getKey("Fire"))
 	{
-		Vector3 characterPos = dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition();
+		Vector3 characterPos = dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition();
 		testProjectile.setPosition(characterPos);
-		projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - characterPos).Normalized(), 20.f);
+		projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - tpCamera.getPosition()).Normalized(), 20.f);
 	}
 
 	if (inputManager->getKey("LockPitch"))
@@ -221,35 +220,92 @@ void SceneManagerCMPlay::Update(double dt)
 	const float moveSpeed = 100.f;
 	if (inputManager->getKey("Up"))
 	{
-		dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x - moveSpeed * (float)dt,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z));
+		Player->SetAngle(tpCamera.GetCamAngle());
+
+		if (inputManager->getKey("Left"))
+		{
+			Player->SetAngle(tpCamera.GetCamAngle() - 45.f);
+		}
+
+		if (inputManager->getKey("Right"))
+		{
+			Player->SetAngle(tpCamera.GetCamAngle() + 45.f);
+		}
+		Player->UpdateMovement(dt);
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
+			0,
+			1,
+			0);
 	}
 
 	if (inputManager->getKey("Down"))
 	{
-		dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x + moveSpeed * (float)dt,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z));
+		Player->SetAngle(tpCamera.GetCamAngle() + 180.f);
+
+		if (inputManager->getKey("Left"))
+		{
+			Player->SetAngle(tpCamera.GetCamAngle() - 135.f);
+		}
+
+		if (inputManager->getKey("Right"))
+		{
+			Player->SetAngle(tpCamera.GetCamAngle() + 135.f);
+		}
+		Player->UpdateMovement(dt);
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
+			0,
+			1,
+			0);
 	}
 
 	if (inputManager->getKey("Left"))
 	{
-		dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z + moveSpeed * (float)dt));
+		Player->SetAngle(tpCamera.GetCamAngle() + 90.f);
+
+		Player->UpdateMovement(dt);
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
+			0,
+			1,
+			0);
 	}
 
 	if (inputManager->getKey("Right"))
 	{
-		dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("WARRIOR")->GetGameObject()->getPosition().z - moveSpeed * (float)dt));
+		Player->SetAngle(tpCamera.GetCamAngle() - 90.f);
+
+		Player->UpdateMovement(dt);
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
+			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
+
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
+			0,
+			1,
+			0);
 	}
+
+
+	tpCamera.UpdatePosition(dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition(), Vector3(0, 0, 0));
 }
 
 void SceneManagerCMPlay::Render()
@@ -421,6 +477,9 @@ void SceneManagerCMPlay::RenderStaticObject()
 	Render3DMesh(drawMesh, false);
 	modelStack.PopMatrix();
 
+	drawMesh = resourceManager.retrieveMesh("TREE_OBJ");
+	Render3DMesh(drawMesh, false);
+
 	if (debugInfo)
 	{
 		for (int k = 0; k < (int)spatialPartitionManager->getNumPartition().z; ++k)
@@ -483,6 +542,55 @@ void SceneManagerCMPlay::InitSceneGraph()
 
 	SceneNode* node;
 	Mesh* drawMesh;
+
+	//Init player(Body is main node)
+	Player->Init(Vector3(0, 0, 0), Vector3(0, 1, 0), resourceManager.retrieveMesh("WARRIOR_OBJ"));
+	
+	//Temp use all the same mesh
+	drawMesh = resourceManager.retrieveMesh("WARRIOR_OBJ");
+
+	//Head of player
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("Head");
+	Player->GetNode()->AddChildNode(node);
+	Player->GetNode()->GetChildNode("Head")->GetGameObject()->setPosition(Vector3(0, 5, 0));
+	Player->GetNode()->GetChildNode("Head")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("Head")->GetGameObject()->getPosition(), 5, 5, 5, "HeadHitbox");
+	
+	//Left Hand of player
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("LeftHand");
+	Player->GetNode()->AddChildNode(node);
+	Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->setPosition(Vector3(-5, 0, 0));
+	Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->getPosition(), 5, 5, 5, "LeftHandHitbox");
+
+	//Right Hand of player
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("RightHand");
+	Player->GetNode()->AddChildNode(node);
+	Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->setPosition(Vector3(5, 0, 0));
+	Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->getPosition(), 5, 5, 5, "RightHandHitbox");
+
+	//Left Leg of player
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("LeftLeg");
+	Player->GetNode()->AddChildNode(node);
+	Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->setPosition(Vector3(-3, -5, 0));
+	Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->getPosition(), 5, 5, 5, "LeftLegHitbox");
+
+	//Right Leg of player
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("RightLeg");
+	Player->GetNode()->AddChildNode(node);
+	Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->setPosition(Vector3(3, -5, 0));
+	Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->getPosition(), 5, 5, 5, "RightLegHitbox");
+
+	//Adds the player node
+	dynamicSceneGraph->AddChildNode(Player->GetNode());
 
 	// Add all mobile node into dynamicSceneGraph
 	//**********//

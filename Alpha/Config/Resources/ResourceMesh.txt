@@ -112,6 +112,12 @@
 		[Texture] BOSS
 	}
 	{
+		[NAME] TREE_OBJ
+		[Type] Obj
+		[Directory] Config\\Resources\\Obj\\Static\\OBJ_Tree.obj
+		[Texture] TREE
+	}
+	{
 		[NAME] FIREBALL_SPRITE
 		[Type] SpriteAnimation
 		[SpriteRow] 1
