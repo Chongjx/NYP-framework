@@ -64,7 +64,7 @@ public:
 
 			else
 			{
-				Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x, interactiveButtons[i].getPosition().y), interactiveButtons[i].getRotation());
+				Render2DMesh(interactiveButtons[i].getMesh(), false, interactiveButtons[i].getScale(), Vector2(interactiveButtons[i].getPosition().x + interactiveButtons[i].getScale().x * 0.5f, interactiveButtons[i].getPosition().y + interactiveButtons[i].getScale().y * 0.5f), interactiveButtons[i].getRotation());
 			}
 
 #if _DEBUG

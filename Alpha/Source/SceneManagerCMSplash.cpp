@@ -177,7 +177,7 @@ void SceneManagerCMSplash::UpdateTransition(double dt)
 
 		if (startTransition)
 		{
-			splashTimer -= dt;
+			splashTimer -= (float)dt;
 
 			if (splashTimer <= 0)
 				complete = true;
