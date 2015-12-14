@@ -226,10 +226,15 @@ bool SpatialPartitionManager::addNode(SceneNode* node, SpatialPartitionManager::
 			SceneNode* tempNode = node;
 			boxMidpoint = node->GetGameObject()->getPosition();
 
-			while (tempNode->parentNode != NULL && tempNode->parentNode->GetGameObject() != NULL)
+			if (node->parentNode != NULL && node->parentNode->GetGameObject() != NULL)
 			{
-				boxMidpoint += tempNode->GetParentNode()->GetGameObject()->getPosition();
-				tempNode = tempNode->GetParentNode();
+				Vector3 offset = node->parentNode->GetGameObject()->getPosition() + node->GetGameObject()->getPosition();
+				node->GetGameObject()->updateHitbox(offset);
+			}
+
+			else
+			{
+				node->GetGameObject()->updateHitbox();
 			}
 
 			// calculate the index which the obj is in the world

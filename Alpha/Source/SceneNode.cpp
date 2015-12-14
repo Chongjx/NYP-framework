@@ -70,11 +70,14 @@ void SceneNode::Draw(SceneManager *sceneManager)
 void SceneNode::DrawChild(SceneManager *sceneManager)
 {
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
-
-	for (unsigned i = 0; i < childNodes.size(); ++i)
+	if (this->getActive())
 	{
-		this->childNodes[i]->DrawChild(sceneManager);
+		sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
+
+		for (unsigned i = 0; i < childNodes.size(); ++i)
+		{
+			this->childNodes[i]->DrawChild(sceneManager);
+		}
 	}
 
 	sceneManager->RenderPop();

@@ -116,6 +116,7 @@ void CPlayer::Update(double dt, float CamAngle)
 {
 	UpdateMovement(dt);
 }
+
 void CPlayer::UpdateMovement(double dt)
 {
 	force.x = moveSpeed * moveSpeed_Mult;

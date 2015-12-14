@@ -14,6 +14,7 @@ public:
 	void setHitbox(OBB3D hitbox);
 	OBB3D getHitbox(void);
 	
+	void updateHitbox(Vector3 finalPos);
 	void updateHitbox(void);
 
 protected:

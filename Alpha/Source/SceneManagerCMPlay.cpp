@@ -178,6 +178,32 @@ void SceneManagerCMPlay::Update(double dt)
 	spatialPartitionManager->removeNode(dynamicSceneGraph);
 	spatialPartitionManager->addNode(dynamicSceneGraph, this->spatialPartitionManager->type);
 
+	// loop through partitions
+	for (unsigned i = 0; i < spatialPartitionManager->partitions.size(); ++i)
+	{
+		// check if partitions contain more than 1 node ( can further optimize by checking if contains dynamic nodes)
+		if (spatialPartitionManager->partitions[i]->nodes.size() > 0)
+		{
+			for (vector<SceneNode*>::iterator j = spatialPartitionManager->partitions[i]->nodes.begin(); j != spatialPartitionManager->partitions[i]->nodes.end(); ++j)
+			{
+				SceneNode* firstNode = *j;
+				for (vector<SceneNode*>::iterator k = j + 1; k != spatialPartitionManager->partitions[i]->nodes.end(); ++k)
+				{
+					SceneNode* secondNode = *k;
+					string boxName = "";
+					if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
+					{
+						secondNode->setActive(false);
+						secondNode->GetGameObject()->setRender(false);
+						secondNode->GetGameObject()->setUpdate(false);
+
+						break;
+					}
+				}
+			}
+		}
+	}
+
 	projectileManager.Update(dt);
 
 	/*Sound testing related keys*/
@@ -232,16 +258,6 @@ void SceneManagerCMPlay::Update(double dt)
 			Player->SetAngle(tpCamera.GetCamAngle() + 45.f);
 		}
 		Player->UpdateMovement(dt);
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
-			0,
-			1,
-			0);
 	}
 
 	if (inputManager->getKey("Down"))
@@ -259,15 +275,6 @@ void SceneManagerCMPlay::Update(double dt)
 		}
 		Player->UpdateMovement(dt);
 
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
-			0,
-			1,
-			0);
 	}
 
 	if (inputManager->getKey("Left"))
@@ -275,16 +282,6 @@ void SceneManagerCMPlay::Update(double dt)
 		Player->SetAngle(tpCamera.GetCamAngle() + 90.f);
 
 		Player->UpdateMovement(dt);
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
-			0,
-			1,
-			0);
 	}
 
 	if (inputManager->getKey("Right"))
@@ -292,17 +289,17 @@ void SceneManagerCMPlay::Update(double dt)
 		Player->SetAngle(tpCamera.GetCamAngle() - 90.f);
 
 		Player->UpdateMovement(dt);
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
-			dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
-
-		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
-			0,
-			1,
-			0);
 	}
+
+	dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setPosition(Vector3(
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().x,
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().y,
+		dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition().z));
+
+	dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->setRotation(Player->GetAngle(),
+		0,
+		1,
+		0);
 
 
 	tpCamera.UpdatePosition(dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition(), Vector3(0, 0, 0));
@@ -621,6 +618,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node = getNode();
 	node->GetGameObject()->setMesh(drawMesh);
 	node->GetGameObject()->setName("HEALER");
+	node->GetGameObject()->setHitbox(Vector3(-40, 0, 20), 5, 5, 5, "HEALER");
 	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("HEALER_ROD_OBJ");
@@ -652,6 +650,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node = getNode();
 	node->GetGameObject()->setMesh(drawMesh);
 	node->GetGameObject()->setName("BOSS");
+	node->GetGameObject()->setHitbox(Vector3(-60, 0, 0), 7, 7, 7, "BOSS");
 	dynamicSceneGraph->AddChildNode(node);
 
 	drawMesh = resourceManager.retrieveMesh("BOSS_ARM_OBJ");
