@@ -193,9 +193,11 @@ void SceneManagerCMPlay::Update(double dt)
 					string boxName = "";
 					if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
 					{
-						secondNode->setActive(false);
-						secondNode->GetGameObject()->setRender(false);
-						secondNode->GetGameObject()->setUpdate(false);
+						if (boxName != "PLAYER")
+						{
+							spatialPartitionManager->removeNode(secondNode);
+							dynamicSceneGraph->RemoveChildNode(secondNode);
+						}
 
 						break;
 					}
@@ -673,13 +675,27 @@ void SceneManagerCMPlay::InitSceneGraph()
 void SceneManagerCMPlay::FSMApplication()
 {
 	Vector3 newPosition;
-	dynamicSceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
-	dynamicSceneGraph->GetChildNode("WARRIOR_SHIELD")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+	if (dynamicSceneGraph->GetChildNode("WARRIOR_SWORD"))
+	{
+		dynamicSceneGraph->GetChildNode("WARRIOR_SWORD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+	}
+	if (dynamicSceneGraph->GetChildNode("WARRIOR_SHIELD"))
+	{
+		dynamicSceneGraph->GetChildNode("WARRIOR_SHIELD")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+	}
 
 
 	newPosition.Set(-40, 0, -20);
-	dynamicSceneGraph->GetChildNode("HEALER")->GetGameObject()->setPosition(newPosition);
-	dynamicSceneGraph->GetChildNode("HEALER_ROD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+	if (dynamicSceneGraph->GetChildNode("HEALER"))
+	{
+		dynamicSceneGraph->GetChildNode("HEALER")->GetGameObject()->setPosition(newPosition);
+	}
+
+	if (dynamicSceneGraph->GetChildNode("HEALER_ROD"))
+	{
+		dynamicSceneGraph->GetChildNode("HEALER_ROD")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+	}
+
 
 
 	newPosition.Set(-40, 0, 20);
@@ -688,9 +704,13 @@ void SceneManagerCMPlay::FSMApplication()
 
 
 	newPosition.Set(-60, 0, 0);
-	dynamicSceneGraph->GetChildNode("BOSS")->GetGameObject()->setPosition(newPosition);
-	dynamicSceneGraph->GetChildNode("BOSS_L_ARM")->GetGameObject()->setPosition(Vector3(0, 0, -5));
-	dynamicSceneGraph->GetChildNode("BOSS_R_ARM")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+
+	if (dynamicSceneGraph->GetChildNode("BOSS"))
+	{
+		dynamicSceneGraph->GetChildNode("BOSS")->GetGameObject()->setPosition(newPosition);
+		dynamicSceneGraph->GetChildNode("BOSS_L_ARM")->GetGameObject()->setPosition(Vector3(0, 0, -5));
+		dynamicSceneGraph->GetChildNode("BOSS_R_ARM")->GetGameObject()->setPosition(Vector3(0, 0, 5));
+	}
 }
 
 void SceneManagerCMPlay::UpdateMouse()

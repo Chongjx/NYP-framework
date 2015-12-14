@@ -24,6 +24,8 @@ public:
 	void AddChildNode(SceneNode *childNode);
 	void AddChildToChildNode(string childName, SceneNode *childNode);
 
+	void RemoveChildNode(SceneNode *childNode);
+
 	void Draw(SceneManager *sceneManager);
 	void DrawChild(SceneManager *sceneManager);
 

@@ -46,6 +46,39 @@ void SceneNode::AddChildToChildNode(string childName, SceneNode *childNode)
 	this->GetChildNode(childName)->AddChildNode(childNode);
 }
 
+void SceneNode::RemoveChildNode(SceneNode *childNode)
+{
+	// do a recursive down to remove child
+	if (childNode->HasChild())
+	{
+		for (vector<SceneNode*>::iterator i = childNode->childNodes.begin(); i != childNode->childNodes.end();)
+		{
+			SceneNode* temp = (*i);
+			RemoveChildNode(temp);
+			i = childNode->childNodes.begin();
+		}
+	}
+
+	childNode->setActive(false);
+
+	// there is a parent
+	if (childNode->parentNode != NULL)
+	{
+		vector<SceneNode*> tempParentChild = childNode->parentNode->childNodes;
+
+		for (unsigned i = 0; i < tempParentChild.size(); ++i)
+		{
+			if (tempParentChild[i] == childNode)
+			{
+				tempParentChild.erase(tempParentChild.begin() + i);
+				break;
+			}
+		}
+
+		childNode->parentNode->childNodes = tempParentChild;
+	}
+}
+
 void SceneNode::Draw(SceneManager *sceneManager)
 {
 	sceneManager->PreRender(true);
