@@ -52,3 +52,8 @@ Vector3 CProjectile::GetDirection(void)
 {
 	return m_v2Direction;
 }
+
+GameObject3D* CProjectile::getGameObject(void)
+{
+	return this;
+}
