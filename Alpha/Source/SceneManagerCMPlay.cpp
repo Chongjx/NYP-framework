@@ -37,7 +37,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	testProjectile.setMesh(resourceManager.retrieveMesh("WARRIOR_OBJ"));
 	testProjectile.setName("testprojectile");
 	testProjectile.setReflectLight(true);
-	testProjectile.setHitbox(Vector3(0, 0, 0), 10, 10, 10, "testprojectile");
+	testProjectile.setHitbox(Vector3(0, 0, 0), 2, 2, 2, "testprojectile");
 
 	/*
 	miniMap = new MiniMap();
@@ -172,9 +172,10 @@ void SceneManagerCMPlay::Config(string directory)
 void SceneManagerCMPlay::Update(double dt)
 {
 	SceneManagerGameplay::Update(dt);
-	FSMApplication();
+	//FSMApplication();
 
 	//spatialPartitionManager->Update();
+
 	spatialPartitionManager->removeNode(dynamicSceneGraph);
 	spatialPartitionManager->addNode(dynamicSceneGraph, this->spatialPartitionManager->type);
 
@@ -187,19 +188,40 @@ void SceneManagerCMPlay::Update(double dt)
 			for (vector<SceneNode*>::iterator j = spatialPartitionManager->partitions[i]->nodes.begin(); j != spatialPartitionManager->partitions[i]->nodes.end(); ++j)
 			{
 				SceneNode* firstNode = *j;
+				
 				for (vector<SceneNode*>::iterator k = j + 1; k != spatialPartitionManager->partitions[i]->nodes.end(); ++k)
 				{
 					SceneNode* secondNode = *k;
 					string boxName = "";
-					if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
+					
+					if (firstNode->getActive() && secondNode->getActive())
 					{
-						if (boxName != "PLAYER")
+						if (firstNode->GetGameObject()->getName() != "Player" && secondNode->GetGameObject()->getName() != "Player")
 						{
-							spatialPartitionManager->removeNode(secondNode);
-							dynamicSceneGraph->RemoveChildNode(secondNode);
+							if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
+							{
+								if (firstNode->GetGameObject()->getName() == "testprojectile" || secondNode->GetGameObject()->getName() == "testprojectile")
+								{
+									if (firstNode->GetGameObject()->getName() == "testprojectile")
+									{
+										//projectileManager.RemoveProjectile(firstNode->GetGameObject());
+										spatialPartitionManager->removeNode(secondNode);
+										secondNode->setActive(false);
+										break;
+									}
+									else
+									{
+										//projectileManager.RemoveProjectile(firstNode->GetGameObject());
+										spatialPartitionManager->removeNode(firstNode);
+										firstNode->setActive(false);
+										break;
+									}
+								}
+								spatialPartitionManager->removeNode(secondNode);
+								secondNode->setActive(false);
+								break;
+							}
 						}
-
-						break;
 					}
 				}
 			}
@@ -233,7 +255,12 @@ void SceneManagerCMPlay::Update(double dt)
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition();
 		testProjectile.setPosition(characterPos);
-		projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - tpCamera.getPosition()).Normalized(), 20.f);
+		CProjectile* projectile = projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - tpCamera.getPosition()).Normalized(), 20.f);
+		GameObject3D* newProjectile = projectile;
+		SceneNode* node;
+		node = getNode();
+		node->SetGameObject(newProjectile);
+		dynamicSceneGraph->AddChildNode(node);
 	}
 
 	if (inputManager->getKey("LockPitch"))
@@ -509,7 +536,7 @@ void SceneManagerCMPlay::RenderStaticObject()
 void SceneManagerCMPlay::RenderMobileObject()
 {
 	dynamicSceneGraph->Draw(this);
-	projectileManager.Draw(this);
+	//projectileManager.Draw(this);
 }
 
 void SceneManagerCMPlay::RenderGUI()
@@ -720,17 +747,21 @@ void SceneManagerCMPlay::UpdateMouse()
 
 SceneNode* SceneManagerCMPlay::getNode()
 {
+	GameObject3D* object;
+	SceneNode* node;
+
 	for (unsigned i = 0; i < nodeList.size(); ++i)
 	{
 		if (!nodeList[i]->getActive())
 		{
+			//nodeList[i]->CleanUp();
 			nodeList[i]->setActive(true);
+			//object = new GameObject3D;
+			//nodeList[i]->SetGameObject(object);
 			return nodeList[i];
 		}
 	}
 
-	GameObject3D* object;
-	SceneNode* node;
 	for (int i = 0; i < 50; ++i)
 	{
 		object = new GameObject3D;

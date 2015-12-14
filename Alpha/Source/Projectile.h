@@ -14,6 +14,8 @@ public:
 
 	void Init(GameObject3D object, Vector3 newDirection, bool active, float speed);	//Initialize
 
+	GameObject3D* getGameObject(void);	//Get this game object
+
 	Vector3 GetDirection(void);	//Get direction of projectile
 
 private:

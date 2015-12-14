@@ -28,7 +28,7 @@ ProjectileManager::~ProjectileManager(void)
 /********************************************************************************
 Use a non-active projectile
 ********************************************************************************/
-void ProjectileManager::FetchProjectile(GameObject3D object, Vector3 direction, float speed)
+CProjectile* ProjectileManager::FetchProjectile(GameObject3D object, Vector3 direction, float speed)
 {
 	for (std::vector<CProjectile*>::iterator it = m_ProjectileList.begin(); it != m_ProjectileList.end(); ++it)
 	{
@@ -37,7 +37,7 @@ void ProjectileManager::FetchProjectile(GameObject3D object, Vector3 direction, 
 		if (!newProjectile->getUpdate())
 		{
 			newProjectile->Init(object, direction, true, speed);
-			break;
+			return newProjectile;
 		}
 	}
 	//If all existing projectiles are being used, create more projectiles
@@ -48,6 +48,7 @@ void ProjectileManager::FetchProjectile(GameObject3D object, Vector3 direction, 
 	//Use newly created projectile
 	CProjectile* newProjectile = m_ProjectileList.back();
 	newProjectile->Init(object, direction, true, speed);
+	return newProjectile;
 }
 
 /********************************************************************************
@@ -58,6 +59,23 @@ void ProjectileManager::RemoveProjectile(CProjectile* projectile)
 	projectile->setUpdate(false);
 	projectile->setRender(false);
 	this->m_iActiveProjectileCount--;
+}
+void ProjectileManager::RemoveProjectile(GameObject3D* object)
+{
+	for (std::vector<CProjectile*>::iterator it = m_ProjectileList.begin(); it != m_ProjectileList.end(); ++it)
+	{
+		CProjectile* Projectile = (CProjectile *)*it;
+		if (Projectile->getUpdate())
+		{
+			if (Projectile->getPosition() == object->getPosition())
+			{
+				Projectile->setUpdate(false);
+				Projectile->setRender(false);
+				this->m_iActiveProjectileCount--;
+				break;
+			}
+		}
+	}
 }
 
 /********************************************************************************
@@ -111,10 +129,5 @@ Clean up
 void ProjectileManager::CleanUp()
 {
 	//Cleaning up vector
-	while (m_ProjectileList.size() > 0)
-	{
-		CProjectile* temp = m_ProjectileList.back();
-		delete temp;
-		m_ProjectileList.pop_back();
-	}
+	m_ProjectileList.clear();
 }

@@ -14,8 +14,9 @@ public:
 	ProjectileManager(void);
 	~ProjectileManager(void);
 
-	void FetchProjectile(GameObject3D object, Vector3 direction, float speed);	//Add new projectile
+	CProjectile* FetchProjectile(GameObject3D object, Vector3 direction, float speed);	//Add new projectile
 	void RemoveProjectile(CProjectile* projectile);	//Remove projectile
+	void RemoveProjectile(GameObject3D* object);	//Remove projectile
 
 	int GetNumberOfActiveProjectiles(void);	//Get active projectile count
 
@@ -29,7 +30,7 @@ private:
 
 	Vector3 Boundary_TopLeft, Boundary_BottomRight;
 
-	const unsigned m_iStartProjectileCount = 100;	//Starting number of projectiles
+	const unsigned m_iStartProjectileCount = 100;	//Starting number of projectile
 	vector<CProjectile*> m_ProjectileList;	//List containing all projectiles
 };
 

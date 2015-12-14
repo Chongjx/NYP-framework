@@ -53,7 +53,7 @@ protected:
 
 public:
 	GameObject();
-	~GameObject(void);
+	virtual ~GameObject(void);
 
 	virtual void setMesh(Mesh* mesh);
 	virtual void setName(string name);
