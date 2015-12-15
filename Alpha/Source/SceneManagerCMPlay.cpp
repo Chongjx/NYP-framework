@@ -34,7 +34,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	textMesh = resourceManager.retrieveMesh("FONT");
 
 	testProjectile.setCollidable(true);
-	testProjectile.setMesh(resourceManager.retrieveMesh("WARRIOR_OBJ"));
+	testProjectile.setMesh(resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
 	testProjectile.setName("testprojectile");
 	testProjectile.setReflectLight(true);
 	testProjectile.setHitbox(Vector3(0, 0, 0), 2, 2, 2, "testprojectile");
@@ -200,26 +200,23 @@ void SceneManagerCMPlay::Update(double dt)
 						{
 							if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
 							{
-								if (firstNode->GetGameObject()->getName() == "testprojectile" || secondNode->GetGameObject()->getName() == "testprojectile")
+								if (firstNode->GetGameObject()->getName() == "testprojectile")
 								{
-									if (firstNode->GetGameObject()->getName() == "testprojectile")
-									{
-										//projectileManager.RemoveProjectile(firstNode->GetGameObject());
-										spatialPartitionManager->removeNode(secondNode);
-										secondNode->setActive(false);
-										break;
-									}
-									else
-									{
-										//projectileManager.RemoveProjectile(firstNode->GetGameObject());
-										spatialPartitionManager->removeNode(firstNode);
-										firstNode->setActive(false);
-										break;
-									}
+									//projectileManager.RemoveProjectile(firstNode->GetGameObject());
+									spatialPartitionManager->removeNode(secondNode);
+									dynamicSceneGraph->RemoveChildNode(secondNode);
+									break;
 								}
-								spatialPartitionManager->removeNode(secondNode);
-								secondNode->setActive(false);
-								break;
+								else if (secondNode->GetGameObject()->getName() == "testprojectile")
+								{
+									//projectileManager.RemoveProjectile(firstNode->GetGameObject());
+									spatialPartitionManager->removeNode(firstNode);
+									dynamicSceneGraph->RemoveChildNode(firstNode);
+									break;
+								}
+							//spatialPartitionManager->removeNode(secondNode);
+							//secondNode->setActive(false);
+							break;
 							}
 						}
 					}
@@ -227,8 +224,6 @@ void SceneManagerCMPlay::Update(double dt)
 			}
 		}
 	}
-
-	projectileManager.Update(dt);
 
 	/*Sound testing related keys*/
 	if (inputManager->getKey("TEST_SOUND"))
@@ -251,7 +246,7 @@ void SceneManagerCMPlay::Update(double dt)
 
 	//tpCamera.Update(dt);
 
-	if (inputManager->getKey("Fire"))
+	if (inputManager->getKey("RSelect"))
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition();
 		testProjectile.setPosition(characterPos);
@@ -263,6 +258,8 @@ void SceneManagerCMPlay::Update(double dt)
 		node->SetGameObject(newProjectile);
 		dynamicSceneGraph->AddChildNode(node);
 	}
+
+	projectileManager.Update(dt);
 
 	if (inputManager->getKey("LockPitch"))
 	{

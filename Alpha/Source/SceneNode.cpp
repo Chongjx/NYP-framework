@@ -73,7 +73,6 @@ void SceneNode::RemoveChildNode(SceneNode *childNode)
 		{
 			if (tempParentChild[i] == childNode)
 			{
-				tempParentChild[i]->parentNode = NULL;
 				tempParentChild.erase(tempParentChild.begin() + i);
 				break;
 			}

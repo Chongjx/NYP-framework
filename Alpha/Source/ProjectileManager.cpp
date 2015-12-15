@@ -100,6 +100,7 @@ void ProjectileManager::Update(const double dt)
 		if (projectile->getUpdate())
 		{
 			projectile->Update(dt);
+			std::cout << projectile->getPosition() << std::endl;
 		}
 	}
 }
