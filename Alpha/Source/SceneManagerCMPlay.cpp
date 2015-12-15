@@ -196,7 +196,7 @@ void SceneManagerCMPlay::Update(double dt)
 					
 					if (firstNode->getActive() && secondNode->getActive())
 					{
-						if (firstNode->GetGameObject()->getName() != "Player" && secondNode->GetGameObject()->getName() != "Player")
+						if (firstNode->GetGameObject()->getName() != "Player" && secondNode->GetGameObject()->getName() != "Player" && firstNode->GetGameObject()->getName() != "LeftHand" && secondNode->GetGameObject()->getName() != "LeftHand" && firstNode->GetGameObject()->getName() != "RightHand" && secondNode->GetGameObject()->getName() != "RightHand")
 						{
 							if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
 							{
@@ -259,6 +259,7 @@ void SceneManagerCMPlay::Update(double dt)
 		GameObject3D* newProjectile = projectile;
 		SceneNode* node;
 		node = getNode();
+		node->parentNode = NULL;
 		node->SetGameObject(newProjectile);
 		dynamicSceneGraph->AddChildNode(node);
 	}
