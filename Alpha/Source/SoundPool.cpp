@@ -95,26 +95,52 @@ void SoundPool::setEngineVolume(float value)
 	engine->setSoundVolume(value);
 }
 
-void SoundPool::retrieveSound2D(string soundName, bool loop)
+void SoundPool::retrieveSound2D(string soundName,bool playNew,bool loop)
 {
 	map<string, SOUND>::iterator it = soundContainer.find(soundName);
 
 	if (it != soundContainer.end())
 	{
-		engine->play2D(it->second.soundDirectory.c_str(), loop);
+		//Play a new sound even if same sound is being played
+		if (playNew)
+		{
+			engine->play2D(it->second.soundDirectory.c_str(), loop);
+		}
+		//Does not play another sound if the sound is already being played
+		else
+		{
+			//Only if sound is not being played, play a new sound
+			if (!engine->isCurrentlyPlaying(it->second.soundDirectory.c_str()))
+			{
+				engine->play2D(it->second.soundDirectory.c_str(), loop);
+			}
+		}
 	}
 	else
 	{
 		std::cout << "Sound file not found!" << std::endl;
 	}
 }
-void SoundPool::retrieveSound3D(string soundName, Vector3 position, bool loop)
+void SoundPool::retrieveSound3D(string soundName, Vector3 position,bool playNew, bool loop)
 {
 	map<string, SOUND>::iterator it = soundContainer.find(soundName);
 
 	if (it != soundContainer.end())
 	{
-		engine->play3D(it->second.soundDirectory.c_str(), vec3df(position.x, position.y, position.z), loop);
+		//Play a new sound even if same sound is being played
+		if (playNew)
+		{
+			engine->play3D(it->second.soundDirectory.c_str(), vec3df(position.x, position.y, position.z), loop);
+		}
+		//Does not play another sound if the sound is already being played
+		else
+		{
+			//Only if sound is not being played, play a new sound
+			if (!engine->isCurrentlyPlaying(it->second.soundDirectory.c_str()))
+			{
+				engine->play3D(it->second.soundDirectory.c_str(), vec3df(position.x, position.y, position.z), loop);
+			}
+		}
 	}
 	else
 	{
@@ -157,6 +183,11 @@ void SoundPool::DecreaseEngineVolume()
 		}
 		engine->setSoundVolume(volume);
 	}
+}
+
+void SoundPool::stopAllSound(void)
+{
+	engine->stopAllSounds();
 }
 
 void SoundPool::cleanUp()

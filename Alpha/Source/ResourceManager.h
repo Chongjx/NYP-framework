@@ -21,8 +21,9 @@ public:
 	void IncreaseSoundEngineVolume();	//Increase current sound engine volume by 10
 	void setSoundEngineVolume(float value);	//Set Engine volume 1 - 100
 	void setListenerPosition(Vector3 position, Vector3 target);	//Sets position of listener
-	void retrieveSoundas2D(string name,const bool loop = false);	//Plays 2D sound from pool
-	void retrieveSoundas3D(string name,Vector3 position, const bool loop = false);	//Plays 3D sound from pool
+	void retrieveSoundas2D(string name,const bool playNew = true,const bool loop = false);	//Plays 2D sound from pool
+	void retrieveSoundas3D(string name, Vector3 position, const bool playNew = true, const bool loop = false);	//Plays 3D sound from pool
+	void stopAllSounds(void);	//Stops all sound
 	
 private:
 	ResourcePool* resourcePool;
