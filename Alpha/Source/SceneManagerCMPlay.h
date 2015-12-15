@@ -32,7 +32,6 @@ public:
 	void BindShaders();
 
 	void InitSceneGraph();
-	void FSMApplication();
 
 	void UpdateMouse();
 
@@ -41,7 +40,7 @@ public:
 	void RenderStaticObject();
 	void RenderMobileObject();
 	void RenderGUI();
-
+	
 	SceneNode* getNode(void);
 	CPlayer* player;
 };
