@@ -254,7 +254,6 @@ void SceneManagerCMPlay::Update(double dt)
 	if (inputManager->getKey("Fire"))
 	{
 		Vector3 characterPos = dynamicSceneGraph->GetChildNode("Player")->GetGameObject()->getPosition();
-		characterPos.z += 5;
 		testProjectile.setPosition(characterPos);
 		CProjectile* projectile = projectileManager.FetchProjectile(testProjectile, (tpCamera.getTarget() - tpCamera.getPosition()).Normalized(), 20.f);
 		GameObject3D* newProjectile = projectile;
