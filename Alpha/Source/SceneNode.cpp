@@ -27,6 +27,9 @@ SceneNode* SceneNode::GetParentNode(void)
 void SceneNode::setActive(bool active)
 {
 	this->active = active;
+
+	this->gameObject3D->setRender(active);
+	this->gameObject3D->setUpdate(active);
 }
 
 bool SceneNode::getActive(void)
@@ -79,19 +82,31 @@ void SceneNode::RemoveChildNode(SceneNode *childNode)
 	}
 }
 
-void SceneNode::Draw(SceneManager *sceneManager)
+void SceneNode::RemoveChildFromChild(string childName, SceneNode *childNode)
+{
+
+}
+
+void SceneNode::Draw(SceneManager *sceneManager, Mesh* debugMesh)
 {
 	sceneManager->PreRender(true);
 
 	if (gameObject3D != NULL)
 	{
 		sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-		sceneManager->Render3DMesh(gameObject3D->getMesh(), true);
+
+#if _DEBUG
+		if (debugMesh != NULL)
+		{
+			sceneManager->Render3DMesh(debugMesh, false);
+		}
+#endif
+		sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
 	}
 
 	for (unsigned i = 0; i < childNodes.size(); ++i)
 	{
-		this->childNodes[i]->DrawChild(sceneManager);
+		this->childNodes[i]->DrawChild(sceneManager, debugMesh);
 	}
 
 	if (gameObject3D != NULL)
@@ -100,17 +115,22 @@ void SceneNode::Draw(SceneManager *sceneManager)
 	}
 }
 
-void SceneNode::DrawChild(SceneManager *sceneManager)
+void SceneNode::DrawChild(SceneManager *sceneManager, Mesh* debugMesh)
 {
 	sceneManager->RenderPush(gameObject3D->getProperties().modelProperties);
-	if (this->getActive())
-	{
-		sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
 
-		for (unsigned i = 0; i < childNodes.size(); ++i)
-		{
-			this->childNodes[i]->DrawChild(sceneManager);
-		}
+#if _DEBUG
+	if (debugMesh != NULL)
+	{
+		sceneManager->Render3DMesh(debugMesh, false);
+	}
+#endif
+
+	sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
+
+	for (unsigned i = 0; i < childNodes.size(); ++i)
+	{
+		this->childNodes[i]->DrawChild(sceneManager, debugMesh);
 	}
 
 	sceneManager->RenderPop();

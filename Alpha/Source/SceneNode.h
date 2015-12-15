@@ -17,7 +17,7 @@ public:
 
 	SceneNode();
 	~SceneNode();
-	
+
 	void SetGameObject(GameObject3D *gameObject);
 	void SetParentNode(SceneNode* _parentNode);
 
@@ -25,9 +25,10 @@ public:
 	void AddChildToChildNode(string childName, SceneNode *childNode);
 
 	void RemoveChildNode(SceneNode *childNode);
+	void RemoveChildFromChild(string childName, SceneNode *childNode);
 
-	void Draw(SceneManager *sceneManager);
-	void DrawChild(SceneManager *sceneManager);
+	void Draw(SceneManager *sceneManager, Mesh* debugMesh = NULL);
+	void DrawChild(SceneManager *sceneManager, Mesh* debugMesh);
 
 	SceneNode* GetParentNode(void);
 
@@ -39,7 +40,7 @@ public:
 	bool HasChild(void);
 
 	SceneNode* GetChildNode(string childName);
-	
+
 	GameObject3D* GetGameObject();
 
 	vector<SceneNode*> childNodes;
