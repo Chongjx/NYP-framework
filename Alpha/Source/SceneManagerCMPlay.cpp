@@ -761,6 +761,7 @@ SceneNode* SceneManagerCMPlay::getNode()
 		node = new SceneNode;
 
 		node->SetGameObject(object);
+		node->setActive(false);
 
 		nodeList.push_back(node);
 	}
