@@ -480,13 +480,6 @@ void SceneManagerCMPlay::RenderStaticObject()
 	Mesh* drawMesh;
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
-	for (int i = 0; i < 4000; ++i)
-	{
-		modelStack.PushMatrix();
-		modelStack.Translate(0, 2000, 0);
-		Render3DMesh(drawMesh, false);
-		modelStack.PopMatrix();
-	}
 
 	drawMesh = resourceManager.retrieveMesh("SKYPLANE");
 	modelStack.PushMatrix();

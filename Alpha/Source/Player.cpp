@@ -22,10 +22,10 @@ CPlayer::~CPlayer()
 void CPlayer::Init(Vector3 currentPos, Vector3 currentDir, Mesh* playerMesh)
 {
 	playerNode = new SceneNode();
-
 	GO3D_Player = new GameObject3D();
-	playerNode->setActive(true);
 	playerNode->SetGameObject(GO3D_Player);
+	
+	playerNode->setActive(true);
 	playerNode->GetGameObject()->setPosition(currentPos);
 	playerNode->GetGameObject()->setMesh(playerMesh);
 	playerNode->GetGameObject()->setName("Player");
