@@ -1,5 +1,6 @@
 #include "SceneNode.h"
 #include "SceneManager.h"
+#include "MatrixStack.h"
 
 SceneNode::SceneNode() : gameObject3D(NULL), parentNode(NULL), nodeType(STATIC_NODE), active(false)
 {
@@ -98,7 +99,13 @@ void SceneNode::Draw(SceneManager *sceneManager, Mesh* debugMesh)
 #if _DEBUG
 		if (debugMesh != NULL)
 		{
+			MS modelStack;
+			modelStack.PushMatrix();
+			modelStack.Translate(gameObject3D->getHitbox().getMidPoint().x, gameObject3D->getHitbox().getMidPoint().y, gameObject3D->getHitbox().getMidPoint().z);
+			modelStack.MultMatrix(gameObject3D->getProperties().rotation);
+			modelStack.Scale(gameObject3D->getHitbox().getLength(), gameObject3D->getHitbox().getHeight(), gameObject3D->getHitbox().getDepth());
 			sceneManager->Render3DMesh(debugMesh, false);
+			modelStack.PopMatrix();
 		}
 #endif
 		sceneManager->Render3DMesh(gameObject3D->getMesh(), gameObject3D->getReflectLight());
@@ -122,7 +129,13 @@ void SceneNode::DrawChild(SceneManager *sceneManager, Mesh* debugMesh)
 #if _DEBUG
 	if (debugMesh != NULL)
 	{
+		MS modelStack;
+		modelStack.PushMatrix();
+		modelStack.Translate(gameObject3D->getHitbox().getMidPoint().x, gameObject3D->getHitbox().getMidPoint().y, gameObject3D->getHitbox().getMidPoint().z);
+		modelStack.MultMatrix(gameObject3D->getProperties().rotation);
+		modelStack.Scale(gameObject3D->getHitbox().getLength(), gameObject3D->getHitbox().getHeight(), gameObject3D->getHitbox().getDepth());
 		sceneManager->Render3DMesh(debugMesh, false);
+		modelStack.PopMatrix();
 	}
 #endif
 

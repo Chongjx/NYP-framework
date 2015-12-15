@@ -37,7 +37,7 @@ void SceneManagerCMPlay::Init(const int width, const int height, ResourcePool *R
 	testProjectile.setMesh(resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ"));
 	testProjectile.setName("testprojectile");
 	testProjectile.setReflectLight(true);
-	testProjectile.setHitbox(Vector3(0, 0, 0), 2, 2, 2, "testprojectile");
+	testProjectile.setHitbox(Vector3(0, 0, 0), 3, 3, 3, "testprojectile");
 
 	/*
 	miniMap = new MiniMap();
@@ -196,8 +196,10 @@ void SceneManagerCMPlay::Update(double dt)
 					
 					if (firstNode->getActive() && secondNode->getActive())
 					{
+						//Only check if both are not player
 						if (firstNode->GetGameObject()->getName() != "Player" && secondNode->GetGameObject()->getName() != "Player" && firstNode->GetGameObject()->getName() != "LeftHand" && secondNode->GetGameObject()->getName() != "LeftHand" && firstNode->GetGameObject()->getName() != "RightHand" && secondNode->GetGameObject()->getName() != "RightHand")
 						{
+
 							if (check3DCollision(firstNode->GetGameObject()->getHitbox(), secondNode->GetGameObject()->getHitbox(), boxName))
 							{
 								if (firstNode->GetGameObject()->getName() == "testprojectile")
@@ -205,6 +207,7 @@ void SceneManagerCMPlay::Update(double dt)
 									//projectileManager.RemoveProjectile(firstNode->GetGameObject());
 									spatialPartitionManager->removeNode(secondNode);
 									dynamicSceneGraph->RemoveChildNode(secondNode);
+									j = spatialPartitionManager->partitions[i]->nodes.begin();
 									break;
 								}
 								else if (secondNode->GetGameObject()->getName() == "testprojectile")
@@ -212,11 +215,14 @@ void SceneManagerCMPlay::Update(double dt)
 									//projectileManager.RemoveProjectile(firstNode->GetGameObject());
 									spatialPartitionManager->removeNode(firstNode);
 									dynamicSceneGraph->RemoveChildNode(firstNode);
+									j = spatialPartitionManager->partitions[i]->nodes.begin();
 									break;
 								}
-							//spatialPartitionManager->removeNode(secondNode);
-							//secondNode->setActive(false);
-							break;
+								//Every other thing
+								spatialPartitionManager->removeNode(secondNode);
+								dynamicSceneGraph->RemoveChildNode(secondNode);
+								j = spatialPartitionManager->partitions[i]->nodes.begin();
+								break;
 							}
 						}
 					}
@@ -254,7 +260,6 @@ void SceneManagerCMPlay::Update(double dt)
 		GameObject3D* newProjectile = projectile;
 		SceneNode* node;
 		node = getNode();
-		node->parentNode = NULL;
 		node->SetGameObject(newProjectile);
 		dynamicSceneGraph->AddChildNode(node);
 	}
@@ -474,7 +479,8 @@ void SceneManagerCMPlay::RenderBG()
 
 void SceneManagerCMPlay::RenderStaticObject()
 {
-	staticSceneGraph->Draw(this);
+	static Mesh* debugMesh = resourceManager.retrieveMesh("DEBUG_CUBE");
+	staticSceneGraph->Draw(this,debugMesh);
 	Mesh* drawMesh;
 
 	drawMesh = resourceManager.retrieveMesh("WARRIOR_SWORD_OBJ");
@@ -526,7 +532,8 @@ void SceneManagerCMPlay::RenderStaticObject()
 
 void SceneManagerCMPlay::RenderMobileObject()
 {
-	dynamicSceneGraph->Draw(this);
+	static Mesh* debugMesh = resourceManager.retrieveMesh("DEBUG_CUBE");
+	dynamicSceneGraph->Draw(this,debugMesh);
 	//projectileManager.Draw(this);
 }
 
@@ -609,7 +616,12 @@ void SceneManagerCMPlay::InitSceneGraph()
 	//Adds the player node
 	dynamicSceneGraph->AddChildNode(Player->GetNode());
 
-
+	node = getNode();
+	node->GetGameObject()->setMesh(drawMesh);
+	node->GetGameObject()->setName("TestObject");
+	node->GetGameObject()->setPosition(Vector3(0, 0, 50));
+	node->GetGameObject()->setHitbox(node->GetGameObject()->getPosition(),20,20,20,"TestObject");
+	dynamicSceneGraph->AddChildNode(node);
 	// Rmb to init static nodes position first
 
 	spatialPartitionManager->addNode(sceneGraph, spatialPartitionManager->type);
