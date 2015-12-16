@@ -479,6 +479,7 @@ void SceneManagerCMPlay::RenderBG()
 
 void SceneManagerCMPlay::RenderStaticObject()
 {
+
 	static Mesh* debugMesh = resourceManager.retrieveMesh("DEBUG_CUBE");
 	staticSceneGraph->Draw(this,debugMesh);
 	Mesh* drawMesh;
@@ -579,7 +580,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node->GetGameObject()->setName("Head");
 	Player->GetNode()->AddChildNode(node);
 	Player->GetNode()->GetChildNode("Head")->GetGameObject()->setPosition(Vector3(0, 5, 0));
-	Player->GetNode()->GetChildNode("Head")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("Head")->GetGameObject()->getPosition(), 5, 5, 5, "HeadHitbox");
+	Player->GetNode()->GetChildNode("Head")->GetGameObject()->setHitbox(Vector3(0, 0, 0), 5, 5, 5, "HeadHitbox");
 	
 	//Left Hand of player
 	node = getNode();
@@ -587,7 +588,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node->GetGameObject()->setName("LeftHand");
 	Player->GetNode()->AddChildNode(node);
 	Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->setPosition(Vector3(-5, 0, 0));
-	Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->getPosition(), 1, 1, 1, "LeftHandHitbox");
+	Player->GetNode()->GetChildNode("LeftHand")->GetGameObject()->setHitbox(Vector3(0,0,0), 1, 1, 1, "LeftHandHitbox");
 
 	//Right Hand of player
 	node = getNode();
@@ -595,7 +596,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node->GetGameObject()->setName("RightHand");
 	Player->GetNode()->AddChildNode(node);
 	Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->setPosition(Vector3(5, 0, 0));
-	Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->getPosition(), 1, 1, 1, "RightHandHitbox");
+	Player->GetNode()->GetChildNode("RightHand")->GetGameObject()->setHitbox(Vector3(0, 0, 0), 1, 1, 1, "RightHandHitbox");
 
 	//Left Leg of player
 	node = getNode();
@@ -603,7 +604,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node->GetGameObject()->setName("LeftLeg");
 	Player->GetNode()->AddChildNode(node);
 	Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->setPosition(Vector3(-3, -5, 0));
-	Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->getPosition(), 1, 1, 1, "LeftLegHitbox");
+	Player->GetNode()->GetChildNode("LeftLeg")->GetGameObject()->setHitbox(Vector3(0, 0, 0), 1, 1, 1, "LeftLegHitbox");
 
 	//Right Leg of player
 	node = getNode();
@@ -611,7 +612,7 @@ void SceneManagerCMPlay::InitSceneGraph()
 	node->GetGameObject()->setName("RightLeg");
 	Player->GetNode()->AddChildNode(node);
 	Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->setPosition(Vector3(3, -5, 0));
-	Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->setHitbox(Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->getPosition(), 1, 1, 1, "RightLegHitbox");
+	Player->GetNode()->GetChildNode("RightLeg")->GetGameObject()->setHitbox(Vector3(0, 0, 0), 1, 1, 1, "RightLegHitbox");
 
 	//Adds the player node
 	dynamicSceneGraph->AddChildNode(Player->GetNode());

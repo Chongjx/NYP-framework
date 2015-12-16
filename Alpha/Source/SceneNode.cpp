@@ -100,6 +100,7 @@ void SceneNode::Draw(SceneManager *sceneManager, Mesh* debugMesh)
 		if (debugMesh != NULL)
 		{
 			MS modelStack;
+			modelStack.LoadIdentity();
 			modelStack.PushMatrix();
 			modelStack.Translate(gameObject3D->getHitbox().getMidPoint().x, gameObject3D->getHitbox().getMidPoint().y, gameObject3D->getHitbox().getMidPoint().z);
 			modelStack.MultMatrix(gameObject3D->getProperties().rotation);
@@ -129,13 +130,14 @@ void SceneNode::DrawChild(SceneManager *sceneManager, Mesh* debugMesh)
 #if _DEBUG
 	if (debugMesh != NULL)
 	{
-		MS modelStack;
-		modelStack.PushMatrix();
-		modelStack.Translate(gameObject3D->getHitbox().getMidPoint().x, gameObject3D->getHitbox().getMidPoint().y, gameObject3D->getHitbox().getMidPoint().z);
-		modelStack.MultMatrix(gameObject3D->getProperties().rotation);
-		modelStack.Scale(gameObject3D->getHitbox().getLength(), gameObject3D->getHitbox().getHeight(), gameObject3D->getHitbox().getDepth());
+		Properties trs;
+		Mtx44 overall;
+		overall.SetToIdentity();
+		trs.scale.SetToScale(Vector3(gameObject3D->getHitbox().getLength(), gameObject3D->getHitbox().getHeight(), gameObject3D->getHitbox().getDepth()));
+		trs.modelProperties = overall * trs.translation * trs.rotation * trs.scale;
+		sceneManager->RenderPush(trs.modelProperties);
 		sceneManager->Render3DMesh(debugMesh, false);
-		modelStack.PopMatrix();
+		sceneManager->RenderPop();
 	}
 #endif
 
