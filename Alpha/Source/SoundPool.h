@@ -30,8 +30,9 @@ public:
 	void setEngineVolume(float value);	//Set engine volume
 	void setListenerPos(Vector3 position, Vector3 target);	//Let engine know where listener position is at
 
-	void retrieveSound2D(string soundName,const bool loop = false);	//Plays retrieved sound in 2D
-	void retrieveSound3D(string soundName,Vector3 position,const bool loop = false);	//Plays retrieved sound in 3D
+	void retrieveSound2D(string soundName,const bool playNew = true,const bool loop = false);	//Plays retrieved sound in 2D
+	void retrieveSound3D(string soundName, Vector3 position, const bool playNew = true, const bool loop = false);	//Plays retrieved sound in 3D
+	void stopAllSound(void);
 
 	void cleanUp();	//Clean up
 

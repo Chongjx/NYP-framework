@@ -56,11 +56,15 @@ void ResourceManager::setListenerPosition(Vector3 position, Vector3 target)
 	resourcePool->soundPool->setListenerPos(position, target);
 }
 
-void ResourceManager::retrieveSoundas2D(string name, bool loop)
+void ResourceManager::retrieveSoundas2D(string name,bool playNew, bool loop)
 {
-	resourcePool->soundPool->retrieveSound2D(name, loop);
+	resourcePool->soundPool->retrieveSound2D(name,playNew, loop);
 }
-void ResourceManager::retrieveSoundas3D(string name,Vector3 position, bool loop)
+void ResourceManager::retrieveSoundas3D(string name, Vector3 position, bool playNew, bool loop)
 {
-	resourcePool->soundPool->retrieveSound3D(name, position, loop);
+	resourcePool->soundPool->retrieveSound3D(name, position,playNew, loop);
+}
+void ResourceManager::stopAllSounds(void)
+{
+	resourcePool->soundPool->stopAllSound();
 }
